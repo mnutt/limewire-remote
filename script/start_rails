@@ -1,4 +1,16 @@
-ROOT = File.expand_path(File.join(Dir.pwd, '..', '..', '..', '..', '..'))
+# Startup script for launching Limewire Remote from both Limewire and command line
+
+# Search for the root directory of the rails app, which can change based on Dir.pwd
+possible_roots = [
+  File.join(Dir.pwd, '..', '..', '..', '..', '..'),
+  File.join(Dir.pwd) ]
+
+possible_roots.each do |root|
+  if File.exist?(File.join(root, "vendor", "rails"))
+    ROOT = File.expand_path(root)
+    break
+  end
+end
 $LOAD_PATH.unshift(ROOT)
 
 # FIXME: This is unsafe.  Do not use for things that matter.

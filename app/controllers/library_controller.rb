@@ -42,7 +42,11 @@ class LibraryController < ApplicationController
 
           send_data(@data, :status => 206)
         else
-          send_file(path, :type => content_type)
+          if content_type
+            send_file(path, :type => content_type)
+          else
+            send_file(path)
+          end
         end
       else
         render :text => "record exists, but file not found: #{path}", :status => 404

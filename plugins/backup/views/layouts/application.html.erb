@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title>LimeWire Remote</title>
+    <title>LimeWire Remote: Backup</title>
     <%= javascript_include_tag 'jquery' -%>
     <%= javascript_include_tag 'jquery-periodic' -%>
     <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
@@ -23,6 +23,9 @@
     </style>
   </head>
   <body>
-    <%= yield -%>
+    <center><img src="/images/limewire_remote_logo.png" /></center>
+    <div style="width: 650px; margin: auto;">
+      <%= yield -%>
+    </div>
   </body>
 </html>

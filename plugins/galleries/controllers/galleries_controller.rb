@@ -3,7 +3,8 @@ class GalleriesController < PluginController
 
   def index
     @playlists = Playlist.find(:all, :order => "list_position ASC")
-    render :text => @playlists.to_json
+    @playlist = @playlists.first
+    render :action => :all
   end
 
   def show

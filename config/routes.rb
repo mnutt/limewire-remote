@@ -10,7 +10,6 @@ ActionController::Routing::Routes.draw do |map|
   map.cloud "/cloud", :controller => 'cloud', :action => 'index'
   map.resources :downloads
   map.download '/download/:magnet', :controller => 'library', :action => 'download'
-  map.resources :galleries, :collection => {:all => :get}
 
   map.assets '/assets/:plugin/*path', :controller => 'assets', :action => 'show'
 

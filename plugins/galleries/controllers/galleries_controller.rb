@@ -1,4 +1,4 @@
-class GalleriesController < ApplicationController
+class GalleriesController < PluginController
   self.allow_forgery_protection = false
 
   def index
@@ -11,6 +11,10 @@ class GalleriesController < ApplicationController
   end
 
   def all
-    @photos = Limewire::Library.all_files.filter_by_extension('(png|gif|bmp|jpg|jpeg)')
+    @photos = Limewire::Library.all_files.filter_by_extension '(png|gif|bmp|jpg|jpeg)'
   end
+
+  def widget
+  end
+
 end

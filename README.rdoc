@@ -1,0 +1,49 @@
+=== Welcome to LimeWire Remote
+
+LimeWire Remote is a web-based remote control for LimeWire, the peer-to-peer
+file-sharing application.  It is also a platform for building ruby applications
+on top of LimeWire.
+
+== Installation
+
+LimeWire Remote sources can be obtained using git, from github:
+
+git clone git://github.com/mnutt/limewire-remote
+
+Rails is included as a submodule, and needs to be pulled in:
+
+cd limewire-remote
+git submodule update --init
+
+Next, get the special build of LimeWire from:
+
+http://limewire-remote.s3.amazonaws.com/portable-limewire.zip
+
+This is a self-contained version of limewire that includes the JRuby runtime. It
+stores all files in a directory next to the executable and does not interfere with
+other applications or other copies of LimeWire installed on the system.
+
+Extract the zip file's contents into limewire-remote/bin:
+
+cd bin
+unzip portable-limewire.zip
+
+== Launching
+
+Launching LimeWire Remote is as simple as navigating to the bin/ directory and double-
+clicking LimeWire, or using
+
+open bin/LimeWire.app
+
+LimeWire will start, and about 15 seconds after it has loaded a mongrel instance will
+start listening on port 3000.
+
+== Developing
+
+You can run the LimeWire Remote rails app by itself, although it will not have access
+to LimeWire's internals.  Progress is being made to mock out the limewire.rb library
+for use in stand-alone mode.
+
+== License
+
+LimeWire Remote is licensed under the GPL.  See the included COPYING file.

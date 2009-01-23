@@ -6,7 +6,7 @@
 plugin_map.root :controller => '<%= name -%>', :action => 'index'
 
 # Like mapping ':controller/:action', this catches most things
-plugin_map.backup ':action/:id', :controller => '<%= name -%>'
+plugin_map.<%= name -%> ':action/:id', :controller => '<%= name -%>'
 
 # Add this route to point to your widget action if you want to display a widget on the homepage
 # plugin_map.widget "/widget", :controller => '<%= name -%>', :action => 'widget'

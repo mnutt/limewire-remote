@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>status (BackupController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File plugins/backup/controllers/backup_controller.rb, line 42</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">status</span>
+    <span class="ruby-identifier">info</span> = { <span class="ruby-identifier">:library_size</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PersistentStore</span>[<span class="ruby-identifier">:transfer_library_size</span>],
+             <span class="ruby-identifier">:total_bytes_written</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PersistentStore</span>[<span class="ruby-identifier">:transfer_total_bytes_written</span>] <span class="ruby-operator">+</span> <span class="ruby-constant">PersistentStore</span>[<span class="ruby-identifier">:transfer_file_bytes_written</span>],
+             <span class="ruby-identifier">:file_bytes_written</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PersistentStore</span>[<span class="ruby-identifier">:transfer_file_bytes_written</span>],
+             <span class="ruby-identifier">:current_index</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PersistentStore</span>[<span class="ruby-identifier">:transfer_current_index</span>],
+             <span class="ruby-identifier">:total_files</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Limewire</span><span class="ruby-operator">::</span><span class="ruby-constant">Library</span>.<span class="ruby-identifier">count</span>,
+             <span class="ruby-identifier">:current_file_size</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PersistentStore</span>[<span class="ruby-identifier">:transfer_current_file_size</span>],
+             <span class="ruby-identifier">:current_file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PersistentStore</span>[<span class="ruby-identifier">:transfer_current_file</span>],
+             <span class="ruby-identifier">:state</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">PersistentStore</span>[<span class="ruby-identifier">:transfer_thread</span>].<span class="ruby-identifier">status</span> }
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">info</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

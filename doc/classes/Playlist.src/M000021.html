@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_playlist (Playlist)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/playlist.rb, line 6</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_playlist</span>
+    { <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>,
+      <span class="ruby-identifier">:collaborative</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">collaborative</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>,
+      <span class="ruby-identifier">:smart_filter</span> =<span class="ruby-operator">&gt;</span> {
+        <span class="ruby-identifier">:genres</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">genres</span>,
+        <span class="ruby-identifier">:user_favorites</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">user_favorites</span>,
+        <span class="ruby-identifier">:tags</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">tags</span>,
+        <span class="ruby-identifier">:uploaded_from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">uploaded_from</span>,
+        <span class="ruby-identifier">:uploaded_to</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">uploaded_to</span>,
+        <span class="ruby-identifier">:bpm_to</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">bpm_to</span>,
+        <span class="ruby-identifier">:bpm_from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">bpm_from</span>,
+        <span class="ruby-identifier">:duration_to</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">duration_to</span>,
+        <span class="ruby-identifier">:duration_from</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">duration_from</span>,
+        <span class="ruby-identifier">:search_term</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">search_term</span>,
+        <span class="ruby-identifier">:artist</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">artist</span>,
+        <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">list_order</span>,  <span class="ruby-comment cmt"># different because of sqlite</span>
+      },
+      <span class="ruby-identifier">:smart</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">smart</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>,
+      <span class="ruby-identifier">:tracks</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">tracks</span>,
+      <span class="ruby-identifier">:version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">version</span>,
+      <span class="ruby-identifier">:owner</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-identifier">:nickname</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;Owner&quot;</span> },
+      <span class="ruby-identifier">:date_created</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">created_at</span>,
+      <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>,
+      <span class="ruby-identifier">:hash</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">share_hash</span>
+    }
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

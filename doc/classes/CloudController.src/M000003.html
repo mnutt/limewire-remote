@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>tracks (CloudController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/cloud_controller.rb, line 7</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tracks</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:sha1s</span>]
+      <span class="ruby-identifier">sha1s</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:sha1s</span>].<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;,&quot;</span>)
+      <span class="ruby-ivar">@tracks</span> = <span class="ruby-constant">Limewire</span><span class="ruby-operator">::</span><span class="ruby-constant">Library</span>.<span class="ruby-identifier">find_by_sha1s</span>(<span class="ruby-identifier">sha1s</span>)
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-ivar">@tracks</span> = <span class="ruby-constant">Limewire</span><span class="ruby-operator">::</span><span class="ruby-constant">Library</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, 
+                                       <span class="ruby-identifier">:limit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:limit</span>], 
+                                       <span class="ruby-identifier">:offset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:offset</span>],
+                                       <span class="ruby-identifier">:extension</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:mp3</span>,
+                                       <span class="ruby-identifier">:artist</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:artist</span>],
+                                       <span class="ruby-identifier">:search</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:q</span>],
+                                       <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:order</span>],
+                                       <span class="ruby-identifier">:genres</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:genres</span>])
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@tracks</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_cloud</span>}
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

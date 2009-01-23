@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>index (IphoneController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File plugins/iphone/controllers/iphone_controller.rb, line 4</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index</span>
+    <span class="ruby-ivar">@tracks</span> = <span class="ruby-constant">Limewire</span><span class="ruby-operator">::</span><span class="ruby-constant">Library</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>)
+
+    <span class="ruby-ivar">@tracks_by_alpha</span> = <span class="ruby-ivar">@tracks</span>.<span class="ruby-identifier">group_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">''</span>)[<span class="ruby-value">0</span>] <span class="ruby-keyword kw">rescue</span> <span class="ruby-value str">&quot;misc&quot;</span> }.<span class="ruby-identifier">sort_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-identifier">t</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-value str">'z'</span> }
+    <span class="ruby-ivar">@tracks_by_artist</span> = <span class="ruby-ivar">@tracks</span>.<span class="ruby-identifier">group_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">artist</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-value str">&quot;misc&quot;</span> }
+    <span class="ruby-ivar">@artists_by_alpha</span> = <span class="ruby-ivar">@tracks_by_artist</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">group_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">''</span>)[<span class="ruby-value">0</span>] <span class="ruby-keyword kw">rescue</span> <span class="ruby-value str">&quot;misc&quot;</span> }
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

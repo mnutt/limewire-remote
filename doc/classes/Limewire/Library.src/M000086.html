@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find (Limewire::Library)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/limewire.rb, line 243</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">type_or_sha1</span>, <span class="ruby-identifier">options</span>={})
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find_by_sha1</span>(<span class="ruby-identifier">type_or_sha1</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">String</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">type_or_sha1</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">all_files</span>[<span class="ruby-value">0</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">:first</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">type_or_sha1</span>
+
+      <span class="ruby-identifier">files</span> = <span class="ruby-identifier">all_files</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:search</span>]
+        <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">filter_by_name</span>(<span class="ruby-node">/#{options[:search].downcase}/i</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:artist</span>]
+        <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">filter_by_artist</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:artist</span>])
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:genres</span>]
+        <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">filter_by_genre</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:genres</span>])
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:extension</span>]
+        <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">filter_by_extension</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:extension</span>])
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:offset</span>]
+        <span class="ruby-identifier">limit</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:limit</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">||</span> <span class="ruby-value">40</span>
+        <span class="ruby-identifier">offset</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:offset</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>[<span class="ruby-identifier">offset</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">offset</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">limit</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:order</span>]
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:order</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;artist&quot;</span>
+          <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">artist</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">false</span>}.<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">artist</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span> }.<span class="ruby-identifier">sort_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">metadata</span>.<span class="ruby-identifier">artist</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span> }
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:order</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;created_at&quot;</span>
+          <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">last_modified</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-value">9999999999999</span> }
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">files</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">Filterable</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -122,37 +122,44 @@ module Limewire
   class Download
     attr_accessor :attributes
 
-    ##
-    # :method: title
-    # The title (from the metadata) of the file being downloaded
+    # The title (from the metadata) of the file being downloade
+    def title
+      @attributes[:title]
+    end
     
-    ##
-    # :method: sha1
     # The SHA1 hash of the file being downloaded
+    def sha1
+      @attributes[:sha1]
+    end
     
-    ##
-    # :method: download_speed
     # Speed (in bytes per second) of the download
+    def download_speed
+      @attributes[:download_speed]
+    end
 
-    ##
-    # :method: remaining time
     # Estimated remaining time (in seconds) of the download
+    def remaining_time
+      @attributes[:remaining_time]
+    end
 
-    ##
-    # :method: percent_complete
     # Percent complete is an integer between 0 and 100
+    def percent_complete
+      @attributes[:percent_complete]
+    end
 
-    ##
-    # :method: source_count
     # Number of nodes on the network advertising the file
+    def source_count
+      @attributes[:source_count]
+    end
 
-    ##
-    # :method: file_name
-    # 
+    def file_name
+      @attributes[:file_name]
+    end
 
-    ##
-    # :method: total_size
     # File size, in bytes
+    def total_size
+      @attributes[:total_size]
+    end
     
     # Create a new Download from a java download object
     def initialize(download)
@@ -192,14 +199,6 @@ module Limewire
     # Return the yamlized version of the download's properties.
     def to_yaml
       @attributes.to_yaml
-    end
-    
-    def method_missing(name) #nodoc#
-      if @attributes.has_key?(name)
-        @attributes[name]
-      else
-        super
-      end
     end
   end
 

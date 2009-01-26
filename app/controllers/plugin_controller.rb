@@ -4,7 +4,7 @@ class PluginController < ApplicationController
   end
 
   def self.plugin_name
-    self.to_s.split("Controller").first.downcase
+    self.to_s.split("Controller").first.tableize
   end
 
   def _plugin_name

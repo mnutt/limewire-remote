@@ -1,3 +1,4 @@
+releases/*
 log/*.log
 db/*.db.*
 bin/*

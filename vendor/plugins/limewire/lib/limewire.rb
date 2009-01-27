@@ -331,7 +331,7 @@ module Limewire
 
     # The <tt>genre</tt> metadata
     def genre
-      @metadata.title.to_s.gsub(/\x00/, "")
+      @metadata.genre.to_s.gsub(/\x00/, "")
     end
 
     # The SHA1 hash of the file, as a String
@@ -358,8 +358,7 @@ module Limewire
           "username" => artist, 
           "permalink" => artist },
         'sharing' => 'public',
-        'waveform_url' => '/images/waveform.png', # until we actually do waveform calculations
-        'purchase_url' => 'http://store.limewire.com'
+        'waveform_url' => '/images/waveform.png' # until we actually do waveform calculations
       }
     end
 

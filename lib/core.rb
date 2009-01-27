@@ -14,10 +14,12 @@ module Core
     GUID                   = org.limewire.io.GUID
     URN                    = org.limewire.core.api.URN
     URNImpl                = org.limewire.core.impl.URNImpl
+    MojitoManagerRef       = org.limewire.core.api.mojito.MojitoManager
     LibraryManagerRef      = org.limewire.core.api.library.LibraryManager
     SearchManagerRef       = org.limewire.core.api.search.SearchManager
     DownloadListManagerRef = org.limewire.core.api.download.DownloadListManager
     
+    MojitoManager       = self.get_singleton(MojitoManagerRef)
     SearchManager       = self.get_singleton(SearchManagerRef)
     LibraryManager      = self.get_singleton(LibraryManagerRef)
     MetaDataFactory     = self.get_singleton(MetaDataFactoryRef)

@@ -39,7 +39,7 @@ SC.Playlist.prototype = {
 
     this.list = $("tbody", this.dom);
 
-    this.colWidths = new Array(20,250,130,50,250,50,100); // default col widths
+    this.colWidths = new Array(20,250,130,50,250,100); // default col widths
 
     // load colWidths from cookies
     $.each(this.colWidths,function(i) {
@@ -514,8 +514,7 @@ SC.Playlist.prototype = {
       .end()
       .find("td:nth-child(4)").css("width",self.colWidths[3]).text(SC.formatMs(track.duration)).end()
       .find("td:nth-child(5)").css("width",self.colWidths[4]).html(track.description).attr("title",track.description).end()
-      .find("td:nth-child(6)").css("width",self.colWidths[5]).text(track.bpm).end()
-      .find("td:nth-child(7)").css("width",self.colWidths[6]).html("<a href='#" + track.genre.replace(/\s/, "+") + "'>" + track.genre + "</a>")
+      .find("td:nth-child(6)").css("width",self.colWidths[5]).html("<a href='#" + track.genre.replace(/\s/, "+") + "'>" + track.genre + "</a>")
       .find("a")
       .history(function(ev) {
           var genre = this.innerHTML;

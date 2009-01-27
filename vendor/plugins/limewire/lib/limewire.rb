@@ -204,6 +204,10 @@ module Limewire
 
   # The Library manages all of the files that LimeWire has scanned.
   module Library
+    def self.add_folder(path)
+      Core::LibraryManager.library_managed_list.addFolder(java.io.File.new(path))
+      @core_file_list = nil #force recaching of files
+    end
     def self.core_file_list #nodoc#
       @core_file_list ||= Core::LibraryManager.library_managed_list.core_file_list
     end

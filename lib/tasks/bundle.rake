@@ -87,6 +87,7 @@ def clean_junk_from_rails(dir)
   `rm -Rf #{dir}/.git`
   `find #{dir}/vendor/rails |grep '/test/' | xargs rm -Rf`
   `rm -Rf #{dir}/vendor/rails/.git`
+  `rm #{dir}/db/*.db.*`
 end
 
 def make_dmg(dir)

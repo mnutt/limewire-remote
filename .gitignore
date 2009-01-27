@@ -3,3 +3,4 @@ log/*.log
 db/*.db.*
 bin/*
 .DS_Store
+.#*

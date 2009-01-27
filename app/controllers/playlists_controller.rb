@@ -3,6 +3,11 @@ class PlaylistsController < ApplicationController
 
   def index
     @playlists = Playlist.find(:all, :order => "list_position ASC")
+    if @playlists.empty?
+      default = Playlist.new(:name => "All Tracks", :smart => true)
+      default.save
+      @playlists << default
+    end
     @ordered_playlists = []
     @playlists.each_with_index do |p, i| 
       @ordered_playlists << { :playlist => p.to_playlist, :position => i, :is_owner => true } 

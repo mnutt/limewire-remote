@@ -1,8 +1,13 @@
-require 'test_helper'
+# require 'test/limewire'
 
-class PlaylistTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
-end
+ class PlaylistTest < LimeWireTest
+   # Replace this with your real tests.
+   def test_the_truth
+     assert true
+   end
+   
+#   def test_the_fail
+#     assert false
+#   end
+  
+ end

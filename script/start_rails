@@ -1,3 +1,4 @@
+#!/usr/bin/env jruby
 # Startup script for launching Limewire Remote from both Limewire and command line
 
 # Search for the root directory of the rails app, which can change based on Dir.pwd
@@ -41,3 +42,4 @@ ARGV << "--port=4422"
 require 'lib/core'
 require "#{ROOT}/config/boot"
 require 'commands/server'
+puts "finished"

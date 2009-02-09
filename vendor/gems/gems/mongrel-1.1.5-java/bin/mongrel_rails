@@ -134,7 +134,7 @@ puts @cwd
         config.log "Use CTRL-C to stop." 
       end
 
-      config.join
+      # config.join
 
       if config.needs_restart
         if RUBY_PLATFORM !~ /mswin/

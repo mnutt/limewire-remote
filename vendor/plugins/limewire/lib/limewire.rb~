@@ -8,10 +8,10 @@
 
 # The Limewire module should be the sole method used to interact with LimeWire's core.
 module Limewire
-  # The global variable $injector is passed in from LimeWire.  It should not be used outside of the Limewire
+  # The global variable $core is passed in from LimeWire.  It should not be used outside of the Limewire
   # gem, if possible.
-  def self.injector
-    @injector ||= $injector rescue nil
+  def self.core
+    @core ||= $core rescue nil
   end
 
   # The length of time the LimeWire client has been running, in seconds.

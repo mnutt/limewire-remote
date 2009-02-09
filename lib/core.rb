@@ -1,9 +1,9 @@
 module Core
   def self.get_singleton(klass)
-    $core.injector.get_instance(klass.java_class)
+    $injector.get_instance(klass.java_class)
   end
   
-  if($core)
+  if($injector)
     # Running from Limewire
     include Java
     
@@ -18,12 +18,14 @@ module Core
     LibraryManagerRef      = org.limewire.core.api.library.LibraryManager
     SearchManagerRef       = org.limewire.core.api.search.SearchManager
     DownloadListManagerRef = org.limewire.core.api.download.DownloadListManager
+    MongrelManagerRef      = org.limewire.http.mongrel.MongrelManager # meta
     
     MojitoManager       = self.get_singleton(MojitoManagerRef)
     SearchManager       = self.get_singleton(SearchManagerRef)
     LibraryManager      = self.get_singleton(LibraryManagerRef)
     MetaDataFactory     = self.get_singleton(MetaDataFactoryRef)
     DownloadListManager = self.get_singleton(DownloadListManagerRef)
+    MongrelManager      = self.get_singleton(MongrelManagerRef)
   else
     # Not running from limewire, no $core available
   end

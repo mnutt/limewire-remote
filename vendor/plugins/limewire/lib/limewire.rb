@@ -16,16 +16,16 @@ module Limewire
 
   # The length of time the LimeWire client has been running, in seconds.
   def self.uptime
-    Limewire.core.get_statistics.uptime / 1000
+    Core::Statistics.uptime / 1000
   end
 
   def self.my_guid
-    Core::GUID.new(self.core.application_services.get_my_guid)
+    Core::GUID.new(Core::ApplicationServices.get_my_guid)
   end
 
   # The average length of time the LimeWire has been run so far today.
   def self.daily_uptime
-    Limewire.core.get_statistics.calculate_daily_uptime
+    Core::Statistics.calculate_daily_uptime
   end
 
   # Searching in LimeWire is an incremental process: a search is created, then polled periodically to find

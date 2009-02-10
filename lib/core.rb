@@ -9,17 +9,21 @@ module Core
     
     Geocoder               = org.limewire.geocode.Geocoder
     OldURN                 = com.limegroup.gnutella.URN
+		ApplicationServicesRef = com.limegroup.gnutella.ApplicationServices
     MetaDataFactoryImpl    = com.limegroup.gnutella.metadata.MetaDataFactoryImpl
     MetaDataFactoryRef     = com.limegroup.gnutella.metadata.MetaDataFactory
     GUID                   = org.limewire.io.GUID
     URN                    = org.limewire.core.api.URN
     URNImpl                = org.limewire.core.impl.URNImpl
+    StatisticsRef          = com.limegroup.gnutella.Statistics
     MojitoManagerRef       = org.limewire.core.api.mojito.MojitoManager
     LibraryManagerRef      = org.limewire.core.api.library.LibraryManager
     SearchManagerRef       = org.limewire.core.api.search.SearchManager
     DownloadListManagerRef = org.limewire.core.api.download.DownloadListManager
     MongrelManagerRef      = org.limewire.http.mongrel.MongrelManager # meta
     
+		ApplicationServices = self.get_singleton(ApplicationServicesRef)
+		Statistics          = self.get_singleton(StatisticsRef)
     MojitoManager       = self.get_singleton(MojitoManagerRef)
     SearchManager       = self.get_singleton(SearchManagerRef)
     LibraryManager      = self.get_singleton(LibraryManagerRef)

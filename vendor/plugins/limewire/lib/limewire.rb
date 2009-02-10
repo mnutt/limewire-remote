@@ -8,10 +8,10 @@
 
 # The Limewire module should be the sole method used to interact with LimeWire's core.
 module Limewire
-  # The global variable $core is passed in from LimeWire.  It should not be used outside of the Limewire
+  # The global variable $injector is passed in from LimeWire.  It should not be used outside of the Limewire
   # gem, if possible.
-  def self.core
-    @core ||= $core rescue nil
+  def self.injector
+    @injector ||= $injector rescue nil
   end
 
   # The length of time the LimeWire client has been running, in seconds.
@@ -204,6 +204,10 @@ module Limewire
 
   # The Library manages all of the files that LimeWire has scanned.
   module Library
+    def self.add_folder(path)
+      Core::LibraryManager.library_managed_list.addFolder(java.io.File.new(path))
+      @core_file_list = nil #force recaching of files
+    end
     def self.core_file_list #nodoc#
       @core_file_list ||= Core::LibraryManager.library_managed_list.core_file_list
     end
@@ -331,7 +335,7 @@ module Limewire
 
     # The <tt>genre</tt> metadata
     def genre
-      @metadata.title.to_s.gsub(/\x00/, "")
+      @metadata.genre.to_s.gsub(/\x00/, "")
     end
 
     # The SHA1 hash of the file, as a String
@@ -358,8 +362,7 @@ module Limewire
           "username" => artist, 
           "permalink" => artist },
         'sharing' => 'public',
-        'waveform_url' => '/images/waveform.png', # until we actually do waveform calculations
-        'purchase_url' => 'http://store.limewire.com'
+        'waveform_url' => '/images/waveform.png' # until we actually do waveform calculations
       }
     end
 

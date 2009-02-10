@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    raise Core::MongrelManager.getStatus
     @plugins = Plugin.all
     @positions = DashboardPosition.find(:all, :order => 'list_position ASC')
 

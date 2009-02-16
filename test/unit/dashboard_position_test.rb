@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'test/limewire'
 
-class DashboardPositionTest < ActiveSupport::TestCase
+class DashboardPositionTest < LimeWireTest
   # Replace this with your real tests.
-  test "the truth" do
+  def test_the_truth
     assert true
   end
 end

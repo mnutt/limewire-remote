@@ -18,13 +18,18 @@ to_sync = [
            'http://www.archive.org/download/FLIP_FROG-FIDDLESTICKS/FLIP_FROG-FIDDLESTICKS_64k.mp4', #FIDDLESTICKS
            'http://www.archive.org/download/ttk_test_0707a/DIA19_512kb.mp4',
 ]
-if RAILS_ROOT.nil?
-  puts "You must run this from rails"
-  return
+require 'fileutils'
+root = nil
+begin
+  root = RAILS_ROOT
+rescue
+  root = FileUtils.getwd
+  puts "Loaded outside of rails, using base directory #{root}"
 end
 
 
-base_dir = File.join RAILS_ROOT, "test","fixtures","library"
+
+base_dir = File.join root, "test","fixtures","library"
 
 library_directories = { 
   'images' => /\.(jpg)$/i,

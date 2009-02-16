@@ -8,24 +8,24 @@
 
 # The Limewire module should be the sole method used to interact with LimeWire's core.
 module Limewire
-  # The global variable $core is passed in from LimeWire.  It should not be used outside of the Limewire
+  # The global variable $injector is passed in from LimeWire.  It should not be used outside of the Limewire
   # gem, if possible.
-  def self.core
-    @core ||= $core rescue nil
+  def self.injector
+    @injector ||= $injector rescue nil
   end
 
   # The length of time the LimeWire client has been running, in seconds.
   def self.uptime
-    Limewire.core.get_statistics.uptime / 1000
+    Core::Statistics.uptime / 1000
   end
 
   def self.my_guid
-    Core::GUID.new(self.core.application_services.get_my_guid)
+    Core::GUID.new(Core::ApplicationServices.get_my_guid)
   end
 
   # The average length of time the LimeWire has been run so far today.
   def self.daily_uptime
-    Limewire.core.get_statistics.calculate_daily_uptime
+    Core::Statistics.calculate_daily_uptime
   end
 
   # Searching in LimeWire is an incremental process: a search is created, then polled periodically to find

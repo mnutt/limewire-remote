@@ -15,18 +15,19 @@ Rails is included as a submodule, and needs to be pulled in:
 cd limewire-remote
 git submodule update --init
 
-Next, get the special build of LimeWire from:
+Next, get the special build of LimeWire:
 
-http://limewire-remote.s3.amazonaws.com/portable-limewire.zip
+rake lw:fetch
 
 This is a self-contained version of limewire that includes the JRuby runtime. It
 stores all files in a directory next to the executable and does not interfere with
 other applications or other copies of LimeWire installed on the system.
 
-Extract the zip file's contents into limewire-remote/bin:
+If you need to do it manually, the file is here:
 
-cd bin
-unzip portable-limewire.zip
+http://limewire-remote.s3.amazonaws.com/portable-limewire.zip
+
+It needs to be extracted into limewire-remote/bin.
 
 == Launching
 

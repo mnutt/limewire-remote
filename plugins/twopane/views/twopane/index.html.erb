@@ -1,0 +1,20 @@
+<% plugin_javascript_include "jquery.hotkeys.js", "live_search", "search" -%>
+<div id="search">
+  <% remote_form_for :search, :html => { :id => 'search_form' } do |f| -%>
+    <div id="submit_wrapper">
+      <%= submit_tag "Search", :id => 'submit' -%>
+    </div>
+    <div id="search_wrapper">
+      <div id="search_inner">
+	<%= f.text_field :query, :id => 'query', :autocomplete => 'off' -%>
+      </div>
+    </div>
+    
+    <ul id="results"></ul>
+  <% end -%>
+</div>
+<div id="playlist">
+  <select id="selected_playlist">
+    <option value="1">Default</option>
+  </select>
+</div>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090119172145) do
+ActiveRecord::Schema.define(:version => 20090221080024) do
 
   create_table "dashboard_positions", :force => true do |t|
     t.integer   "column"
@@ -17,6 +17,38 @@ ActiveRecord::Schema.define(:version => 20090119172145) do
     t.string    "name"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+  end
+
+  create_table "file_descs", :force => true do |t|
+    t.string    "sha1urn"
+    t.string    "file_name"
+    t.string    "title"
+    t.string    "album"
+    t.string    "genre"
+    t.string    "artist"
+    t.integer   "size"
+    t.string    "path"
+    t.integer   "is_store"
+    t.integer   "shared_with_gnutella"
+    t.integer   "share_list_count"
+    t.integer   "completed_upload_count"
+    t.integer   "attempted_upload_count"
+    t.timestamp "attempted_upload_time"
+    t.integer   "hit_count"
+    t.string    "license"
+    t.string    "year"
+    t.string    "comment"
+    t.string    "track"
+    t.integer   "bitrate"
+    t.integer   "length"
+    t.integer   "sample_rate"
+    t.integer   "width"
+    t.integer   "height"
+    t.string    "language"
+    t.string    "mime_type"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.integer   "is_rare"
   end
 
   create_table "playlists", :force => true do |t|

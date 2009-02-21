@@ -311,6 +311,7 @@ module Limewire
     def initialize(file)
       @file = file
       @metadata = Core::MetaDataFactory.parse(file.get_file) rescue nil
+      def @metadata.method_missing(name); nil; end
     end
 
     def metadata

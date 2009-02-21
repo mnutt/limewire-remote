@@ -2,6 +2,11 @@ class TwopaneController < PluginController
   def index
   end
 
+  def playlist_tracks
+    @playlist = Playlist.find(params[:playlist])
+    render :json => @playlist.all_tracks.map{|t| t.to_cloud}.size
+  end
+
   def set_query
     PersistentStore[:query] = params[:query] if params[:query]
     PersistentStore[:guid] = params[:guid] if params[:guid]

@@ -13,8 +13,22 @@
     <ul id="results"></ul>
   <% end -%>
 </div>
-<div id="playlist">
-  <select id="selected_playlist">
-    <option value="1">Default</option>
-  </select>
+<div id="playlists">
+  <%= select :playlist, :id, Playlist.all.map{|p| [p.name, p.id]}, :html => {:id => 'selected_playlist'} -%>
+  <div class="tracks">
+    <% Playlist.first.all_tracks.each do |track| -%>
+      <div class="track"><%= track.file_name -%></div>
+    <% end -%>
+  </div>
 </div>
+
+<script type="text/javascript">
+  $('#playlist_id').change(function() {
+    $.get('/twopane/playlist_tracks?playlist='+$(this).val(), function(result) {
+      $.each(result, function(track) {
+        
+      });
+      console.log(result.length);
+    });
+  });
+</script>

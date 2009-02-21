@@ -30,6 +30,25 @@ class Playlist < ActiveRecord::Base
     }
   end
 
+  def all_tracks
+    if self.smart?
+      Limewire::Library.find(:all,
+                             :limit => 1000,
+                             :offset => 0,
+                             :extension => :mp3,
+                             :artist => self.artist.blank? ? nil : self.artist,
+                             :search => self.search_term.blank? ? nil : self.search_term,
+                             :order => self.list_order,
+                             :genres => self.genres.blank? ? nil : self.genres)
+    else
+      Limewire::Library.find_by_sha1s(self.tracks)
+    end
+  end
+
+  def self.smart?
+    self.smart == 1
+  end
+
   def generate_hash
     self.share_hash = Digest::MD5.new.to_s
   end

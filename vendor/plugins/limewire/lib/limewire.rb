@@ -366,6 +366,10 @@ module Limewire
       }
     end
 
+    def to_yaml
+      self.to_cloud
+    end
+
     def method_missing(name, *args)
       if @file.respond_to?(name)
         @file.send(name, *args)

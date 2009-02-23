@@ -37,7 +37,7 @@
       #query {
         background: url('/assets/live_search/images/searchbox-background.png') top left repeat-x;
         border: 0;
-        font-size: 2.5em;
+        font-size: 1.5em;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         width: 100%;
@@ -46,11 +46,11 @@
 
       #search_wrapper {
         position:relative;
-        margin-right: 160px;
+        margin-right: 107px;
       }
 
       #submit {
-        font-size: 2.5em;
+        font-size: 1.5em;
         background-color: #666;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
@@ -59,7 +59,7 @@
 
       #submit_wrapper{
         float: right;
-        width: 160px;
+        width: 107px;
         text-align: right;
       }
 
@@ -70,19 +70,20 @@
 
       ul#results,
       .tracks {
-        padding: 0;
-        height: 407px;
-        overflow: hidden;
+        padding: 0 2% 0 0;
+        height: 27.5em;
+        width: 96%;
+        overflow-x: hidden;
+        overflow-y: auto;
       }
 
       ul#results li,
       .tracks .track {
         list-style: none;
-        font-size: 1.6em;
-        height: 1.6em;
-        line-height: 1.6em;
-        overflow: hidden;
-        padding: 0 5px;
+        font-size: 1.5em;
+        line-height: 1.5em;
+        padding: 0 5px 1px 5px;
+        -moz-border-radius: 3px;
       }
 
       ul#results li.selected {
@@ -100,10 +101,14 @@
       }
 
       #playlists select#playlist_id {
-        font-size: 2.5em;
+        font-size: 1.5em;
         width: 98%;
       }
     </style>
+    <%= stylesheet_link_tag '/assets/twopane/stylesheets/page-player.css' -%>
+
+    <%= plugin_javascript_include 'soundmanager2' -%>
+    <%= plugin_javascript_include 'page-player' -%>
   </head>
   <body>
       <img style="position: absolute; top:-62px; left: 50%; margin-left: -62px;" src="/assets/live_search/images/limewire.png">

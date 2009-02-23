@@ -15,11 +15,11 @@
 </div>
 <div id="playlists">
   <%= select :playlist, :id, Playlist.all.map{|p| [p.name, p.id]}, :html => {:id => 'selected_playlist'} -%>
-  <div class="tracks">
+  <ul class="playlist tracks">
     <% Playlist.first.all_tracks.each do |track| -%>
-      <div class="track"><%= track.file_name -%></div>
+      <li class="track"><%= link_to track.title.blank? ? track.file_name : "#{track.artist} - #{track.title}", file_url(:sha1 => track.sha1urn.to_s) -%></li>
     <% end -%>
-  </div>
+  </ul>
 </div>
 
 <script type="text/javascript">
@@ -32,3 +32,28 @@
     });
   });
 </script>
+
+
+<div id="control-template">
+  <!-- control markup inserted dynamically after each link -->
+  <div class="controls">
+    <div class="statusbar">
+      <div class="loading"></div>
+      <div class="position"></div>
+    </div>
+  </div>
+  <div class="timing">
+    <div id="sm2_timing" class="timing-data">
+      <span class="sm2_position">%s1</span> / <span class="sm2_total">%s2</span></div>
+  </div>
+  <div class="peak">
+    <div class="peak-box"><span class="l"></span><span class="r"></span>
+    </div>
+  </div>
+</div>
+
+ <div id="spectrum-container" class="spectrum-container">
+  <div class="spectrum-box">
+   <div class="spectrum"></div>
+  </div>
+ </div>

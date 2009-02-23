@@ -19,13 +19,13 @@ Next, get the special build of LimeWire:
 
 rake lw:fetch
 
-This is a self-contained version of limewire that includes the JRuby runtime. It
+This is a self-contained version of limewire that includes the JRuby jar. It
 stores all files in a directory next to the executable and does not interfere with
 other applications or other copies of LimeWire installed on the system.
 
 If you need to do it manually, the file is here:
 
-http://limewire-remote.s3.amazonaws.com/portable-limewire.zip
+http://cloud.github.com/downloads/mnutt/limewire-remote/portable-limewire.zip
 
 It needs to be extracted into limewire-remote/bin.
 

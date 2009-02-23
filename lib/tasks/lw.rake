@@ -1,7 +1,7 @@
 namespace :lw do
   desc "Retrieve pre-built portable limewire binary"
   task :fetch do
-		puts `wget http://limewire-remote.s3.amazonaws.com/portable-limewire.zip -O bin/portable-limewire.zip && cd bin && unzip -o portable-limewire.zip`
+		puts `wget http://cloud.github.com/downloads/mnutt/limewire-remote/portable-limewire.zip -O bin/portable-limewire.zip && cd bin && unzip -o portable-limewire.zip`
 	end
 
   namespace :test do

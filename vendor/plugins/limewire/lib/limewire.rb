@@ -311,6 +311,7 @@ module Limewire
     def initialize(file)
       @file = file
       @metadata = Core::MetaDataFactory.parse(file.get_file) rescue nil
+      def @metadata.method_missing(name); nil; end
     end
 
     def metadata
@@ -364,6 +365,10 @@ module Limewire
         'sharing' => 'public',
         'waveform_url' => '/images/waveform.png' # until we actually do waveform calculations
       }
+    end
+
+    def to_yaml
+      self.to_cloud
     end
 
     def method_missing(name, *args)

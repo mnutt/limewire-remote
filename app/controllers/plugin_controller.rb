@@ -1,6 +1,7 @@
 class PluginController < ApplicationController
   def self.view_paths
-    [File.expand_path("#{PLUGIN_ROOT}/#{self.plugin_name}/views")]
+    path = File.expand_path("#{PLUGIN_ROOT}/#{self.plugin_name}/views")
+    ActionView::Base.process_view_paths(path)
   end
 
   def self.plugin_name

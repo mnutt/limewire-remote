@@ -1,0 +1,59 @@
+<% plugin_javascript_include "jquery.hotkeys.js", "live_search", "search" -%>
+<div id="search">
+  <% remote_form_for :search, :html => { :id => 'search_form' } do |f| -%>
+    <div id="submit_wrapper">
+      <%= submit_tag "Search", :id => 'submit' -%>
+    </div>
+    <div id="search_wrapper">
+      <div id="search_inner">
+	<%= f.text_field :query, :id => 'query', :autocomplete => 'off' -%>
+      </div>
+    </div>
+    
+    <ul id="results"></ul>
+  <% end -%>
+</div>
+<div id="playlists">
+  <%= select :playlist, :id, Playlist.all.map{|p| [p.name, p.id]}, :html => {:id => 'selected_playlist'} -%>
+  <ul class="playlist tracks">
+    <% Playlist.first.all_tracks.each do |track| -%>
+      <li class="track"><%= link_to track.title.blank? ? track.file_name : "#{track.artist} - #{track.title}", file_url(:sha1 => track.sha1urn.to_s) -%></li>
+    <% end -%>
+  </ul>
+</div>
+
+<script type="text/javascript">
+  $('#playlist_id').change(function() {
+    $.get('/twopane/playlist_tracks?playlist='+$(this).val(), function(result) {
+      $.each(result, function(track) {
+        
+      });
+      console.log(result.length);
+    });
+  });
+</script>
+
+
+<div id="control-template">
+  <!-- control markup inserted dynamically after each link -->
+  <div class="controls">
+    <div class="statusbar">
+      <div class="loading"></div>
+      <div class="position"></div>
+    </div>
+  </div>
+  <div class="timing">
+    <div id="sm2_timing" class="timing-data">
+      <span class="sm2_position">%s1</span> / <span class="sm2_total">%s2</span></div>
+  </div>
+  <div class="peak">
+    <div class="peak-box"><span class="l"></span><span class="r"></span>
+    </div>
+  </div>
+</div>
+
+ <div id="spectrum-container" class="spectrum-container">
+  <div class="spectrum-box">
+   <div class="spectrum"></div>
+  </div>
+ </div>

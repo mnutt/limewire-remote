@@ -5,8 +5,9 @@ module ApplicationHelper
     @javascript_includes << scripts
   end
 
-  def plugin_javascript_include(js)
-    javascript_include("/assets/#{_plugin_name}/javascripts/#{js}")
+  def plugin_javascript_include(*javascripts)
+    javascripts = javascripts.map{|js| "/assets/#{_plugin_name}/javascripts/#{js}"}
+    javascript_include_tag(*javascripts)
   end
 
   def print_dollars(cents)

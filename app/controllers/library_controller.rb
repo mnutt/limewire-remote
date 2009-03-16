@@ -16,22 +16,21 @@ class LibraryController < ApplicationController
 
 
   def show
-    file = Limewire::Library.find("urn:sha1:#{params[:sha1]}")
+    sha1urn = params[:sha1] =~ /urn:/ ? params[:sha1] : "urn:sha1:#{params[:sha1]}"
+    file = FileDesc.find_by_sha1urn(sha1urn)
     if file
-      path = file.get_file.absolute_path
-
       # Find the content-type using the file extension and mongrel's MIME_TYPES file
-      dot_at = path.rindex('.')
-      content_type = Mongrel::DirHandler::MIME_TYPES[path[dot_at .. -1]] if dot_at
+      dot_at = file.path.rindex('.')
+      content_type = Mongrel::DirHandler::MIME_TYPES[file.path[dot_at .. -1]] if dot_at
       
-      if File.exist?(path)
+      if File.exist?(file.path)
         # Send file in chunks if iPhone is asking for it that way
         if request.env["HTTP_RANGE"]
           range = request.env["HTTP_RANGE"].split("=").last
           start, finish = request.env["HTTP_RANGE"].split("-").map{|num| num.to_i}
           size = finish - start + 1
 
-          File.open(path) do |f|
+          File.open(file.path) do |f|
             f.seek(start)
             @data = f.read(size)
           end
@@ -43,13 +42,13 @@ class LibraryController < ApplicationController
           send_data(@data, :status => 206)
         else
           if content_type
-            send_file(path, :type => content_type)
+            send_file(file.path, :type => content_type)
           else
-            send_file(path)
+            send_file(filepath)
           end
         end
       else
-        render :text => "record exists, but file not found: #{path}", :status => 404
+        render :text => "record exists, but file not found: #{file.path}", :status => 404
       end
     else
       render :status => 404, :text => "file not found: #{params[:sha1]}"

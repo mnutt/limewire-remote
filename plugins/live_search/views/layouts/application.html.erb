@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>LimeWire Remote: Backup</title>
+    <%= javascript_include_tag 'jquery' -%>
+    <%= javascript_include_tag 'jquery-periodic' -%>
+    <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
+    <style type="text/css">
+      #total_progress,
+      #file_progress {
+        height: 5px;
+        width: 100%;
+        background-color: #EEE;
+        border: 1px solid #EEE;
+      }
+      #total_progress_indicator,
+      #file_progress_indicator {
+        height: 5px;
+        width: 0%;
+        background-color: #8CE;
+      }
+
+      BODY {
+        background: url('/assets/live_search/images/background.png') top left repeat-x;
+        background-color: #3e3e3e;
+        color: #FFF;
+        font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+      }
+
+      #search {
+        background: url('/assets/live_search/images/searchbox-background.png') top left repeat-x;
+        border: 0;
+        font-size: 2.5em;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        width: 100%;
+        padding: 1px 0 1px 0.2em;
+      }
+
+      #search_wrapper {
+        position:relative;
+        margin-right: 160px;
+      }
+
+      #submit {
+        font-size: 2.5em;
+        background-color: #666;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border: 0;
+      }
+
+      #submit_wrapper{
+        float: right;
+        width: 160px;
+        text-align: right;
+      }
+
+      #search_form {
+        margin: 100px auto 0 auto;
+        width: 95%;
+      }
+
+      ul#results {
+        padding: 0;
+        height: 407px;
+        overflow: hidden;
+      }
+
+      ul#results li {
+        list-style: none;
+        font-size: 1.6em;
+        height: 1.6em;
+        line-height: 1.6em;
+        overflow: hidden;
+        padding: 0 5px;
+      }
+
+      ul#results li.selected {
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        background-color: orange;
+        padding: 0 5px;
+      }
+    </style>
+  </head>
+  <body>
+      <img style="position: absolute; top:-62px; left: 50%; margin-left: -62px;" src="/assets/live_search/images/limewire.png">
+      <%= yield -%>
+  </body>
+</html>

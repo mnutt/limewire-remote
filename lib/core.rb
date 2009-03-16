@@ -9,7 +9,7 @@ module Core
     
     Geocoder               = org.limewire.geocode.Geocoder
     OldURN                 = com.limegroup.gnutella.URN
-		ApplicationServicesRef = com.limegroup.gnutella.ApplicationServices
+    ApplicationServicesRef = com.limegroup.gnutella.ApplicationServices
     MetaDataFactoryImpl    = com.limegroup.gnutella.metadata.MetaDataFactoryImpl
     MetaDataFactoryRef     = com.limegroup.gnutella.metadata.MetaDataFactory
     GUID                   = org.limewire.io.GUID
@@ -22,8 +22,8 @@ module Core
     DownloadListManagerRef = org.limewire.core.api.download.DownloadListManager
     MongrelManagerRef      = org.limewire.http.mongrel.MongrelManager # meta
     
-		ApplicationServices = self.get_singleton(ApplicationServicesRef)
-		Statistics          = self.get_singleton(StatisticsRef)
+    ApplicationServices = self.get_singleton(ApplicationServicesRef)
+    Statistics          = self.get_singleton(StatisticsRef)
     MojitoManager       = self.get_singleton(MojitoManagerRef)
     SearchManager       = self.get_singleton(SearchManagerRef)
     LibraryManager      = self.get_singleton(LibraryManagerRef)

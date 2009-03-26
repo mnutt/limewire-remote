@@ -1,6 +1,6 @@
 <% plugin_javascript_include "jquery.hotkeys.js", "live_search", "search" -%>
 <div id="search">
-  <% remote_form_for :search, :html => { :id => 'search_form' } do |f| -%>
+  <% form_for :search, :html => { :id => 'search_form' } do |f| -%>
     <div id="submit_wrapper">
       <%= submit_tag "Search", :id => 'submit' -%>
     </div>
@@ -25,10 +25,7 @@
 <script type="text/javascript">
   $('#playlist_id').change(function() {
     $.get('/twopane/playlist_tracks?playlist='+$(this).val(), function(result) {
-      $.each(result, function(track) {
-        
-      });
-      console.log(result.length);
+      $('ul.playlist').html(result);
     });
   });
 </script>

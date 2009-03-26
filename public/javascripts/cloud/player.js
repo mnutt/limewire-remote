@@ -258,11 +258,10 @@ SC.Player.prototype = {
 	      unique_id += Math.floor(Math.random()*16).toString(16)
 	    }
 	  var s_id = "search" + unique_id;
-	  console.log("Hey ");
           var pl = new SC.Playlist({
             is_owner: true,
             playlist: {
-              id : s_id,	
+              id : s_id,
 	      category: "Searches",
               name : "Search for '" + q + "'",
               version : 0,
@@ -270,7 +269,7 @@ SC.Player.prototype = {
               search : true,
               smart : false,
 		search_options: {
-		    search_term: q  
+		    search_term: q
 		},
               smart_filter : {
                 search_term : q,

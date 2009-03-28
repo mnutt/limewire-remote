@@ -351,6 +351,7 @@ module Limewire
         'duration' => metadata.length * 1000,
         'permalink' => title,
         'uri' => "/library/#{self.sha1}.mp3",
+        'artwork_url' => "/library/#{self.sha1}/thumbnail/154",
         'downloadable' => true,
         'genre' => genre,
         'title' => title,

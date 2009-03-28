@@ -1,0 +1,37 @@
+{"results": {
+    "result": [
+        {
+            "name": "The Buddies - Broadway Baby",
+            "attributes": {
+                "quality": "Excellent Quality",
+                "type"   : "mp3",
+                "bitrate": "128kbps"
+            },
+            "SHA1": "831f1aed78903e9f8807557b9f1fa9714793991e"
+        },{
+            "name": "The Buddies - Long Snow",
+            "attributes": {
+                "quality": "Good Quality",
+                "type"   : "mp3",
+                "bitrate": "192kbps"
+            },
+            "SHA1": "831f1aed78903e9f8807557b9f1fa9991eusop38s"
+        },{
+            "name": "The Buddies - Long Snow (live)",
+            "attributes": {
+                "quality": "Great Quality",
+                "type"   : "mp3",
+                "bitrate": "192kbps"
+            },
+            "SHA1": "831f1aed78903e9f8807557b9f1fa9991eusop38s"
+        },{
+            "name": "Who Knows Our Name",
+            "attributes": {
+                "quality": "Excellent Quality",
+                "type"   : "mp3",
+                "bitrate": "192kbps"
+            },
+            "SHA1": "831f1aed78903e9f845hd84j3k91fa9991eusop38s"
+        }
+    ]
+}}

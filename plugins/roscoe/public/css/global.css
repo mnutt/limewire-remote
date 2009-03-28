@@ -1,0 +1,305 @@
+/* Clearfix
+------------------------------------------------------------ */
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+.clearfix {display: inline-block;}
+html[xmlns] .clearfix {display: block;}
+* html .clearfix {height: 1%;}
+
+/* Reset
+------------------------------------------------------------ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+body {line-height: 1;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+/* remember to define focus styles! */
+:focus {outline: 0;}
+/* remember to highlight inserts somehow! */
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+/* tables still need 'cellspacing="0"' in the markup */
+table {border-collapse: collapse; border-spacing: 0;}
+
+html, body {
+    font-family: arial, verdana;
+    color: #313131;
+}
+
+/* -------------------------- HEADER --------------------- */
+#header {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    height: 39px;
+    width: 100%;
+    background: #e4e4e4 url("../img/header_footer_bg.png") repeat-x 0 0;
+    /*border-top: 1px solid #818181;*/
+    border-bottom: 1px solid #696969;
+}
+
+/* -------------------------- SEARCH --------------------- */
+#search {
+    margin: 6px auto 0 auto;
+    width: 440px;
+    font-size: 14px;
+}
+#search ul {
+    position: relative;
+    width: 124px;
+    float: left;
+    z-index: 1000;
+}
+#search ul li.button {
+    width: 124px;
+    height: 26px;
+    /* TODO: Implement sliding doors */
+    background: transparent url("../img/search_dropdown_bg.png") no-repeat 0 0;
+}
+#search ul li.button.hover_on {background-position: 0 -26px;}
+#search ul li.button.down_on {background-position: 0 -52px;}
+#search ul li.button span.button {
+    display: block;
+    width: 115px;
+    height: 20px;
+    padding: 6px 0 0 9px;
+    cursor: default;
+}
+#search .dropdown {
+    position: relative;
+    display: none;
+    width: 104px;
+    margin-left: 8px;
+    background-color: #fff;
+    border: 1px solid #313131;
+}
+
+#search .dropdown li a {
+    display: block;
+    padding: 6px 6px 6px 26px;
+    color: #313131;
+    text-decoration: none;
+}
+
+#search ul .button span.audio, #search ul .button span.image,
+#search ul .button span.video, #search ul .button span.document
+{padding-left: 22px;}
+
+#search .audio     {background: transparent url("../img/file_audio.png") no-repeat;}
+#search .video    {background: transparent url("../img/file_video.png") no-repeat;}
+#search .image    {background: transparent url("../img/file_image.png") no-repeat;}
+#search .document {background: transparent url("../img/file_document.png") no-repeat;}
+#search .app      {background: transparent url("../img/file_document.png") no-repeat;}
+
+#search .dropdown li a.audio, #search .dropdown li a.video,
+#search .dropdown li a.image, #search .dropdown li a.document
+{background-position: 6px 4px;}
+
+#search .dropdown li a:hover {background-color: #ddf3bb;}
+#search label {display: none;}
+#search_txtbox {
+    float: left;
+    width: 274px;
+    height: 22px;
+    margin: 0 2px;
+    padding: 4px 4px 0 4px;
+    border: 0;
+    background: white url("../img/search_input_bg.png") no-repeat 0 0;
+    font-size: 14px;
+}
+
+#search_btn {
+    float: left;
+    width: 30px;
+    height: 27px;
+    margin-top: -1px;
+    border: 0;
+    background: transparent url("../img/search_button.png") no-repeat 0 0;
+    text-indent: -1000px;
+    outline: none;
+}
+#search_btn.hover_on {background-position: 0 -27px;}
+#search_btn.down_on {background-position: 0 -54px;}
+
+/* -------------------------- TOOLBAR --------------------- */
+#toolbar {
+    position: fixed;
+    top: 40px;
+    z-index: 900;
+    height: 33px;
+    width: 100%;
+    background: #4d4d4d url("../img/toolbar_sprite.png") repeat-x 0 0;
+}
+#filter {
+    float: right;
+    margin: 5px 6px 0 0;
+    padding: 2px 3px;
+    width: 150px;
+    font-size: 12px;
+    background: #fff url("../img/toolbar_sprite.png") repeat-x 0 -33px;
+    border: 1px solid #4f4f4f;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+#file_filter {
+    float: left;
+    max-width: 40%;
+    margin: 6px 0 0 6px;
+}
+#file_filter li {
+    display: inline;
+}
+#file_filter li a {
+    color: #fff;
+    font-size: 12px;
+    text-decoration: none;
+}
+#file_filter li a span {
+    padding: 2px 10px;
+}
+#file_filter li a.selected span {
+    color: #313131;
+    background-color: #c2e986;
+    border: 1px solid #484848;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+/* -------------------------- FOOTER --------------------- */
+#footer {
+    position: fixed;
+    bottom: 0;
+    height: 18px;
+    width: 100%;
+    background: #c8c8c8 url("../img/header_footer_bg.png") repeat-x 0 -40px;
+    border-top: 1px solid #696969;
+    font-size: 10px;
+}
+
+/* Connection Bars */
+
+#connection_bars {
+    display: block;
+    width: 26px;
+    height: 13px;
+    margin: 2px 0 0 2px;
+    text-indent: -1000px;
+    background: transparent url("../img/connection_bars.png") no-repeat;
+}
+#connection_bars.no_bars    {background-position: 0 0px;}
+#connection_bars.weak       {background-position: 0 -13px;}
+#connection_bars.medium     {background-position: 0 -26px;}
+#connection_bars.strong     {background-position: 0 -65px;}
+#connection_bars.fail       {background-position: 0 -91px;}
+#connection_bars.no_network {background-position: 0 -78px;}
+
+/* -------------------------- BODY --------------------- */
+#body {
+    margin: 73px 0 20px 0;
+}
+
+/* Search Results */
+#search_results li {
+    position: relative;
+    background-color: #c2e986;
+    border-bottom: 1px solid #eaeaea;
+}
+
+#search_results li.similar {
+    display: none;
+    padding-left: 26px;
+    background: #c2e986 url("../img/similar_arrow.png") no-repeat 6px center;
+}
+
+#search_results li.audio .col1    {background-image: url("../img/file_audio.png");}
+#search_results li.video .col1    {background-image: url("../img/file_video.png");}
+#search_results li.image .col1    {background-image: url("../img/file_image.png");}
+#search_results li.document .col1 {background-image: url("../img/file_document.png");}
+#search_results li.app .col1      {background-image: url("../img/file_app.png");}
+
+#search_results .col1 {
+    background: #fff no-repeat 8px center;
+    padding: 8px 8px 8px 34px;
+}
+#search_results li.expanded .col1 {background-color: transparent;}
+
+#search_results .col3 {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 58px;
+}
+#search_results h2 {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+#search_results p {
+    font-size: 12px;
+}
+#search_results .btn_info, #search_results .btn_similar {
+    display: block;
+    float: right;
+    width: 25px;
+    height: 25px;
+    text-indent: -100000px;
+    outline: none;
+    /*background-color: #313131;*/
+}
+#search_results .btn_similar {
+    margin-right: 8px;
+    background: transparent url("../img/sr_list_buttons.png") no-repeat -50px 0;
+}
+#search_results .btn_similar:hover {background-position: -50px -25px;}
+/*#search_results .btn_similar:focus {background-position: -50px -50px;}
+*/
+#search_results li.expanded .btn_similar {background-position: -75px 0;}
+#search_results li.expanded .btn_similar:hover {background-position: -75px -25px;}
+/*#search_results li.expanded .btn_similar:focus {background-position: -75px -50px;}
+*/
+
+#search_results .btn_info {
+    background: transparent url("../img/sr_list_buttons.png") no-repeat 0 0;
+}
+#search_results .btn_info:hover {background-position: 0 -25px;}
+#search_results .btn_info:focus {background-position: 0 -50px;}
+
+#search_results li.expanded .btn_info {background-position: -25px 0;}
+#search_results li.expanded .btn_info:hover {background-position: -25px -25px;}
+#search_results li.expanded .btn_info:focus {background-position: -25px -50px;}
+
+
+/* -------------------------- MISC --------------------- */
+a {color: #2152a6;}
+.hidden {display: none;}
+
+/* TODO: overlay click not recognized when you click on a 
+    search result with the drop down open */
+
+#overlay {
+    position: absolute;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}

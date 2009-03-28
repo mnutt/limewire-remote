@@ -1,0 +1,2 @@
+class RoscoeController < PluginController
+end

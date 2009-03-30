@@ -21,7 +21,7 @@ class SearchController < ApplicationController
       render :json => "Ok"
     when "results"
       results = Limewire::Search.find(params[:guid]).results
-      render :json => {:results => results}
+      render :json => JSON.pretty_generate({:results => results})
     when "query_string"
       render :json => Limewire::Search.find(params[:guid]).query_string
     else

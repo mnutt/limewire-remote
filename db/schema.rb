@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090221080024) do
+ActiveRecord::Schema.define(:version => 20090330184414) do
 
   create_table "dashboard_positions", :force => true do |t|
     t.integer   "column"
@@ -49,6 +49,13 @@ ActiveRecord::Schema.define(:version => 20090221080024) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.integer   "is_rare"
+  end
+
+  create_table "options", :force => true do |t|
+    t.string    "key"
+    t.string    "value"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   create_table "playlists", :force => true do |t|

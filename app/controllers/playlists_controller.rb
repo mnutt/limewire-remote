@@ -10,18 +10,20 @@ class PlaylistsController < ApplicationController
     end
     @ordered_playlists = []
     @playlists.each_with_index do |p, i| 
-      @ordered_playlists << { :playlist => p.to_playlist, :position => i, :is_owner => true } 
+      @ordered_playlists << { :playlist => p.to_playlist, 
+                              :position => i, 
+                              :is_owner => true } 
     end
 
-    render :json => @ordered_playlists.to_json()
+    render :json => JSON::pretty_generate(@ordered_playlists)
   end
 
   def create
     @playlist = Playlist.new(params[:playlist])
     @playlist.save
-    render :text => { :playlist => @playlist.to_playlist, 
-                      :position => Playlist.count, 
-                      :is_owner => true }.to_json
+    render :json => JSON::pretty_generate({ :playlist => @playlist.to_playlist, 
+                                            :position => Playlist.count, 
+                                            :is_owner => true })
   end
 
   def destroy

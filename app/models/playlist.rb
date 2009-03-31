@@ -24,7 +24,7 @@ class Playlist < ActiveRecord::Base
       :tracks => self.tracks,
       :version => self.version,
       :owner => { :nickname => "Owner" },
-      :date_created => self.created_at,
+      :date_created => self.created_at.to_s,
       :id => self.id,
       :hash => self.share_hash
     }

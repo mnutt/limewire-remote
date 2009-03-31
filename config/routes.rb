@@ -1,5 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.setup '/setup', :controller => 'home', :action => 'setup'
+  map.login '/login', :controller => 'home', :action => 'login'
+
   map.resources :library, :member => {:thumbnail => :get}
   #map.file "/library/:sha1.mp3", :controller => 'library', :action => 'show'
   #map.library "/library", :controller => 'library', :action => 'index'

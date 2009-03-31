@@ -1,0 +1,12 @@
+<div id="login-wrapper">
+  <h1 class="logo">Login</h1>
+  <p class="welcome">
+    Welcome to LimeWire’s new web interface.  Now you can access your LimeWire over the internet from anywhere.  In order to enable remote access, please choose a password:
+  </p>
+  
+  <% form_for(:setup, :url => setup_url) do |f| -%>
+    <input type="password" class="password" name="password">
+    <input type="submit" class="submit" value="Save">
+  <% end -%>
+  <div style="clear: both; height:1px">&nbsp;</div>
+</div>

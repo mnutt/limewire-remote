@@ -78,3 +78,36 @@ h2.plugins_header {
   margin-bottom: 5px;
   cursor: move;
 }
+
+
+/* ===== Login ===== */
+#login-wrapper {
+  margin: 5em auto;
+  width: 700px;
+  background-color: #F0F9E1;
+  padding: 20px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#login-wrapper h1.logo {
+  float: left;
+  text-indent: -10000px;
+  width: 185px;
+  height: 218px;
+  margin: 0 15px 0 0;
+  padding: 0;
+  background: url(/images/login_logo.png) top left no-repeat;
+}
+
+#login-wrapper p {
+  margin: 30px 0 20px 0;
+  font-size: 1.3em;
+  line-height: 1.5em;
+}
+
+#login-wrapper form input.password {
+  width: 200px;
+  border: 1px solid #CCC;
+  font-size: 1.2em;
+}

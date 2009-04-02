@@ -1,0 +1,12 @@
+<div id="login-wrapper">
+  <h1 class="logo">Login</h1>
+  <p class="welcome">
+    Welcome to LimeWire’s new web interface.  Now you can access your LimeWire over the internet from anywhere. To log in, type your password below:
+  </p>
+  
+  <% form_for(:login, :url => login_url) do |f| -%>
+    <input type="password" class="password" name="password">
+    <input type="submit" class="submit" value="Login">
+  <% end -%>
+  <div style="clear: both; height:1px">&nbsp;</div>
+</div>

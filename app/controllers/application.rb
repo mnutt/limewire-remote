@@ -4,6 +4,28 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
 
+  before_filter :check_logged_in
+
+  def check_logged_in
+    if local_request?
+      if !is_setup?
+        redirect_to setup_url
+      end
+    else
+      if !logged_in?
+        redirect_to login_url
+      end
+    end
+  end
+
+  def is_setup?
+    Option.get('pwhash').nil?
+  end
+
+  def logged_in?
+    session[:logged_in] == true
+  end
+
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '9644041f885c116f54db0da11d85902f'

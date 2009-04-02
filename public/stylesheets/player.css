@@ -251,7 +251,7 @@ table {
   }
 
   table tbody tr.selected {
-    background-color: rgb(63,111,211);
+    background-color: #91D02D;
   }
 
   table tbody tr.selected td, table tbody tr.selected td a {
@@ -527,7 +527,7 @@ table {
   overflow-y: auto;
   overflow-x: hidden;
   /*background-image: url(/images/cloud/fade-long.png);*/
-  background-color: #C9CFDB;
+  background-color: #F0F9E1;
   background-position: 0 100%;
   background-repeat: repeat-x;
   -webkit-background-size: 100% 100%;  
@@ -579,7 +579,7 @@ table {
 
   #playlists li.active {
     font-weight: bold;
-    background-color: rgb(63,111,211);
+    background-color: #91D02D;
     background-image: url(/images/cloud/playlist-fade.png);
     background-repeat: repeat-x;
     -webkit-background-size: 100% 100%;

@@ -19,6 +19,6 @@ class CloudController < ApplicationController
                                        :genres => params[:genres])
     end
 
-    render :json => @tracks.collect{|x| x.to_cloud}
+    render :json => JSON.pretty_generate(@tracks.collect{|x| x.to_cloud})
   end
 end

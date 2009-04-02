@@ -1,6 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.file "/library/:sha1.mp3", :controller => 'library', :action => 'show'
+  map.setup '/setup', :controller => 'home', :action => 'setup'
+  map.login '/login', :controller => 'home', :action => 'login'
+
+  map.resources :library, :member => {:thumbnail => :get}
+  #map.file "/library/:sha1.mp3", :controller => 'library', :action => 'show'
+  #map.library "/library", :controller => 'library', :action => 'index'
+  map.thumb "/library/:id/thumbnail/:s", :controller => 'library', :action => 'thumbnail'
  
   # Cloud Player
   map.resources :playlists, :path_prefix => "/cloud"

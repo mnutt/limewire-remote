@@ -4,7 +4,7 @@ class TwopaneController < PluginController
 
   def playlist_tracks
     @playlist = Playlist.find(params[:playlist])
-    render :json => @playlist.all_tracks.map{|t| t.to_cloud}.size
+    render :partial => 'playlist'
   end
 
   def set_query

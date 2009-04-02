@@ -12,7 +12,7 @@ module ApplicationHelper
 
   def print_dollars(cents)
     if cents.to_s.include?("-")
-      decimals = cents.to_s.split("-").last + 1
+      decimals = cents.to_s.split("-").last.to_i + 1
     elsif cents % 0.01 > 0.0
       decimals = 3
     elsif cents % 0.001 > 0.0

@@ -24,7 +24,7 @@ class Playlist < ActiveRecord::Base
       :tracks => self.tracks,
       :version => self.version,
       :owner => { :nickname => "Owner" },
-      :date_created => self.created_at,
+      :date_created => self.created_at.to_s,
       :id => self.id,
       :hash => self.share_hash
     }
@@ -32,14 +32,12 @@ class Playlist < ActiveRecord::Base
 
   def all_tracks
     if self.smart?
-      Limewire::Library.find(:all,
-                             :limit => 1000,
-                             :offset => 0,
-                             :extension => :mp3,
-                             :artist => self.artist.blank? ? nil : self.artist,
-                             :search => self.search_term.blank? ? nil : self.search_term,
-                             :order => self.list_order,
-                             :genres => self.genres.blank? ? nil : self.genres)
+      FileDesc.find(:all,
+                    :limit => 1000,
+                    :offset => 0,
+                    :conditions => {
+                      :artist => self.artist.blank? ? nil : self.artist,
+                      :genre => self.genres.blank? ? nil : self.genres })
     else
       Limewire::Library.find_by_sha1s(self.tracks)
     end

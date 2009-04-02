@@ -100,6 +100,16 @@ SC.Playlist.prototype = {
       .mouseup(function(e) {
         var colIdx = $(this).parents("thead").find("th").index(this) + 1;
         $.cookie('playlist_col_width_' + (colIdx-1),$(this).width());
+      }).click(function(e) {
+	if($(this).hasClass("sorted")) {
+	  self.sort(-1);
+	} else {
+	  $(this).parent().children('th').removeClass('sorted');
+	  $(this).addClass("sorted");
+	  var index = $(this).parent().children('th').index(this);
+	  self.sort(index);
+	}
+	return false;
       });
 
     this.load();
@@ -109,6 +119,31 @@ SC.Playlist.prototype = {
       if(this.scrollHeight-(this.scrollTop+this.clientHeight) < 400) {
         self.load();
       }
+    });
+  },
+  sort : function(column) {
+    var table = this.list;
+    var rows = table.find('tr').get();
+    if(column == -1) {
+      rows = rows.reverse();
+    } else {
+      rows.sort(function(a, b) {
+        var keyA = $(a).children('td').eq(column).text().toUpperCase();
+        var keyB = $(b).children('td').eq(column).text().toUpperCase();
+
+        var timeA = keyA.match(/(\d*):(\d*)/);
+        var timeB = keyB.match(/(\d*):(\d*)/);
+        if( timeA && timeB ) {
+          keyA = parseInt(timeA[1]) * 60 + parseInt(timeA[2]);
+          keyB = parseInt(timeB[1]) * 60 + parseInt(timeB[2]);
+        }
+        if (keyA > keyB) return -1;
+        if (keyA < keyB) return 1;
+        return 0;
+      }).reverse();
+    }
+    $.each(rows, function(index, row) {
+      $(row).appendTo(table);
     });
   },
   reload : function(props) {

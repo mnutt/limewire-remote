@@ -77,3 +77,4 @@ end
 PLUGIN_ROOT = "#{RAILS_ROOT}/plugins"
 require 'lib/external_routes'
 require 'lib/update_library'
+require 'json'

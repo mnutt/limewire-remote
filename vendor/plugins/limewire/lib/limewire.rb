@@ -111,6 +111,10 @@ module Limewire
     def restart
       @search.restart
     end
+
+    def destroy
+      @search.destroy
+    end
   end
 
   # The LimeWire Client can download files from the gnutella network based solely off the hash, but that is

@@ -95,7 +95,7 @@ SC.Player.prototype = {
         "playlist[artist]" : $("#pl-artist").val().toLowerCase().replace(/\s/,"-") // FIXME: cheap username->permalink algoritm
       };
 
-      $.post("/cloud/playlists",props,function(data) {
+      $.post("/playlists",props,function(data) {
         var pl = eval('(' + data + ')');
         self.playlists[pl.playlist.id] = new SC.Playlist(pl,self);
         self.switchPlaylist(pl.playlist.id);
@@ -288,7 +288,7 @@ SC.Player.prototype = {
     $("#add-playlist").click(function(ev) {
       if($("body").hasClass("logged-in")) {
         var pos = $("#playlists li:not(.dont-persist)").index($("#playlists li:not(.dont-persist):last"))+1; //FIXME respect non-persisted playlists, and first
-        $.post("/cloud/playlists",{'playlist[name]':"Untitled playlist",'playlist[position]': pos},function(data) {
+        $.post("/playlists",{'playlist[name]':"Untitled playlist",'playlist[position]': pos},function(data) {
           var item = eval('(' + data + ')');
           self.playlists[item.playlist.id] = new SC.Playlist(item, self);
           self.switchPlaylist(item.playlist.id);
@@ -408,7 +408,7 @@ SC.Player.prototype = {
     if($("body").hasClass("logged-in")) {
 
       // load playlists for user
-      $.getJSON("/cloud/playlists",function(playlists) {
+      $.getJSON("/playlists",function(playlists) {
         $.each(playlists,function() {
           self.playlists[this.playlist.id] = new SC.Playlist(this, self);
         });
@@ -603,7 +603,7 @@ SC.Player.prototype = {
 
     $("#artist")
       .hide()
-      .html("<a href='#' class='artist-link'>" + track.user.username + "</a> · <span>" + track.title + "</span>" + " <a href='" + track.permalink_url + "' target='_blank'>»</a>" + (track.purchase_url ? " <a href='" + track.purchase_url + "' target='_blank'>Buy »</a>" : ""))
+      .html("<a href='#' class='artist-link'>" + track.artist.name + "</a> · <span>" + track.title + "</span>" + " <a href='" + track.permalink_url + "' target='_blank'>»</a>" + (track.purchase_url ? " <a href='" + track.purchase_url + "' target='_blank'>Buy »</a>" : ""))
       .find("a.artist-link")
         .click(function(ev) {
           self.removePlaylist("artist");
@@ -611,10 +611,10 @@ SC.Player.prototype = {
             is_owner: true,
             playlist : {
               id : "artist",
-              name : "Artist: " + track.user.username,
+              name : "Artist: " + track.artist.name,
               smart: true,
               smart_filter: {
-                artist : track.user.permalink,
+                artist : track.artist.permalink,
                 order: "created_at"
               },
               dontPersist : true,
@@ -622,7 +622,7 @@ SC.Player.prototype = {
             }
           },self);
           self.switchPlaylist("artist");
-          self.loadArtistInfo(track.user.uri);
+          self.loadArtistInfo(track.artist.uri);
           ev.preventDefault();
         }).end()
       .fadeIn();
@@ -642,7 +642,7 @@ SC.Player.prototype = {
     if(window.fluid) {
       window.fluid.showGrowlNotification({
           title: track.title,
-          description: track.user.username + " - " + track.title,
+          description: track.artist.name + " - " + track.title,
           priority: 1,
           sticky: false,
           identifier: "foo",
@@ -683,10 +683,10 @@ SC.Player.prototype = {
       };
       user.description = (user.description ? user.description : "");
       $("#artist-info")
-        .find("h3").html(user.username + " <span>" + user.city + ", " + user.country + "</span>").end()
+        .find("h3").html(artist.name + " <span>" + user.city + ", " + user.country + "</span>").end()
         .find("img").removeClass("loaded").attr("src",user.avatar_url).end()
         .find("p:first").html(user.description).end()
-        .find("p:last").html("<a href='" + user.permalink_url + "' target='_blank'>Check this artist on SoundCloud »</a>").end()
+        .find("p:last").html("<a href='" + artist.permalink_url + "' target='_blank'>Check this artist on SoundCloud »</a>").end()
       self.showArtistPane();
     });
   },

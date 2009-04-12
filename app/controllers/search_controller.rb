@@ -4,29 +4,15 @@ class SearchController < ApplicationController
   def index
   end
 
-  def perform
+  def create
     search = Limewire::Search.query(params[:query])
     search.start
     render :json => {:guid => search.guid.to_s}
-
   end
 
-  def control
-    case params[:query]
-    when "start"
-      Limewire::Search.find(params[:guid]).start
-      render :json => "Ok"
-    when "stop"
-      Limewire::Search.find(params[:guid]).stop
-      render :json => "Ok"
-    when "results"
-      results = Limewire::Search.find(params[:guid]).results
-      render :json => JSON.pretty_generate({:results => results})
-    when "query_string"
-      render :json => Limewire::Search.find(params[:guid]).query_string
-    else
-      render :json => "No"
-    end
+  def show
+    guid = params[:id]
+    search = Limewire::Search.find(guid)
+    render :json => JSON.pretty_generate({:results => search.results, :query_string => search.query_string})
   end
-
 end

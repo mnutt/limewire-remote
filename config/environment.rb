@@ -2,13 +2,28 @@
 
 # Uncomment below to force Rails into production mode when
 # you don't control web/app server and can't set it the proper way
-# ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
+# RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+
+Rails::VendorGemSourceIndex.silence_spec_warnings = true
+
+if defined?(JRUBY_VERSION)
+  # hack to fix jruby-rack's incompatibility with rails edge
+  module ActionController
+    module Session
+      class JavaServletStore
+        def initialize(app, options={}); end
+        def call(env); end
+      end
+    end
+  end
+end
+
+require 'lib/external_routes'
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -72,9 +87,11 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+  config.to_prepare do
+    PluginReloader.reload
+  end
 end
 
-PLUGIN_ROOT = "#{RAILS_ROOT}/plugins"
-require 'lib/external_routes'
+require 'lib/core'
 require 'lib/update_library'
 require 'json'

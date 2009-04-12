@@ -3,6 +3,18 @@
 
 RAILS_ROOT = "#{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
 
+# jruby-rack doesn't know where home is
+Dir.chdir(RAILS_ROOT)
+
+# Use frozen gems
+ENV['GEM_HOME'] = File.join(RAILS_ROOT, 'vendor', 'gems')
+
+# Persistent store needs to maintain state across requests
+require 'lib/persistent_store'
+
+# jruby-rack likes to set production environment for some reason
+ENV['RAILS_ENV'] = "development"
+
 module Rails
   class << self
     def boot!

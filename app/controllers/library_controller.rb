@@ -3,7 +3,46 @@ require 'image_voodoo'
 class LibraryController < ApplicationController
   self.allow_forgery_protection = false
   def index
-    @files = Limewire::Library.all_files
+    if params[:sha1s]
+      sha1s = params[:sha1s].split(",")
+      @tracks = Limewire::Library.find_by_sha1s(sha1s)
+    else
+      @tracks = Limewire::Library.find(:all, 
+                                       :limit => params[:limit], 
+                                       :offset => params[:offset],
+                                       :extension => :mp3,
+                                       :artist => params[:artist],
+                                       :search => params[:q],
+                                       :order => params[:order],
+                                       :genres => params[:genres])
+    end
+
+    @tracks = @tracks.map{|track|
+      {
+        'id' => track.sHA1Urn.to_s,
+        'duration' => track.duration * 1000,
+        'genre' => track.genre,
+        'title' => track.title,
+        'album' => track.album,
+        'artist' => {
+          "name" => track.artist, 
+          "permalink" => track.artist 
+        },
+
+        'downloadable' => true,
+        'streamable' => true,
+        'sharing' => 'public',
+
+        'permalink' => track.title,
+        'uri' => "/library/#{track.sha1}.mp3",
+        'artwork_url' => "/library/#{track.sha1}/thumbnail/154",
+        'permalink_url' => "/library/#{track.sha1}.mp3",
+        'stream_url' => "/library/#{track.sha1}.mp3",
+        'waveform_url' => track.waveform || '/images/waveform.png' # until we actually do waveform calculations
+      }
+    }
+
+    render :json => JSON.pretty_generate(@tracks)
   end
   
   def download

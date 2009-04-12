@@ -331,7 +331,7 @@ module Limewire
 
     # The <tt>album</tt> metadata
     def album
-      @metadata.title.to_s.gsub(/\x00/, "")
+      @metadata.album.to_s.gsub(/\x00/, "")
     end
 
     # The <tt>genre</tt> metadata
@@ -342,6 +342,14 @@ module Limewire
     # The SHA1 hash of the file, as a String
     def sha1
       self.sHA1Urn.to_s.split(":").last
+    end
+
+    def duration
+      @metadata.length.to_i
+    end
+
+    def waveform
+      '/images/waveform.png'
     end
 
     # A hash of file properties, meant to be exported as json or xml.

@@ -37,7 +37,7 @@ jQuery(document).ready(function(){
   };
 
   var submitSearch = function() {
-    $.getJSON('/search/q/' + $('#search').val(), function(search) {
+    $.postJSON('/search/' + $('#search').val(), function(search) {
       guid = search.guid;
       getResultsForGuid(guid);
       $.post('/live_search/set_query',
@@ -60,7 +60,7 @@ jQuery(document).ready(function(){
       _loadingSearch = true;
       times_refreshed ? times_refreshed++ : times_refreshed = 1;
 
-      $.getJSON("/search/" + guid + "/results", function(realData) {
+      $.getJSON("/search/" + guid, function(realData) {
 	results = eval(realData).results;
 	if(results.length > 0) { $("#loading").hide(); }
 

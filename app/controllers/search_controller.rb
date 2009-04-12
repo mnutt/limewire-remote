@@ -12,9 +12,9 @@ class SearchController < ApplicationController
   end
 
   def show
-    results = Limewire::Search.find(params[:id]).results
-    render :json => JSON.pretty_generate({ :results => results, 
-                                           :query_string => results.query_string})
+    guid = params[:id]
+    search = Limewire::Search.find(guid)
+    render :json => JSON.pretty_generate({:results => search.results, :query_string => search.query_string})
   end
 
   def update

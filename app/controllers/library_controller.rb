@@ -1,6 +1,8 @@
 require 'image_voodoo'
 
 class LibraryController < ApplicationController
+  skip_before_filter :check_logged_in
+
   self.allow_forgery_protection = false
   def index
     @files = Limewire::Library.all_files
@@ -89,10 +91,11 @@ class LibraryController < ApplicationController
 
           send_data(@data, :status => 206)
         else
+          response.headers["Accept-Ranges"]  = "bytes"
           if content_type
-            send_file(file.path, :type => content_type)
+            send_file(file.path, :type => content_type, :disposition => 'inline')
           else
-            send_file(filepath)
+            send_file(file.path)
           end
         end
       else

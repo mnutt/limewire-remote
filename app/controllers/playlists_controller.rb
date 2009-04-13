@@ -1,3 +1,5 @@
+require 'json'
+
 class PlaylistsController < ApplicationController
   self.allow_forgery_protection = false
 

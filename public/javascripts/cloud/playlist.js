@@ -17,7 +17,7 @@ SC.Playlist.prototype = {
   init : function(props) { // this will init the playlist
     this.properties = props;
     var self = this;
-    this.limit = 100; // limit of ajax requests
+    this.limit = 5000; // limit of ajax requests
     this.name = props.playlist.name;
     this.id = props.playlist.id;
     this.version = props.playlist.version;
@@ -156,11 +156,11 @@ SC.Playlist.prototype = {
     var format = "js";
     if(!baseUrl) { // if no baseUrl then use json
       format = "json";
-      baseUrl = "/cloud/";
+      baseUrl = "/";
     }
     var pl = this.properties.playlist;
       if(pl.search) {
-	  baseUrl = "/search/q/" + pl.smart_filter.search_term + "?version=0";
+	  baseUrl = "/search/" + pl.smart_filter.search_term + "?version=0";
 	  return baseUrl;
       }
 
@@ -168,9 +168,9 @@ SC.Playlist.prototype = {
       if(pl.smart_filter.user_favorites) { // user favs pl
         baseUrl += "users/" + pl.smart_filter.user_favorites + "/favorites." + format + "?filter=streamable";
       } else if(pl.smart_filter.artist) { // artist pl
-        baseUrl += "tracks." + format + "?artist=" + pl.smart_filter.artist + "&filter=streamable";
+        baseUrl += "library" + "?artist=" + pl.smart_filter.artist + "&filter=streamable";
       } else { // dynamic smart pl
-        baseUrl += "tracks." + format + "?filter=streamable";
+        baseUrl += "library" + "?filter=streamable";
       }
 
       if(pl.smart_filter.order == "hotness" && !pl.smart_filter.user_favorites) { // prevent favs hotness sorting API bug
@@ -205,37 +205,40 @@ SC.Playlist.prototype = {
       $("<div><div style='position:relative'><div id='throbber'></div></div></div>").appendTo(self.list);
       self.loading = true;
       self.tracks = [];
-      $.get(this.generateTracksUrl() + "&offset=" + this.offset, function(dataJS) {
-        var data = eval('(' + dataJS + ')');
-        if(data.response && parseInt(data.response) == 408) { // if google app engine timeout, then fallback to use the sc api directly, bypassing the caching layer
-          console.log('app engine timeout, sc api fallback')
-          $.getJSON(self.generateTracksUrl() + "&offset=" + self.offset, function(dataNonCached) {
-            self.processTrackData(dataNonCached);
-          })
-        } else {
-	    var pl = self.properties.playlist;
-	    if(!pl.search_options) {
-		self.processTrackData(data);
-		return;
-	    }
-	    pl.search_options.key = data.guid;
-	    setInterval(function() {
-		if(self._loadingSearch || (pl.search_options.times_refreshed && pl.search_options.times_refreshed > 20))
-		    return;
-		self._loadingSearch = true;
-		pl.search_options.times_refreshed ? pl.search_options.times_refreshed++ : pl.search_options.times_refreshed = 1;
 
-		$.getJSON("/search/" + pl.search_options.key + "/results", function(realData) {
-		    var pl = self.properties.playlist.search_options;
-		    pl.results = eval(realData).results;
-		    self.processTrackData(pl.results);
-		    self._loadingSearch = false;
+      var pl = self.properties.playlist;
+      if(!pl.search_options) {
+        $.get(this.generateTracksUrl() + "&offset=" + this.offset, function(dataJS) {
+          var data = eval('(' + dataJS + ')');
+          if(data.response && parseInt(data.response) == 408) { // if google app engine timeout, then fallback to use the sc api directly, bypassing the caching layer
+            console.log('app engine timeout, sc api fallback');
+            $.getJSON(self.generateTracksUrl() + "&offset=" + self.offset, function(dataNonCached) {
+              self.processTrackData(dataNonCached);
+            });
+          } else {
+	    self.processTrackData(data);
+	    return;
+	  }
+        });
+      } else {
+        $.post('/search', { query: pl.smart_filter.search_term }, function(data) {
+	  pl.search_options.key = data.guid;
+		 console.log(data.guid);
+	  setInterval(function() {
+            if(self._loadingSearch || (pl.search_options.times_refreshed && pl.search_options.times_refreshed > 20))
+              return;
+	  self._loadingSearch = true;
+	  pl.search_options.times_refreshed ? pl.search_options.times_refreshed++ : pl.search_options.times_refreshed = 1;
 
-		});
-	    }, 5000);
-
-        }
-      });
+          $.getJSON("/search/" + pl.search_options.key, function(realData) {
+            var pl = self.properties.playlist.search_options;
+	    pl.results = eval(realData).results;
+	    self.processTrackData(pl.results);
+	    self._loadingSearch = false;
+	  });
+	}, 5000);
+      }, "json");
+    }
     }
   },
   processTrackData : function(data) {
@@ -360,7 +363,7 @@ SC.Playlist.prototype = {
       tracks = "0";
     }
 
-    $.post("/cloud/playlists/" + this.id ,{"_method":"PUT","playlist[tracks]":tracks,"playlist[version]":this.version},function(dataJS) {
+    $.post("/playlists/" + this.id ,{"_method":"PUT","playlist[tracks]":tracks,"playlist[version]":this.version},function(dataJS) {
       var data = eval('(' + dataJS + ')');
       if(data.response == 200) {
         self.version++;
@@ -374,7 +377,7 @@ SC.Playlist.prototype = {
   saveName : function() {
     var self = this;
     this.name = this.name.replace(/<.*?>/,""); // sanitize name
-    $.post("/cloud/playlists/" + this.id ,{"_method":"PUT","playlist[name]":this.name},function(dataJS) {
+    $.post("/playlists/" + this.id ,{"_method":"PUT","playlist[name]":this.name},function(dataJS) {
       var data = eval('(' + dataJS + ')');
       if(data.response == 200) {
         self.version++;
@@ -388,7 +391,7 @@ SC.Playlist.prototype = {
     var self = this;
     // find out position index, ignore non-persisted playlists
     var pos = $("#playlists li:not(.dont-persist)").index($("#playlists li:not(.dont-persist)[listid=" + this.id + "]"));
-    $.post("/cloud/playlists/" + this.id ,{"_method":"PUT","playlist[position]":pos},function(dataJS) {
+    $.post("/playlists/" + this.id ,{"_method":"PUT","playlist[position]":pos},function(dataJS) {
       var data = eval('(' + dataJS + ')');
       if(data.response == 200) {
         console.log('saved position');
@@ -399,7 +402,7 @@ SC.Playlist.prototype = {
   },
   destroy : function() {
     if(this.persisted) {
-      $.post("/cloud/playlists/" + this.id,{"_method":"DELETE"},function() {
+      $.post("/playlists/" + this.id,{"_method":"DELETE"},function() {
         console.log('deleted from server...')
       });
     }
@@ -457,17 +460,17 @@ SC.Playlist.prototype = {
 	  var new_track = {};
 	  new_track.magnet = track.magnet_url;
 	  new_track.sha1 = track.sha1;
-	  new_track.user = {};
-	  new_track.user.username = "";
+	  new_track.artist = {};
+	  new_track.artist.name = "";
 	  new_track.title = track.properties.TITLE;
-	  new_track.description = track.filename;
+	  new_track.album = track.filename;
 	  new_track.bpm = 0;
 	  new_track.duration = 10;
 	  new_track.genre="Awesome";
 	  track = new_track;
 
       }
-    track.description = (track.description ? track.description.replace(/(<([^>]+)>)/ig,"") : "");
+    track.album = (track.album ? track.album.replace(/(<([^>]+)>)/ig,"") : "");
     if (track.bpm == null) {
       track.bpm = "";
     }
@@ -476,9 +479,9 @@ SC.Playlist.prototype = {
       track.name = "";
     }
 
-    if (track.user == null) {
-      track.user = {
-	username: ""
+    if (track.artist == null) {
+      track.artist = {
+	name: ""
       };
     }
 
@@ -525,7 +528,7 @@ SC.Playlist.prototype = {
       })
       .find("td:nth-child(1)").css("width",self.colWidths[0]).end()
       .find("td:nth-child(2)").css("width",self.colWidths[1]).text(track.title).end()
-     .find("td:nth-child(3)").css("width",self.colWidths[2]).html("<a href='#" + track.user.username.replace(/\s/, "+") + "'>" + track.user.username + "</a>")
+     .find("td:nth-child(3)").css("width",self.colWidths[2]).html("<a href='#" + track.artist.name.replace(/\s/, "+") + "'>" + track.artist.name + "</a>")
         .find("a")
         .history(function(ev) {
           self.player.removePlaylist("artist");
@@ -533,10 +536,10 @@ SC.Playlist.prototype = {
             is_owner: true,
             playlist : {
               id : "artist",
-              name : "Artist: " + track.user.username,
+              name : "Artist: " + track.artist.name,
               smart: true,
               smart_filter: {
-                artist : track.user.permalink,
+                artist : track.artist.permalink,
                 order: "created_at"
               },
               dontPersist : true,
@@ -544,11 +547,11 @@ SC.Playlist.prototype = {
             }
           },self.player);
           self.player.switchPlaylist("artist");
-          // self.player.loadArtistInfo(track.user.uri);
+          // self.player.loadArtistInfo(track.artist.uri);
         }).end()
       .end()
       .find("td:nth-child(4)").css("width",self.colWidths[3]).text(SC.formatMs(track.duration)).end()
-      .find("td:nth-child(5)").css("width",self.colWidths[4]).html(track.description).attr("title",track.description).end()
+      .find("td:nth-child(5)").css("width",self.colWidths[4]).html(track.album).attr("title",track.album).end()
       .find("td:nth-child(6)").css("width",self.colWidths[5]).html("<a href='#" + track.genre.replace(/\s/, "+") + "'>" + track.genre + "</a>")
       .find("a")
       .history(function(ev) {
@@ -575,7 +578,7 @@ SC.Playlist.prototype = {
   },
   addToPlaylistsList: function() { // add the tab for the playlist
     var self = this;
-    $("<li listId='" + this.id + "' class='" + (this.properties.is_owner ? "" : "shared") + " " + (this.properties.playlist.collaborative ? "collaborative" : "") + " " + (this.persisted ? "" : "dont-persist") + " " + (this.properties.playlist.smart ? "smart" : "") + " " + (this.properties.playlist.search ? "search" : "") + "'><span></span><a href='#" + this.name.replace(/\s/, "+") + "'>" + this.name + (this.properties.is_owner ? "" : " <em>by " + this.properties.playlist.owner.nickname + "</em>") + "</a><a class='collaborative' title='Make Playlist Collaborative' href='/cloud/playlists/" + this.id + "'>&nbsp;</a><a class='share' title='Share Playlist' href='/share/" + this.properties.playlist.share_hash + "'>&nbsp;</a><a class='delete' title='Remove Playlist' href='/cloud/playlists/" + this.id + "'>&nbsp;</a></li>")
+    $("<li listId='" + this.id + "' class='" + (this.properties.is_owner ? "" : "shared") + " " + (this.properties.playlist.collaborative ? "collaborative" : "") + " " + (this.persisted ? "" : "dont-persist") + " " + (this.properties.playlist.smart ? "smart" : "") + " " + (this.properties.playlist.search ? "search" : "") + "'><span></span><a href='#" + this.name.replace(/\s/, "+") + "'>" + this.name + (this.properties.is_owner ? "" : " <em>by " + this.properties.playlist.owner.nickname + "</em>") + "</a><a class='collaborative' title='Make Playlist Collaborative' href='/playlists/" + this.id + "'>&nbsp;</a><a class='share' title='Share Playlist' href='/share/" + this.properties.playlist.share_hash + "'>&nbsp;</a><a class='delete' title='Remove Playlist' href='/playlists/" + this.id + "'>&nbsp;</a></li>")
       .find('a:first').history(function(ev) {
         if($(this).parents("li").hasClass("active") && self.properties.is_owner && $("body").hasClass("logged-in")) {
           var that = this; // very strange that i can't use self here
@@ -657,7 +660,7 @@ SC.Playlist.prototype = {
       }).end()
       .find('a.collaborative').click(function() {
         if(!$(this).parents("li").hasClass("shared")) {
-          $.post("/cloud/playlists/" + self.id ,{"_method":"PUT","playlist[collaborative]":!self.properties.playlist.collaborative,"version":self.version},function() {
+          $.post("/playlists/" + self.id ,{"_method":"PUT","playlist[collaborative]":!self.properties.playlist.collaborative,"version":self.version},function() {
             self.properties.playlist.collaborative = !self.properties.playlist.collaborative;
             $("#playlists li[listid=" + self.id + "]").toggleClass("collaborative");
             if(self.properties.playlist.collaborative) {

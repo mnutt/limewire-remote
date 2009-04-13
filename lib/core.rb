@@ -1,9 +1,17 @@
 module Core
+  def self.injector
+    if($servlet_context)
+      $servlet_context.getAttribute("injector")
+    else
+      $injector
+    end
+  end
+
   def self.get_singleton(klass)
-    $injector.get_instance(klass.java_class)
+    self.injector.get_instance(klass.java_class)
   end
   
-  if($injector)
+  if(self.injector)
     # Running from Limewire
     include Java
     
@@ -31,7 +39,7 @@ module Core
     DownloadListManager = self.get_singleton(DownloadListManagerRef)
     MongrelManager      = self.get_singleton(MongrelManagerRef)
   else
-    # Not running from limewire, no $core available
+    # Not running from limewire, no injector available
   end
 end
 

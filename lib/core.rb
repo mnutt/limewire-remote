@@ -29,7 +29,8 @@ module Core
     SearchManagerRef       = org.limewire.core.api.search.SearchManager
     DownloadListManagerRef = org.limewire.core.api.download.DownloadListManager
     MongrelManagerRef      = org.limewire.http.mongrel.MongrelManager # meta
-    
+    HostCatcherRef         = com.limegroup.gnutella.HostCatcher
+
     ApplicationServices = self.get_singleton(ApplicationServicesRef)
     Statistics          = self.get_singleton(StatisticsRef)
     MojitoManager       = self.get_singleton(MojitoManagerRef)
@@ -38,6 +39,7 @@ module Core
     MetaDataFactory     = self.get_singleton(MetaDataFactoryRef)
     DownloadListManager = self.get_singleton(DownloadListManagerRef)
     MongrelManager      = self.get_singleton(MongrelManagerRef)
+    HostCatcher         = self.get_singleton(HostCatcherRef)
   else
     # Not running from limewire, no injector available
   end

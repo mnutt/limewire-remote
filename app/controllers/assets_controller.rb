@@ -1,4 +1,6 @@
 class AssetsController < ApplicationController
+  skip_before_filter :check_logged_in
+
   def show
     path = params[:path].join("/")
     plugin_name = params[:plugin]

@@ -1,0 +1,297 @@
+body { background-color: #669999; color: #333; text-align: center; }
+
+body, ol, ul {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+
+td {
+	font-size: 12px;
+	color: black;
+}
+
+#textBox {
+	background-color: 88BBBB;
+	width: 500px;
+	padding: 20 20 20 20;
+	text-align: center;
+}
+
+#question {
+	text-align: left;
+	font-weight: bold;
+	padding: 0px 5px 0px 12px;
+}
+
+#answer {
+	text-align: left;
+	padding: 0px 5px 12px 24px;
+}
+
+#twitterCount {
+	position: absolute;
+	top: 7px;
+	width: 200px;
+	color: #eee;
+	background-color: #777;
+	opacity: .8;
+	-moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px;
+	-moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px;
+}
+
+#viewstyle {
+	position: absolute;
+	top: 27px;
+	left: 75px;
+	opacity: .8;
+}
+
+#fblogin {
+	position: absolute;
+	top: 50px;
+	left: 82px;
+	opacity: .8;
+}
+
+#map {
+	position: absolute;
+}
+
+#loginState {
+	float: left;
+	padding: 0px 0px 0px 10px;
+}
+
+#mapCaption {
+	position: absolute;
+	margin-left: -575px;
+	left: 50%;
+	width: 1150px;
+	height: 21px;	
+	background-color: #777;
+	color: #eee;
+	opacity: .8;
+	white-space: nowrap;
+	-moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px;
+	-moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px;
+}
+
+#mapCaption a { color: #ddf; text-decoration: underline; }
+#mapCaption a:visited { color: #eef; }
+#mapCaption a:hover { text-decoration: none; }
+
+#splash {
+	position: absolute;
+	margin-left: -425px;
+	margin-top: -160px;
+	left: 50%;
+	top: 50%;
+	width: 300px;
+	height: 200px;
+	opacity: .9;
+	filter:alpha(opacity='90');
+}
+
+#tvbug {
+	position: absolute;
+	top: 20px;
+	width: 168;
+	cursor: pointer;
+	opacity: .7;
+	filter:alpha(opacity='70');
+}
+
+#whereBox {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 24px;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	padding: 0 0 0 0;
+	font-size: 12px;
+	background-color: #527bb3;
+}
+
+#likebox {
+	position: absolute;
+	left: 250px;
+	top: 20px;
+	margin: 0 0 0 0;
+	padding: 12 0 0 0;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	font-size: 10px;
+	width: 165px;
+	height: 34px;
+	opacity: .9;
+}
+
+#likebox.map {
+	position: absolute;
+	left: 50%;
+	top: 110px;
+	margin-left: -225px;
+	padding: 12 0 0 0;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	font-size: 10px;
+	width: 165px;
+	height: 34px;
+	opacity: .9;
+}
+#systemstatus {
+	position: absolute;
+	top: 140px;
+	width: 350px;
+	margin-left: -175px;
+	left: 50%;
+	background-color: #fff;
+	border: solid grey 1px;
+	padding: 10 10 10 10;
+}
+
+#quickguide {
+	position: absolute;
+	top: 110px;
+	width: 400px;
+	margin-left: -200px;
+	left: 50%;
+	background-color: #fff;
+	border: solid grey 1px;
+	padding: 10 10 10 10;
+}
+
+#dialogbox {
+	position: absolute;
+	top: 80px;
+	width: 400px;
+	height: 240px;
+	background-color: #fff;
+	border: solid grey 1px;
+	padding: 10 10 10 10;
+}
+
+#preferences {
+	position: absolute;
+	top: 80px;
+	left: 50%;
+	width: 660px;
+	height: 426px;
+	margin-left: -350px;
+	color: white;
+	font-size: 16px;
+	background: url('/images/prefpane.png') no-repeat 0 0;
+	padding: 60 10 10 30;
+}
+
+.checkbox {
+  height: 21px;
+  padding: 0 0 0 25px;
+  cursor: default;
+}
+
+#preferences td {
+	font-size: 16px;
+	color: white;
+	padding: 1 5 1 5;
+}
+
+#postForm {
+	text-align: center;
+	padding: 20 5 5 5;
+	position: absolute;
+	top: 140px;
+	width: 450px;
+	height: 150px;
+	border: 1px solid black;
+	opacity: 0.9;
+	background: #ddd;
+}
+
+#cssButton {
+	position: absolute;
+	border: 1px solid grey;
+  width: 80px;
+	padding: 5 5 5 5;
+  background: #444;
+	color: white;
+  opacity: 0.9;
+	cursor: pointer;
+}
+
+#postform textarea {
+	font-family: Helvetica;
+	font-size: 15px;
+}
+
+#infoWindow {
+	text-align: left;
+	width: 275px;
+}
+
+#infoWindow.threed {
+	margin-left: 10px;
+}
+
+#infoWindow a { color: #444; text-decoration: none; }
+#infoWindow a:visited { color: #667; }
+#infoWindow a:hover { text-decoration: underline;}
+#infoWindow a img { border:0; color: #fff;}
+#infoWindow a:hover img { border:0; background-color:#fff; }
+
+#infoWindow tip {
+	float: right;
+}
+
+#login_name {
+	display: inline;
+	padding: 0 10 0 10;
+}
+
+#screenName {
+	font-weight: bold;	
+}
+
+#lastStatus {
+	text-align: left;
+}
+
+#translatedstatus {
+	text-align: left;
+	color: green;
+}
+
+#statusupdated {
+	text-align: left;
+	font-size: 9px;
+	line-height: 150%;
+}
+
+img {
+	border: 0;
+}
+
+img.profile_image {
+	float: left;
+	vertical-align: top;
+	border: 1px solid black;
+	margin: 0px 5px 0px 0px;
+	width: 48px;
+	height: 48px;
+}
+
+div.ip {
+  font-weight: bold;
+}

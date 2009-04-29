@@ -6,6 +6,17 @@ class WorldViewController < PluginController
     render :json => @hosts.to_json
   end
 
+  def downloading
+    @hosts = Core::DownloadListManager.downloads.map{|d| d.sources.map{|s| s.address.to_s} }.flatten.compact
+    render :json => @hosts.to_json
+  end
+
+  def myself
+    address = Core::NetworkManager.getExternalAddress
+    addr_string = java.net.InetAddress.getByAddress(address).to_s.gsub(/[^0-9.]/, '')
+    render :json => addr_string
+  end
+
   def index
   end
 end

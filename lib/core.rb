@@ -30,6 +30,7 @@ module Core
     DownloadListManagerRef = org.limewire.core.api.download.DownloadListManager
     MongrelManagerRef      = org.limewire.http.mongrel.MongrelManager # meta
     HostCatcherRef         = com.limegroup.gnutella.HostCatcher
+    NetworkManagerRef      = com.limegroup.gnutella.NetworkManager
 
     ApplicationServices = self.get_singleton(ApplicationServicesRef)
     Statistics          = self.get_singleton(StatisticsRef)
@@ -40,6 +41,7 @@ module Core
     DownloadListManager = self.get_singleton(DownloadListManagerRef)
     MongrelManager      = self.get_singleton(MongrelManagerRef)
     HostCatcher         = self.get_singleton(HostCatcherRef)
+    NetworkManager      = self.get_singleton(NetworkManagerRef)
   else
     # Not running from limewire, no injector available
   end

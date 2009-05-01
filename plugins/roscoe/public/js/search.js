@@ -15,13 +15,13 @@
         }, options);
 
 
-        jQuery.getJSON("/search/q/"+settings.term, pollForResults);
+        jQuery.post("/search/", {query: settings.term}, pollForResults, 'json');
     };
 
     function pollForResults(query){
         var guid = query.guid;
       $.periodic(function(controller) {
-        jQuery.getJSON("/search/"+guid+"/results", resultManager);
+        jQuery.getJSON("/search/"+guid, resultManager);
 	return true;
       }, {frequency: 5});
     };

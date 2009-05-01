@@ -1,31 +1,109 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
-"http://www.w3.org/TR/html4/strict.dtd">
-<html>
-  <head>
-    <title>LimeWire Remote: Backup</title>
-    <%= javascript_include_tag 'jquery' -%>
-    <%= javascript_include_tag 'jquery-periodic' -%>
-    <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
-    <style type="text/css">
-      #total_progress,
-      #file_progress {
-        height: 5px;
-        width: 100%;
-        background-color: #EEE;
-        border: 1px solid #EEE;
-      }
-      #total_progress_indicator,
-      #file_progress_indicator {
-        height: 5px;
-        width: 0%;
-        background-color: #8CE;
-      }
-    </style>
-  </head>
-  <body>
-    <center><img src="/images/limewire_remote_logo.png" /></center>
-    <div style="width: 650px; margin: auto;">
-      <%= yield -%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <title>LimeWire 5</title>
+    <link rel="Shortcut Icon" href="/assets/roscoe/img/favicon.ico" type="image/x-icon" />
+    <link href="/assets/roscoe/css/global.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/assets/roscoe/js/jquery.js" /></script>
+    <script type="text/javascript" src="/assets/roscoe/js/jquery-periodic.js" /></script>
+    <script type="text/javascript" src="/assets/roscoe/js/system.js" /></script>
+    <script type="text/javascript" src="/assets/roscoe/js/search.js" /></script>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+        <form id="search" class="clearfix" method="" action="">
+            <ul id="search_type_dropdown">
+                <li class="button hover"><span class="button down"><span>All</span></span>
+                    <ul class="dropdown">
+                         <li><a href="">All</a></li>
+                         <li><a class="audio" href="">Audio</a></li>
+                         <li><a class="video" href="">Videos</a></li>
+                         <li><a class="image" href="">Images</a></li>
+                         <li><a class="document" href="">Documents</a></li>
+                     </ul>
+                </li>
+            </ul>
+            <label for="search_box">Search</label>
+            <input type="text" name="search_box" value="" id="search_txtbox" />
+            <input type="submit" name="submit" value="Search" id="search_btn" class="hover" />
+            <input type="hidden" name="search_type" value="all" id="search_type" />
+        </form>
     </div>
-  </body>
+    <div id="toolbar">
+       <ul id="file_filter">
+           <li><a class="selected" href=""><span>All</span></a></li>
+           <li><a href=""><span>Audio</span></a></li>
+           <li><a href=""><span>Video</span></a></li>
+           <li><a href=""><span>Images</span></a></li>
+       </ul>
+       <label class="hidden" for="filter">Filter...</label>
+       <input id="filter" type="text" name="filter" value="" />
+    </div>
+    <div id="body">
+       <ul id="search_results">
+          <!-- <li class="audio clearfix">
+             <div class="col1">
+                <h2><a href="">Night Life - Living Dirty</a></h2>
+                <p>This is a very cool Album Name - Excellent Quality - 6:22</p>
+             </div>
+             <div class="col3">
+                <a class="btn_info hover" href="">More Info</a> <a class="btn_similar hover" href="">Similar Results</a>
+             </div>
+          </li>
+          <li class="similar audio clearfix">
+              <div class="col1">
+                 <h2><a href="">Night Life - Living Dirty</a></h2>
+                 <p>This is a very cool Album Name - Excellent Quality - 6:22</p>
+              </div>
+              <div class="col3">
+                 <a class="btn_info hover" href="">More Info</a>
+              </div>
+          </li>
+          <li class="similar audio clearfix">
+              <div class="col1">
+                 <h2><a href="">Night Life - Living Dirty</a></h2>
+                 <p>This is a very cool Album Name - Excellent Quality - 6:22</p>
+              </div>
+              <div class="col3">
+                 <a class="btn_info hover" href="">More Info</a>
+              </div>
+          </li>
+          <li class="similar audio clearfix">
+              <div class="col1">
+                 <h2><a href="">Night Life - Living Dirty</a></h2>
+                 <p>This is a very cool Album Name - Excellent Quality - 6:22</p>
+              </div>
+              <div class="col3">
+                 <a class="btn_info hover" href="">More Info</a>
+              </div>
+          </li>
+          <li class="audio clearfix">
+              <div class="col1">
+                 <h2><a href="">Night Life - Living Dirty</a></h2>
+                 <p>This is a very cool Album Name - Excellent Quality - 6:22</p>
+              </div>
+              <div class="col3">
+                 <a class="btn_info hover" href="">More Info</a>
+              </div>
+           </li>
+           <li class="video clearfix">
+              <div class="col1">
+                 <h2><a href="">Night Life - Living Dirty</a></h2>
+                 <p>This is a very cool Album Name - Excellent Quality - 6:22</p>
+              </div>
+              <div class="col3">
+                 <a class="btn_info hover" href="">More Info</a>
+              </div>
+           </li> -->
+       </ul>
+    </div>
+    <div id="footer">
+        <span id="connection_bars" class="strong">Strong Connection</span>
+    </div>
+</div>
+</body>
 </html>

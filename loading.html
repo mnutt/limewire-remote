@@ -29,9 +29,12 @@
     </style>
   </head>
   
-  <body onload="loadImg();">
+  <body onload="loadImg(); document.getElementById('html32').style.display = 'none';">
     <div id="image-loader"></div>
     <img src="images/loading.gif"/>
-    <h1 class="message">LimeWire Remote is loading...</h1>
+    <h1 id="message">LimeWire Remote is loading...</h1>
+    <p id="html32">
+      You seem to be running Mac or Linux.  For an unfortunate variety of reasons, there is no support for a browser embedded in java on these platforms.  Please reload <a href="http://localhost:4422">this link</a> until it works.
+    </p>
   </body>
 </html>

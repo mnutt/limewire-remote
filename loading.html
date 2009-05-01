@@ -8,6 +8,7 @@
       }
       function goToLocation() {
         window.location = "http://localhost:4422/";
+				document.getElementById('message').innerHTML = "LimeWire Remote <a href='http://localhost:4422/'>has loaded</a>.";
       }
     </script>
     <style type="text/css">
@@ -30,6 +31,6 @@
   <body onload="loadImg();">
     <div id="image-loader"></div>
     <img src="images/loading.gif"/>
-    <h1>LimeWire Remote is loading...</h1>
+    <h1.message>LimeWire Remote is loading...</h1>
   </body>
 </html>

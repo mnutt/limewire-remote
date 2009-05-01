@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script type='text/javascript'>
+      function loadImg() {
+        var img = "<img onload='goToLocation();' src='http://localhost:4422/images/limewire_remote_logo.png' />";
+        document.getElementById('image-loader').innerHTML = img;
+        setTimeout("loadImg()", 2000);
+      }
+      function goToLocation() {
+        window.location = "http://localhost:4422/";
+      }
+    </script>
+    <style type="text/css">
+      body {
+        text-align: center;
+        margin-top: 100px;
+        font-family: 'Lucida Grande',Helvetica,sans-serif;
+        background-color: #eee;
+      }
+      #image-loader {
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        visibility: hidden;
+      }
+      h1 { font-weight: normal; }
+    </style>
+  </head>
+  
+  <body onload="loadImg();">
+    <div id="image-loader"></div>
+    <img src="images/loading.gif"/>
+    <h1>LimeWire Remote is loading...</h1>
+  </body>
+</html>

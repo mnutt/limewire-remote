@@ -1,0 +1,57 @@
+#map {
+	position: absolute;
+}
+
+#likebox {
+	position: absolute;
+	left: 170px;
+	top: 37px;
+	margin: 0 0 0 0;
+	padding: 12 0 0 0;
+	vertical-align: middle;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	font-size: 10px;
+	width: 165px;
+	height: 46px;
+	opacity: .9;
+}
+
+#preferences {
+	position: absolute;
+	top: 80px;
+	left: 50%;
+	width: 700px;
+	height: 496px;
+	margin-left: -350px;
+	color: white;
+	font-size: 16px;
+	background: url('/images/prefpane.png') no-repeat 0 0;
+	padding: 60 10 10 30;
+}
+
+#postForm {
+	text-align: center;
+	padding: 20 5 5 5;
+	position: absolute;
+	margin-left: -225px;
+	left: 50%;
+	top: 140px;
+	width: 450px;
+	height: 170px;
+	border: 1px solid black;
+	opacity: 0.9;
+	background: #ddd;
+}
+
+#cssButton {
+	position: absolute;
+	border: 1px solid grey;
+  width: 85px;
+	padding: 5 5 5 5;
+  background: #444;
+	color: white;
+  opacity: 0.9;
+	cursor: pointer;
+}

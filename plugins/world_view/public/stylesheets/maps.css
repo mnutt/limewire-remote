@@ -29,9 +29,10 @@ td {
 	padding: 0px 5px 12px 24px;
 }
 
-#twitterCount {
+#status {
 	position: absolute;
 	top: 7px;
+        right: 7px;
 	width: 200px;
 	color: #eee;
 	background-color: #777;
@@ -40,6 +41,26 @@ td {
 	-moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px;
 	-moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px;
 	-moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px;
+}
+
+#search {
+        z-index: 15000;
+        position: absolute;
+        top: 7px;
+        margin: auto;
+	width: 300px;
+        color: #eee;
+        background-color: #777;
+        opacity: 0.8;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+}
+#search form {
+        margin: 3px;
+}
+#search form #query {
+        margin: 5px 0;
+        width: 200px;
 }
 
 #viewstyle {
@@ -87,7 +108,7 @@ td {
 
 #splash {
 	position: absolute;
-	margin-left: -425px;
+	margin-left: -460px;
 	margin-top: -160px;
 	left: 50%;
 	top: 50%;
@@ -294,4 +315,10 @@ img.profile_image {
 
 div.ip {
   font-weight: bold;
+}
+div#map img#mtgt_unnamed_0 {
+  z-index: 20 !important;
+}
+div#map canvas {
+  z-index: 2500 !important;
 }

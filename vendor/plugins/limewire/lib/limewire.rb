@@ -77,6 +77,7 @@ module Limewire
           :magnet_url => result.getMagnetURL,
           :spam => is_spam,
           :sha1 => result.urn.to_s.split(':').last,
+          :sources => result.getRfd.address.address_description.to_s, #result.alts.to_a.map{|loc| loc.address.to_s },
           :properties => result.getProperties.inject({}) do |memo, obj|
             memo[obj[0].to_s] = obj[1].to_s
             memo

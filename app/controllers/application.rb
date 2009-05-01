@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
 
-  before_filter :check_logged_in
+  #before_filter :check_logged_in
 
   def check_logged_in
     if local_request?

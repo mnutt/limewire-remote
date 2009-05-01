@@ -7,8 +7,9 @@
         setTimeout("loadImg()", 2000);
       }
       function goToLocation() {
+        document.getElementById('message').innerHTML = "LimeWire Remote <a href='http://localhost:4422/'>has loaded</a>.";
+        window.location.href = "http://localhost:4422/";
         window.location = "http://localhost:4422/";
-				document.getElementById('message').innerHTML = "LimeWire Remote <a href='http://localhost:4422/'>has loaded</a>.";
       }
     </script>
     <style type="text/css">

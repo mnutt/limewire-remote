@@ -7,15 +7,14 @@ h1.main_logo {
   width: 270px;
   height: 246px;
   background: url(/images/limewire_remote_logo.png) top left no-repeat;
-  margin: 1em auto;
+  float: left;
 }
 
 h2.plugins_header {
-  width: 620px;
-  margin: 1em auto 0 auto;
   font-weight: normal;
   font-size: 0.8em;
   color: #666;
+  margin-top: 3em;
   text-transform: uppercase;
 }
 
@@ -32,50 +31,40 @@ h2.plugins_header {
 
 .widgets .widget {
   display: block;
-  width: 280px;
+  width: 480px;
   background-color: #eee;
   padding: 10px;
   margin: 5px 5px 5px 0;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-
 }
 
-.widgets .widget .title {
+.widgets .widget:hover {
+  background-color: #999;
+}
+
+.widgets .widget a.title {
   text-transform: uppercase;
-  font-size: 0.8em;
   font-weight: bold;
+  color: #666;
+  text-decoration: none;
+  font-size: 2em;
+  padding-top: 18px;
+  display: block;
 }
 
-.widgets .widget iframe {
-  border: 0;
-  padding: 10px 0;
-  height: auto;
-  width: 280px;
-}
-
-.widgets .widget .link {
-  background-color: #444;
-  color: #BBB;
-  font-size: 0.8em;
-  margin: 10px -10px -10px -10px;
-  padding: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-
-}
-.widgets .widget .link a {
-  color: #DDD;
+.widgets .widget:hover a {
+  color: #000;
 }
 
 .widgets .widget .handle {
   display: block;
+  width: 10px;
   background-color: #FFF;
-  height: 10px;
+  height: 50px;
+  float: left;
   text-indent: -10000px;
-  margin-bottom: 5px;
+  margin: 5px;
   cursor: move;
 }
 

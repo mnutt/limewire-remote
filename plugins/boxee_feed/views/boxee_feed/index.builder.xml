@@ -1,0 +1,30 @@
+xml.instruct! :xml, :version => '1.0'
+xml.rss 'version' => "2.0", 'xmlns:media' => "http://search.yahoo.com/mrss/" do
+  xml.channel do
+    xml.title "LimeWire"
+    xml.description "LimeWire P2P Filesharing Client"
+    xml.language "en-us"
+    xml.image do
+      xml.title "LimeWire"
+      xml.width 100
+      xml.height 100
+      xml.link root_url
+      xml.url "http://" + request.host_with_port + "/images/limewire_remote_logo.png"
+    end
+    
+    @media.each do |file|
+      xml.item do
+        title = h(file.title.to_s.gsub(/\x00/, ""))
+        xml.title title.blank? ? file.file_name : title
+        xml.description h(file.file_name)
+        xml.link library_url(file)
+        xml.media :thumbnail, :url => thumb_url(file, 200)
+        xml.media :content, :url => library_url(file) do
+          xml.media :title, h(file.title.to_s.gsub(/\x00/, ""))
+          xml.media :description, h(file.file_name)
+        end
+        xml.pubDate file.created_at.strftime("%a, %d %b %Y %H:%M:%S")
+      end
+    end
+  end
+end

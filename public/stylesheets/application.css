@@ -40,7 +40,7 @@ h2.plugins_header {
 }
 
 .widgets .widget:hover {
-  background-color: #999;
+  background-color: #5FB455; /* 9b6 */
 }
 
 .widgets .widget a.title {
@@ -54,17 +54,20 @@ h2.plugins_header {
 }
 
 .widgets .widget:hover a {
-  color: #000;
+  color: #FFF;
 }
 
 .widgets .widget .handle {
   display: block;
-  width: 10px;
+  width: 8px;
   background-color: #FFF;
+  background: url('/images/handle.png');
+  border-right: 1px solid #BBB;
+  border-left: 1px solid #BBB;
   height: 50px;
   float: left;
   text-indent: -10000px;
-  margin: 5px;
+  margin: 5px 10px 5px 5px;
   cursor: move;
 }
 

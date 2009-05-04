@@ -191,7 +191,7 @@ SC.Playlist.prototype = {
         baseUrl += "&bpm[to]=" + pl.smart_filter.bpm_to;
       }
     } else { // this is normal playlist
-      baseUrl = baseUrl + "tracks." + format + "?filter=streamable&ids=" + this.properties.playlist.tracks;
+      baseUrl = baseUrl + "library." + format + "?filter=streamable&ids=" + this.properties.playlist.tracks;
     }
     if(format == "js") {
       baseUrl += "&callback=?"; // add JSONP callback param

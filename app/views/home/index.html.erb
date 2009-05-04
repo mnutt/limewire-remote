@@ -7,6 +7,7 @@
 <ul class="widgets">
 <% @plugins.each do |plugin| -%>
   <li class="widget" id="plugin_<%= plugin.name -%>">
+    <img style="float: right;" src="/assets/<%=h plugin.name -%>/images/icon.png" />
     <div class="handle">drag</div>
     <%= link_to plugin.name.gsub('_', ' '), "/#{plugin.name}", {:class => 'title'} -%>
     <div style="clear:both; height: 1px;">&nbsp;</div>

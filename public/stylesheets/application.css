@@ -57,6 +57,10 @@ h2.plugins_header {
   color: #FFF;
 }
 
+.widgets .widget:hover .handle {
+  border-color: #777;
+}
+
 .widgets .widget .handle {
   display: block;
   width: 8px;

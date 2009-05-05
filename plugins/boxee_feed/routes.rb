@@ -6,7 +6,7 @@
 plugin_map.root :controller => 'boxee_feed', :action => 'index'
 
 # Like mapping ':controller/:action', this catches most things
-plugin_map.boxee_feed ':action/:id', :controller => 'boxee_feed'
+plugin_map.boxee_feed 'index.xml', :controller => 'boxee_feed', :action => 'index', :format => 'xml'
 
 # Add this route to point to your widget action if you want to display a widget on the homepage
 # plugin_map.widget "/widget", :controller => 'boxee_feed', :action => 'widget'

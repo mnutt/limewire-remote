@@ -41,5 +41,10 @@ class HomeController < ApplicationController
   def index
     @plugins = Plugin.all
     @positions = DashboardPosition.find(:all, :order => 'list_position ASC')
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @plugins.map{|p| p.name } }
+    end
   end
 end

@@ -13,6 +13,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.assets '/assets/:plugin/*path', :controller => 'assets', :action => 'show'
 
+  map.plugins '/plugins', :controller => 'home', :action => 'index'
+
   map.root :controller => 'home', :action => 'index'
 
   Dir.glob("#{RAILS_ROOT}/plugins/*/routes.rb").each do |routes_file|

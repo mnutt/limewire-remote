@@ -111,6 +111,19 @@ img {
 #lists > div {
 }
 
+#lists #plugin_container {
+  position: relative;
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+#lists #plugin_container iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 #lists > div > div {
   position: absolute;
   top: 17px;
@@ -513,30 +526,30 @@ table {
   left: 0;
   top: 33px;
   bottom: 50px;
-}
-
-#playlists {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0px;
-  bottom: 25px;
-  margin: 0;
-  padding: 0px 0 0 0px;
-  border-bottom: 1px solid #aaa;
-  overflow-y: auto;
-  overflow-x: hidden;
-  /*background-image: url(../images/fade-long.png);*/
   background-color: #F0F9E1;
   background-position: 0 100%;
   background-repeat: repeat-x;
   -webkit-background-size: 100% 100%;  
   background-size: 100% 100%;
   -moz-background-size: 100% 100%;
+}
+
+#sidebar h3 {
+  font-size: 1em;
+  margin: 2px;
+  text-transform: uppercase;
+  color: #444;
+}
+
+#playlists, #plugins {
+  width: 100%;
+  margin: 0;
+  padding: 0px 0 8px 0px;
+  /*background-image: url(../images/fade-long.png);*/
   -moz-user-select : none;
 }
 
-  #playlists li {
+  #playlists li, #plugins li {
     display: block;
     margin: 0px 0px 0px 0;
     padding: 0 0px 0 20px;
@@ -546,14 +559,29 @@ table {
     text-overflow:ellipsis;
     position: relative;
   }
+
+
+  #plugins li {
+    padding: 0;
+  }
+
+    #plugins li img {
+      width: 18px;
+      height: 18px;
+      display: inline;
+      border: 0;
+      line-height: 16px;
+      vertical-align: middle;
+      padding-right: 4px;
+    }
   
-    #playlists li em {
+    #playlists li em, #plugins li em {
       font-style: normal;
       color: #777;
     }
 
     /* playlist icons */
-    #playlists li span {
+    #playlists li span, #plugins li span {
       background-image: url(../images/icons.png);
       background-position: -209px -98px;
       display: block;
@@ -577,7 +605,7 @@ table {
 /*    background-image: url(../images/fade-hilite-2.svg);    
 */  }
 
-  #playlists li.active {
+  #playlists li.active, #plugins li.active {
     font-weight: bold;
     background-color: #91D02D;
     background-image: url(../images/playlist-fade.png);
@@ -585,15 +613,15 @@ table {
     -webkit-background-size: 100% 100%;
   }
   
-    #playlists li.active a, #playlists li.active em {
+    #playlists li.active a, #plugins li.active a, #playlists li.active em, #plugins li.active em {
       color: white;
     }
   
-  #playlists li:hover {
+  #playlists li:hover, #plugins li:hover {
     -webkit-background-size: 100% 100%;    
   }
   
-    #playlists li a {
+    #playlists li a, #plugins li a {
       display: block;
       padding: 5px;
       color: #333;
@@ -602,7 +630,7 @@ table {
       position: relative;
     }
   
-    #playlists li a.delete {
+    #playlists li a.delete, #plugins li a.delete {
       position: absolute;
       right: 5px;
       top: 7px;

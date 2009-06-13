@@ -433,6 +433,25 @@ SC.Player.prototype = {
         });
 
       });
+
+      // load plugins
+      $.getJSON("/", function(plugins) {
+	$.each(plugins, function() {
+	  var label = $("<li><a href='/"+this+"'><img src='/assets/"+this+"/images/icon.png'>"+this+"</a></li>");
+	  label.click(function() {
+	    $('#plugins li, #playlists li').removeClass("active");
+	    $(this).addClass("active");
+	    $('#lists > div').hide();
+	    $('#plugin_container').show().html("<iframe src='"+$(this).find('a').attr('href')+"'></iframe>");
+	    //$.get($(this).find('a').attr('href'), function(result) {
+	    //  var iframe = $("<iframe>"+result+"</iframe>");
+	    //  $('#plugin_container').show().html(iframe);
+	    //});
+	    return false;
+	  });
+	  $('#plugins').append(label);
+	});
+      });
     } else { // not logged in, then load a few standard playlists without persisting
       self.playlists['latest'] = new SC.Playlist({
         is_owner: true,
@@ -722,7 +741,7 @@ SC.Player.prototype = {
     console.log("switching playlists");
     $("#lists > div").hide();
     $("#lists > #list-"+id).show();
-    $("#playlists li").removeClass("active");
+    $("#sidebar li").removeClass("active");
     $("#playlists li[listId="+id+"]").addClass("active");
     this.selectedPlaylist = this.playlists[id];
   },

@@ -434,10 +434,14 @@ SC.Player.prototype = {
 
       });
 
+      var titleize = function(string) {
+	return string.replace(/_/g, " ");
+      };
+
       // load plugins
-      $.getJSON("/", function(plugins) {
+      $.getJSON("/plugins", function(plugins) {
 	$.each(plugins, function() {
-	  var label = $("<li><a href='/"+this+"'><img src='/assets/"+this+"/images/icon.png'>"+this+"</a></li>");
+	  var label = $("<li><a href='/"+this+"'><img src='/assets/"+this+"/images/icon.png'>"+titleize(this)+"</a></li>");
 	  label.click(function() {
 	    $('#plugins li, #playlists li').removeClass("active");
 	    $(this).addClass("active");

@@ -51,7 +51,7 @@ img {
   left: 0;
   border-top: 1px solid #aaa;
   background-color: #eee;
-  background-image: url(../images/fade-160px.png);
+  background-image: url(../../images/cloud/fade-160px.png);
   background-repeat: repeat-x;
   background-position : 0 100%;
   -webkit-background-size: 100% 100%;
@@ -153,7 +153,7 @@ tbody > div > div > marquee, tbody > div > div > div {
 table.list-header {
   width: 100%;
   background-color: white;
-  background-image: url(../images/fade-22px.png);
+  background-image: url(../../images/cloud/fade-22px.png);
   -webkit-background-size: 100% 100%;
 }
 
@@ -252,13 +252,13 @@ table {
   }
 
   table tbody tr.playing {
-    background-image: url(../images/speaker-icon.png);
+    background-image: url(../../images/cloud/speaker-icon.png);
     background-repeat: no-repeat;
     background-position: 3px -22px;
   }
 
   body.playing table tbody tr.playing {
-    background-image: url(../images/speaker-icon.png);
+    background-image: url(../../images/cloud/speaker-icon.png);
     background-repeat: no-repeat;
     background-position: 3px 2px;
   }
@@ -308,7 +308,7 @@ table {
   height: 135px;
   margin: 0;
   padding: 5px 0 0 9px;
-  background-image: url(../images/fade-160px.png);
+  background-image: url(../../images/cloud/fade-160px.png);
   background-color: #eee;
   -webkit-background-size: 100% 100%;  
   background-size: 100% 100%;
@@ -412,7 +412,7 @@ table {
     position: absolute;
     top: 3px;
     left: 24px;
-    background-image: url(../images/icons.png);
+    background-image: url(../../images/cloud/icons.png);
     background-position: -150px 56px;
     width: 104px;
     height: 10px;
@@ -453,7 +453,7 @@ table {
   margin: 0;
   padding: 5px 0 0 9px;
   background-color: #f3f3f3;
-/*  background-image: url(../images/fade-160px.png);*/
+/*  background-image: url(../../images/cloud/fade-160px.png);*/
   -webkit-background-size: 100% 100%;
   background-position : 0 100%;
   background-size: 100% 100%;
@@ -471,7 +471,7 @@ table {
     width: 11px;
     height: 11px;
     display: block;
-    background: transparent url(../images/icons.png) no-repeat -289px -6px;
+    background: transparent url(../../images/cloud/icons.png) no-repeat -289px -6px;
     outline: 0;
   }
 
@@ -545,7 +545,7 @@ table {
   width: 100%;
   margin: 0;
   padding: 0px 0 8px 0px;
-  /*background-image: url(../images/fade-long.png);*/
+  /*background-image: url(../../images/cloud/fade-long.png);*/
   -moz-user-select : none;
 }
 
@@ -563,6 +563,7 @@ table {
 
   #plugins li {
     padding: 0;
+    text-transform: capitalize;
   }
 
     #plugins li img {
@@ -582,7 +583,7 @@ table {
 
     /* playlist icons */
     #playlists li span, #plugins li span {
-      background-image: url(../images/icons.png);
+      background-image: url(../../images/cloud/icons.png);
       background-position: -209px -98px;
       display: block;
       position: absolute;
@@ -597,18 +598,18 @@ table {
   }
 
   #playlists li.droppable-active {
-    /*background: url(../images/fade-hilite-2.svg);*/
+    /*background: url(../../images/cloud/fade-hilite-2.svg);*/
   }
 
   #playlists li.droppable-hover {
     background: #999;
-/*    background-image: url(../images/fade-hilite-2.svg);    
+/*    background-image: url(../../images/cloud/fade-hilite-2.svg);    
 */  }
 
   #playlists li.active, #plugins li.active {
     font-weight: bold;
     background-color: #91D02D;
-    background-image: url(../images/playlist-fade.png);
+    background-image: url(../../images/cloud/playlist-fade.png);
     background-repeat: repeat-x;
     -webkit-background-size: 100% 100%;
   }
@@ -636,7 +637,7 @@ table {
       top: 7px;
       width: 11px;
       height: 11px;
-      background-image: url(../images/icons.png);
+      background-image: url(../../images/cloud/icons.png);
       background-position: -289px -6px;
       padding: 0;
       display: none;
@@ -667,7 +668,7 @@ table {
     display: none;
     width: 12px;
     height: 12px;
-    background-image: url(../images/icons.png);
+    background-image: url(../../images/cloud/icons.png);
     padding: 0;
     background-position: -337px -5px;    
   }
@@ -679,7 +680,7 @@ table {
     display: none;
     width: 12px;
     height: 12px;
-    background-image: url(../images/icons.png);
+    background-image: url(../../images/cloud/icons.png);
     padding: 0;
     background-position: -311px -28px;
   }
@@ -703,7 +704,7 @@ table {
   top: 5px;
   left: 291px;
   right: 129px;  
-  background: #000 url(../images/player-bg.png) repeat-x 0 0;
+  background: #000 url(../../images/cloud/player-bg.png) repeat-x 0 0;
   height: 38px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -726,7 +727,7 @@ table {
     height: 16px;
     right: 49px;
     overflow: hidden;
-    background: black url(../images/waveform-bg.png) repeat-x 0 0;
+    background: black url(../../images/cloud/waveform-bg.png) repeat-x 0 0;
     border: 1px solid #444;
     display: none;
     /*-webkit-border-radius: 5px;*/
@@ -762,7 +763,7 @@ table {
       position: absolute;
     }
     #progress div.inner .playhead {
-      background: transparent url(../images/playhead.png) no-repeat 100% -3px;
+      background: transparent url(../../images/cloud/playhead.png) no-repeat 100% -3px;
       height: 16px;
       width: 13px;
       position: absolute;
@@ -835,7 +836,7 @@ table {
 #throbber {
   width: 32px;
   height: 32px;
-  background-image: url(../images/throbber.gif);
+  background-image: url(../../images/cloud/throbber.gif);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -864,7 +865,7 @@ table {
     display : block;
     float: left;
     height: 19px;
-    background-image: url(../images/icons.png);
+    background-image: url(../../images/cloud/icons.png);
     margin: 1px 2px 1px 2px;
     padding: 3px 0 0 25px;
     font-size: 11px;
@@ -904,7 +905,7 @@ table {
   width: 170px;
   color: #777;
   font-size: 12px;
-  background: white url(../images/search-bg.png) no-repeat 100% 0;
+  background: white url(../../images/cloud/search-bg.png) no-repeat 100% 0;
 }
 
 #q:focus {
@@ -932,7 +933,7 @@ table {
   right: 0;
   border-top: 1px solid #aaa;
   background-color: #555;
-  background-image: url(../images/fade-bottom.png);
+  background-image: url(../../images/cloud/fade-bottom.png);
   background-position: 100% 0;
   -webkit-background-size: 100% 100%;
   -moz-user-select : none;
@@ -942,7 +943,7 @@ table {
   position: absolute;
   top: 20px;
   left: 149px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -150px 56px;
   width: 104px;
   height: 10px;  
@@ -954,7 +955,7 @@ table {
   left: 134px;
   height: 15px;
   width: 11px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -139px 58px;
 }
 
@@ -964,7 +965,7 @@ table {
   left: 257px;
   height: 15px;
   width: 18px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -254px 58px;
 }
 
@@ -972,7 +973,7 @@ table {
   width: 12px;
   height: 12px;
   top: -1px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -151px 79px;
   position: absolute;
   z-index: 10;
@@ -989,7 +990,7 @@ table {
   left: 45px;
   width: 35px;
   height: 35px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -53px -28px;
 }
 
@@ -1010,7 +1011,7 @@ table {
   left: 86px;
   width: 29px;
   height: 29px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -94px -31px;
 }
 
@@ -1023,7 +1024,7 @@ table {
   left: 11px;
   width: 29px;
   height: 29px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -18px -31px;
 }
 
@@ -1036,7 +1037,7 @@ table {
   right: 68px;
   width: 42px;
   height: 22px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -654px -35px;
 }
 
@@ -1057,7 +1058,7 @@ table {
   right: 13px;
   width: 42px;
   height: 22px;
-  background-image: url(../images/icons.png);
+  background-image: url(../../images/cloud/icons.png);
   background-position: -703px -35px;
 }
 
@@ -1182,14 +1183,14 @@ table {
     width: 11px;
     height: 11px;
     display: block;
-    background: transparent url(../images/icons.png) no-repeat -289px -6px;
+    background: transparent url(../../images/cloud/icons.png) no-repeat -289px -6px;
     outline: 0;
   }
 
   #about-box h1 {
     margin: 0 0 8px 0;
     text-indent: -9999px;
-    background-image: url(../images/about-logo.png);
+    background-image: url(../../images/cloud/about-logo.png);
     width: 360px;
     height: 42px;
   }
@@ -1226,7 +1227,7 @@ table {
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    background: url(../images/fade-2.png) repeat-x 0 0%;
+    background: url(../../images/cloud/fade-2.png) repeat-x 0 0%;
     clear:both;
   }
   
@@ -1260,7 +1261,7 @@ table {
   }
   
   #feature-list li span {
-    background-image: url(../images/icons.png);
+    background-image: url(../../images/cloud/icons.png);
     background-position: -209px -98px;
     display: block;
     position: absolute;

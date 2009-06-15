@@ -644,7 +644,7 @@ table {
     }
 
   /* auto-show action if logged-in */
-  .logged-in #playlists li a.delete, .logged-in #playlists li a.share, .logged-in #playlists li a.collaborative {
+  .logged-in #playlists li a.delete {
     display: block;
   }
   

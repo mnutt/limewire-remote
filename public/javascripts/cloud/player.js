@@ -441,12 +441,12 @@ SC.Player.prototype = {
       // load plugins
       $.getJSON("/plugins", function(plugins) {
 	$.each(plugins, function() {
-	  var label = $("<li><a href='/"+this+"'><img src='/assets/"+this+"/images/icon.png'>"+titleize(this)+"</a></li>");
-	  label.click(function() {
+	  var label = $("<li><a href='#"+this+"'><img src='/assets/"+this+"/images/icon.png'>"+titleize(this)+"</a></li>");
+	  label.history(function() {
 	    $('#plugins li, #playlists li').removeClass("active");
 	    $(this).addClass("active");
 	    $('#lists > div').hide();
-	    $('#plugin_container').show().html("<iframe src='"+$(this).find('a').attr('href')+"'></iframe>");
+	    $('#plugin_container').show().html("<iframe src='"+$(this).find('a').attr('href').replace(/\#/, "/")+"'></iframe>");
 	    //$.get($(this).find('a').attr('href'), function(result) {
 	    //  var iframe = $("<iframe>"+result+"</iframe>");
 	    //  $('#plugin_container').show().html(iframe);

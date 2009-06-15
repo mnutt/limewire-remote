@@ -32,9 +32,6 @@
 				// fetch the thumbnail container
 				var _li = thumb.parents('li');
 				
-				// fade out inactive thumbnail
-				_li.siblings().children('img.selected').fadeTo(500,0.3);
-				
 				// fade in active thumbnail
 				thumb.fadeTo('fast',1).addClass('selected');
 				
@@ -48,7 +45,7 @@
 				var _li = thumb.parents('li');
 				
 				// if thumbnail is active, fade all the way.
-				var _fadeTo = _li.is('.active') ? '1' : '0.3';
+				var _fadeTo = '1';
 				
 				// fade in the thumbnail when finnished loading
 				thumb.css({display:'none',opacity:_fadeTo}).fadeIn(1500);
@@ -56,7 +53,7 @@
 				// hover effects
 				thumb.hover(
 					function() { thumb.fadeTo('fast',1); },
-					function() { _li.not('.active').children('img').fadeTo('fast',0.3); } // don't fade out if the parent is active
+					function() {  }
 				)
 			}
 		});
@@ -67,33 +64,90 @@
 	
 	/* BEGIN DEMO STYLE */
 	*{margin:0;padding:0}
-	body{padding:20px;background:white;text-align:center;background:black;color:#bba;font:80%/140% georgia,serif;}
-	h1,h2{font:bold 80% 'helvetica neue',sans-serif;letter-spacing:3px;text-transform:uppercase;}
-	a{color:#348;text-decoration:none;outline:none;}
-	a:hover{color:#67a;}
-	.caption{font-style:italic;color:#887;}
-	.demo{position:relative;margin-top:2em;}
-	.gallery_demo{width:702px;margin:0 auto;}
-	.gallery_demo li{width:68px;height:50px;border:3px double #111;margin: 0 2px;background:#000;}
-	.gallery_demo li div{left:240px}
-	.gallery_demo li div .caption{font:italic 0.7em/1.4 georgia,serif;}
+	body{
+	  padding:10px;
+	  background:#EEE;
+	  color:#bba;
+	  font:80%/140% georgia,serif;
+	}
+	h1,h2{
+	  font:Helvetica,sans-serif;
+	  text-transform:uppercase;
+	}
+	a{
+	  color:#348;
+	  text-decoration:none;
+	  outline:none;
+	}
+	a:hover{color: #67a;}
+	.caption{
+	  font-style: italic;
+	  color: #887;
+	}
+	.demo{
+	  position: relative;
+	}
+	.gallery_demo{
+	  width: 100%;
+	  margin: 0 auto;
+	}
+	.gallery_demo li{
+	  width: 100px;
+	  height: 60px;
+	  margin: 8px;
+	}
+	.gallery_demo li div {
+	  left: 240px;
+	}
+	.gallery_demo li div .caption {
+	  font:italic 0.7em/1.4 georgia,serif;
+	}
+
+	.galleria li {
+	  border-right: 2px solid #999;
+	  border-bottom: 2px solid #999;
+	}
 	
-	#main_image{margin:0 auto 60px auto;height:438px;width:700px;background:black;}
-	#main_image img{margin-bottom:10px;}
+	#main_image { 
+	  display: none; 
+	  margin:0; 
+	  width:100%; 
+	  height: 100%; 
+	  background-color: #999; 
+	  position: absolute; 
+	  top: 0; 
+	  left: 0; 
+	  bottom: 0; 
+	  right: 0;
+	}
+	#main_image img { margin-bottom:10px; }
 	
-	.nav{padding-top:15px;clear:both;font:80% 'helvetica neue',sans-serif;letter-spacing:3px;text-transform:uppercase;}
+	.nav {
+	  padding-top: 15px;
+	  clear:both;
+	  font:80% Helvetica,sans-serif;
+	  text-transform:uppercase;
+	  display: none;
+	}
 	
-	.info{text-align:left;width:700px;margin:30px auto;border-top:1px dotted #221;padding-top:30px;}
-	.info p{margin-top:1.6em;}
+	.info {
+	  text-align:left;
+	  width:700px;
+	  margin:30px auto;
+	  border-top:1px dotted #221;
+	  padding-top:30px;
+	}
+	.info p {
+	  margin-top:1.6em;
+	}
 	
     </style>
 	
 </head>
 <body>
-<h1>All photos</h1>
 <div class="demo">
-<div id="main_image"></div>
 <%= render :partial => "photo_list", :locals => {:photos => @photos } %>
+<div id="main_image"></div>
 <p class="nav"><a href="#" onclick="$.galleria.prev(); return false;">&laquo; previous</a> | <a href="#" onclick="$.galleria.next(); return false;">next &raquo;</a></p>
 </div>
 </body>

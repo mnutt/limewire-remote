@@ -3,7 +3,7 @@
 # map.with_options(:path_prefix => 'galleries')
 
 # Map a controller and action to respond to /galleries
-plugin_map.root :controller => 'galleries', :action => 'index'
+plugin_map.root :controller => 'galleries', :action => 'all'
 plugin_map.widget "/widget", :controller => 'galleries', :action => 'widget'
 # Like mapping ':controller/:action', this catches most things
 plugin_map.backup ':action/:id', :controller => 'galleries'

@@ -7,6 +7,8 @@
     <%= javascript_include_tag 'jquery-periodic' -%>
     <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
     <style type="text/css">
+      h1 {  }
+      body { margin: 20px; background-color: #EEE; font-family: Helvetica; }
       #total_progress,
       #file_progress {
         height: 5px;
@@ -23,9 +25,6 @@
     </style>
   </head>
   <body>
-    <center><img src="/images/limewire_remote_logo.png" /></center>
-    <div style="width: 650px; margin: auto;">
-      <%= yield -%>
-    </div>
+    <%= yield -%>
   </body>
 </html>

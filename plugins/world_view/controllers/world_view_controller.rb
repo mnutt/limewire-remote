@@ -7,8 +7,9 @@ class WorldViewController < PluginController
   end
 
   def downloading
-    # @hosts = Core::DownloadListManager.downloads.map{|d| d.sources.map{|s| s.address.to_s} }.flatten.compact
-    @hosts = ["216.178.38.116", "129.59.1.10"]
+    @hosts = Core::DownloadListManager.downloads.map{|d| d.sources.map{|s| s.address.to_s} }.flatten.compact
+    # for testing, one in LA, one in TN
+		# @hosts = ["216.178.38.116", "129.59.1.10"]
     render :json => @hosts.to_json
   end
 

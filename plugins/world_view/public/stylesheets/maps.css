@@ -29,26 +29,45 @@ td {
 	padding: 0px 5px 12px 24px;
 }
 
-#status {
+#search {
 	position: absolute;
 	top: 7px;
         right: 7px;
-	width: 200px;
+	width: 300px;
 	color: #eee;
 	background-color: #777;
 	opacity: .8;
+        padding: 10px;
 	-moz-border-radius-topleft: 5px; -webkit-border-top-left-radius: 5px;
 	-moz-border-radius-topright: 5px; -webkit-border-top-right-radius: 5px;
 	-moz-border-radius-bottomleft: 5px; -webkit-border-bottom-left-radius: 5px;
 	-moz-border-radius-bottomright: 5px; -webkit-border-bottom-right-radius: 5px;
 }
 
-#search {
+#search #results {
+        text-align: left;
+}
+#search #results ol li {
+}
+
+#search #results .next-results {
+        display: none;
+        float: right;
+}
+#search #results .prev-results {
+        display: none;
+}
+
+#search #results a {
+        color: #FFF;
+}
+
+#status {
         z-index: 15000;
         position: absolute;
         top: 7px;
         margin: auto;
-	width: 300px;
+	width: 200px;
         color: #eee;
         background-color: #777;
         opacity: 0.8;
@@ -88,9 +107,9 @@ td {
 
 #mapCaption {
 	position: absolute;
-	margin-left: -575px;
+	margin-left: -275px;
 	left: 50%;
-	width: 1150px;
+	width: 550px;
 	height: 21px;	
 	background-color: #777;
 	color: #eee;

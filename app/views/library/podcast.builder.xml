@@ -1,0 +1,17 @@
+xml.rss("version" => "2.0") do
+  xml.channel do
+    xml.title "LimeWire"
+    xml.link "http://limewire.com"
+    xml.description "Files served from the LimeWire Client"
+    xml.language "en-us"
+    
+    @tracks.each do |track|
+      xml.item do
+        xml.title track.title
+        xml.description "Album: #{track.album}, Artist: #{track.artist}"
+        xml.guid track.sha1
+        xml.enclosure(:url => library_url(track.sha1), :type => 'audio/mpeg')
+      end
+    end
+  end
+end 

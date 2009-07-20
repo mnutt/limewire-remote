@@ -1,0 +1,20 @@
+<% plugin_javascript_include "downloads" -%>
+
+<tree id="downloads" flex="1" enableColumnDrag="true" >
+  <treecols>
+    <treecol id="space-label" label=" " />
+    <splitter class="tree-splitter" />
+    <treecol id="name-label" label="Title" sort="Title" flex="10" />
+    <splitter class="tree-splitter" />
+    <treecol id="size-label" label="Size" sort="Size" flex="1" />
+    <splitter class="tree-splitter" />
+    <treecol id="size-label" label="Speed" sort="Speed" flex="1" />
+    <splitter class="tree-splitter" />
+    <treecol id="size-label" label="Done" sort="Done" flex="1" type="progressmeter" />
+    <splitter class="tree-splitter" />
+    <treecol id="size-label" label="ETA" sort="ETA" flex="1" />    
+  </treecols>
+
+  <treechildren>
+  </treechildren>
+</tree>

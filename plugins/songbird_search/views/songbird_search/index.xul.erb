@@ -1,0 +1,20 @@
+<% plugin_javascript_include "flexigrid.js", "jquery.hotkeys.js", "jquery.get_params.js", "live_search", "search" -%>
+
+<tree id="results" flex="1" enableColumnDrag="true" >
+  <treecols>
+    <treecol id="space-label" label=" " />
+    <splitter class="tree-splitter" />
+    <treecol id="from-label" label="From" sort="From" flex="2" />
+    <splitter class="tree-splitter" />
+    <treecol id="name-label" label="Name" sort="Name" flex="10" />
+    <splitter class="tree-splitter" />
+    <treecol id="extension-label" label="Extension" sort="?extension" flex="1" />
+    <splitter class="tree-splitter" />
+    <treecol id="type-label" label="Type" sort="Type" flex="1" />
+    <splitter class="tree-splitter" />
+    <treecol id="size-label" label="Size" sort="Size" flex="1" />
+  </treecols>
+
+  <treechildren>
+  </treechildren>
+</tree>

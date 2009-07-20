@@ -12,7 +12,7 @@ jQuery(document).ready(function(){
 
   var getResultsForGuid = function(guid) {
     //$('#results').html('');
-    $('#results').before("<input type='hidden' name='guid' value='"+guid+"'>");
+    // $('#results').before("<input type='hidden' name='guid' value='"+guid+"'>");
     var times_refreshed = 0;
     var _loadingSearch = false;
     $.periodic(function(controller) {
@@ -28,24 +28,24 @@ jQuery(document).ready(function(){
 
 	$.each(results, function(index, result) {
 	  if($('#'+result.sha1).length == 0) {
-	    var item =  "<tr class='result' id="+result.sha1+">";
-	    item += "  <td class='space'> </td>";
-	    item += "  <td class='from'>"+result.sources+"</td>";
-	    item += "  <td class='name'>"+result.properties.NAME+"</td>";
-	    item += "  <td class='extension'>"+result.filename.split('.').reverse()[0]+"</td>";
-	    item += "  <td class='type'>Audio</td>";
-	    item += "  <td class='size'>"+size_format(result.properties.FILE_SIZE)+"</td>";
-	    //item += "  <td class='percent'></div>";
-	    //item += "  <td class='progress'></div>";
-	    item += "</tr>";
-	    $('#results tbody').append(item);
+	    var treeItem = $(document.createElement('treeitem')).addClass('result').attr('id', result.sha1);
+	    var treeRow = $(document.createElement('treerow'));
+
+	    treeRow.append($(document.createElement('treecell')).addClass('space').attr('label', ' '));
+	    treeRow.append($(document.createElement('treecell')).addClass('from').attr('label', result.sources));
+	    treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.properties.NAME));
+	    treeRow.append($(document.createElement('treecell')).addClass('extension').attr('label', result.filename.split('.').reverse()[0]));
+	    treeRow.append($(document.createElement('treecell')).addClass('type').attr('label', result.category));
+	    treeRow.append($(document.createElement('treecell')).addClass('size').attr('label', size_format(result.properties.FILE_SIZE)));
+
+	    treeItem.append(treeRow);
+	    $('#results treechildren').append(treeItem);
 
 	    //if(index == 0) { $("#results li:first").addClass("selected"); }
 	    //$('#results li:last').click(startDownload);
 	  }
-	  sizeHeaders();
 
-	  if($('#results tbody tr').length > 50) {
+	  if($('#results treechildren').length > 50) {
 	    controller.stop();
 	  }
 	});
@@ -162,14 +162,6 @@ jQuery(document).ready(function(){
     var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
 
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-  };
-
-  var sizeHeaders = function() {
-    var headers = ["from", "name", "extension", "type", "size"];
-    for(var i = 0; i < headers.length; i++) {
-      var header = headers[i];
-      $('table#results th.'+header).css({width: $('table#results td.'+header).width() - 1 + "px"});
-    }
   };
 
   var query = $.getURLParam('q');

@@ -4,6 +4,8 @@
 
 # Map a controller and action to respond to /search
 plugin_map.root :controller => 'songbird_search', :action => 'index'
+plugin_map.xul 'index.xul', :controller => 'songbird_search', :action => 'index', :format => 'xul'
+plugin_map.downloads 'downloads.xul', :controller => 'songbird_search', :action => 'downloads', :format => 'xul'
 # Like mapping ':controller/:action', this catches most things
 plugin_map.search ':action/:id', :controller => 'search'
 

@@ -33,14 +33,14 @@ jQuery(document).ready(function(){
 
 	    treeRow.append($(document.createElement('treecell')).addClass('space').attr('label', ' '));
 	    treeRow.append($(document.createElement('treecell')).addClass('from').attr('label', result.sources));
-	    if(result.properties.TITLE && result.properties.AUTHOR) {
-	      treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.properties.TITLE + " - " + result.properties.AUTHOR));
+	    if(result.title && result.author) {
+	      treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.author + " - " + result.title));
 	    } else {
-	      treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.properties.NAME));
+	      treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.name));
 	    }
 	    treeRow.append($(document.createElement('treecell')).addClass('extension').attr('label', result.filename.split('.').reverse()[0]));
 	    treeRow.append($(document.createElement('treecell')).addClass('type').attr('label', result.category));
-	    treeRow.append($(document.createElement('treecell')).addClass('size').attr('label', size_format(result.properties.FILE_SIZE)));
+	    treeRow.append($(document.createElement('treecell')).addClass('size').attr('label', size_format(result.file_size)));
 
 	    treeItem.append(treeRow);
 	    $('#results treechildren').append(treeItem);

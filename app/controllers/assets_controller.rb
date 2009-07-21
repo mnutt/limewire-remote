@@ -1,3 +1,5 @@
+require 'mongrel/handlers'
+
 class AssetsController < ApplicationController
   skip_before_filter :check_logged_in
 

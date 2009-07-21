@@ -461,12 +461,12 @@ SC.Playlist.prototype = {
 	  new_track.magnet = track.magnet_url;
 	  new_track.sha1 = track.sha1;
 	  new_track.artist = {};
-	  new_track.artist.name = "";
-	  new_track.title = track.properties.TITLE;
-	  new_track.album = track.filename;
+	  new_track.artist.name = track.author || "";
+	  new_track.title = track.title || track.name;
+	  new_track.album = track.album;
 	  new_track.bpm = 0;
 	  new_track.duration = 10;
-	  new_track.genre="Awesome";
+	  new_track.genre=track.genre;
 	  track = new_track;
 
       }

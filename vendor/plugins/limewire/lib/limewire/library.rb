@@ -4,10 +4,10 @@ module Limewire
   module Library
     def self.add_folder(path)
       Core::LibraryManager.library_managed_list.addFolder(java.io.File.new(path))
-      @core_file_list = nil #force recaching of files
+      @core_collection = nil #force recaching of files
     end
     def self.core_file_list #nodoc#
-      @core_file_list ||= Core::LibraryManager.library_managed_list.core_file_list
+      @core_collection ||= Core::LibraryManager.library_managed_list.core_collection
     end
       
     def self.all_files
@@ -83,8 +83,7 @@ module Limewire
 
     # Find a file by its SHA1 hash
     def self.find_by_sha1(sha1)
-      old_urn = Core::OldURN.createSHA1Urn(sha1)
-      urn = Core::URNImpl.new(old_urn)
+      urn = Core::OldURN.createSHA1Urn(sha1)
       file = self.core_file_list.get_file_descs_matching(old_urn)
       file[0]
     rescue

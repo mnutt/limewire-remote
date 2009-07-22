@@ -5,8 +5,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <%= javascript_include_tag 'jquery' -%>
-  <%= javascript_include_tag 'jquery-periodic' -%>
+  <%= javascript_include_tag 'jquery', 'json2', 'jquery.cometd', 'jquery-periodic' -%>
   <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 
   <vbox flex="1" style="overflow: auto">

@@ -5,59 +5,44 @@ jQuery(document).ready(function(){
   var submitSearch = function(query) {
     $.post('/search', {query: query}, function(search) {
       var guid = search.guid;
-      getResultsForGuid(guid);
+      startComet(guid);
     }, "json");
     return false;
   };
 
-  var getResultsForGuid = function(guid) {
-    //$('#results').html('');
-    // $('#results').before("<input type='hidden' name='guid' value='"+guid+"'>");
-    var times_refreshed = 0;
-    var _loadingSearch = false;
-    $.periodic(function(controller) {
-      if(_loadingSearch) { _loadingSearch = false; return true; }
-      if(times_refreshed && times_refreshed > 20) { controller.stop(); }
+  var receiveSearchResult = function(result) {
+    if(!result.data || !result.data.sha1) { return; }
+    result = result.data;
+    if($('#'+result.sha1).length == 0) {
+      var treeItem = $(document.createElement('treeitem')).addClass('result').attr('id', result.sha1);
+      var treeRow = $(document.createElement('treerow'));
 
-      _loadingSearch = true;
-      times_refreshed ? times_refreshed++ : times_refreshed = 1;
+      treeRow.append($(document.createElement('treecell')).addClass('space').attr('label', ' '));
+      treeRow.append($(document.createElement('treecell')).addClass('from').attr('label', "" + result.sources.length + " Source(s)"));
 
-      $.getJSON("/search/" + guid, function(realData) {
-	var results = eval(realData).results;
-	if(results.length > 0) { $("#loading").hide(); }
+      if(result.title && result.author) {
+	treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.author + " - " + result.title));
+      } else {
+	treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.name));
+      }
 
-	$.each(results, function(index, result) {
-	  if($('#'+result.sha1).length == 0) {
-	    var treeItem = $(document.createElement('treeitem')).addClass('result').attr('id', result.sha1);
-	    var treeRow = $(document.createElement('treerow'));
+      treeRow.append($(document.createElement('treecell')).addClass('extension').attr('label', result.filename.split('.').reverse()[0]));
+      treeRow.append($(document.createElement('treecell')).addClass('type').attr('label', result.category));
+      treeRow.append($(document.createElement('treecell')).addClass('size').attr('label', size_format(result.file_size)));
 
-	    treeRow.append($(document.createElement('treecell')).addClass('space').attr('label', ' '));
-	    treeRow.append($(document.createElement('treecell')).addClass('from').attr('label', result.sources));
-	    if(result.title && result.author) {
-	      treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.author + " - " + result.title));
-	    } else {
-	      treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.name));
-	    }
-	    treeRow.append($(document.createElement('treecell')).addClass('extension').attr('label', result.filename.split('.').reverse()[0]));
-	    treeRow.append($(document.createElement('treecell')).addClass('type').attr('label', result.category));
-	    treeRow.append($(document.createElement('treecell')).addClass('size').attr('label', size_format(result.file_size)));
+      treeItem.append(treeRow);
+      $('#results treechildren').append(treeItem);
 
-	    treeItem.append(treeRow);
-	    $('#results treechildren').append(treeItem);
+      //if(index == 0) { $("#results li:first").addClass("selected"); }
+      //$('#results li:last').click(startDownload);
+    }
+  };
 
-	    //if(index == 0) { $("#results li:first").addClass("selected"); }
-	    //$('#results li:last').click(startDownload);
-	  }
-
-	  if($('#results treechildren').length > 50) {
-	    controller.stop();
-	  }
-	});
-
-	_loadingSearch = false;
-      });
-      return true;
-    }, {frequency: 1});
+  var startComet = function(guid) {
+    var cometURL = document.location.protocol + '//' + document.location.hostname + ':' + document.location.port + '/comet';
+    $.cometd.init(cometURL);
+    $.cometd.subscribe('/search', this, receiveSearchResult);
+    $.cometd.publish('/search', guid);
   };
 
   var startDownload = function(ev) {

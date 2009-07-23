@@ -67,9 +67,8 @@ module Limewire
     # - +guid+: the guid of the search that found the file.
     def self.create(urn, guid)
       search = Search.find(guid)
-      result = search.raw_results.select {|r| r.urn.to_s.split(':').last == urn }.first
-      rfi = org.limewire.core.impl.library.CoreRemoteFileItem.new(result)
-      Core::DownloadListManager.add_download(rfi)
+      results = search.raw_results.select {|r| r.urn.to_s.split(':').last == urn }
+      Core::DownloadListManager.add_download(search, results)
     end
     
     # Retrieve all of the searches, as an array of Downloads.

@@ -25,7 +25,7 @@ var receiveSearchResult = function(result) {
     $('#results treechildren').attr('id', result.data.guid);
     return;
   }
-  
+
   if(!result.data || !result.data.sha1) { return; }
   result = result.data;
 
@@ -34,11 +34,6 @@ var receiveSearchResult = function(result) {
     var treeRow = $(document.createElement('treerow'));
 
     treeRow.append($(document.createElement('treecell')).addClass('space').attr('label', ' '));
-    if(!result.in_library) {
-      treeRow.append($(document.createElement('treecell')).addClass('from').attr('label', "" + result.sources.length + " Source(s)"));
-    } else {
-      treeRow.append($(document.createElement('treecell')).addClass('from').attr('label', "Library"));
-    }
 
     if(result.title && result.author) {
       treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.author + " - " + result.title));
@@ -46,8 +41,13 @@ var receiveSearchResult = function(result) {
       treeRow.append($(document.createElement('treecell')).addClass('name').attr('label', result.name));
     }
 
+    if(!result.in_library) {
+      treeRow.append($(document.createElement('treecell')).addClass('from').attr('label', "" + result.sources.length + " Source(s)"));
+    } else {
+      treeRow.append($(document.createElement('treecell')).addClass('from').attr('label', "Library"));
+    }
+
     treeRow.append($(document.createElement('treecell')).addClass('extension').attr('label', result.filename.split('.').reverse()[0]));
-    treeRow.append($(document.createElement('treecell')).addClass('type').attr('label', result.category));
     treeRow.append($(document.createElement('treecell')).addClass('size').attr('label', size_format(result.file_size)));
 
     treeItem.append(treeRow);

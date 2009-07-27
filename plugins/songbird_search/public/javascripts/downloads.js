@@ -42,7 +42,7 @@ var updateDownload = function(download) {
   if(existing.length > 0) {
     var row = existing;
   } else {
-    $('#downloads treechildren').addXULRow(["title", "state", "size", "speed", "done", "eta"], download.sha1);
+    $('#downloads treechildren').addXULRow(["title", "artist", "album", "time", "done", "status", "eta", "size"], download.sha1);
     var row = $('#downloads #'+download.sha1);
   }
 
@@ -59,11 +59,18 @@ var updateDownload = function(download) {
     download.remaining_time = download.remaining_time + " sec";
   }
 
+  download.state = download.state.toLowerCase();
+  if(download.state == "downloading") {
+    download.status = size_format(download.download_speed * 1000) + "/s";
+  }
+
   if(!download.title) { download.title = download.file_name; }
   row.updateXULValues({ title: download.title,
-			state: download.state.toLowerCase(),
-                        size: size_format(download.complete) + " / " + size_format(download.total_size),
-	     	        speed: size_format(download.download_speed * 1000) + "/s",
+			artist: download.artist,
+			album: download.album,
+			time: time_format(download.duration),
 		        done: "" + download.percent_complete,
-			eta: "" + download.remaining_time });
+			status: download.status,
+			eta: "" + download.remaining_time,
+			size: size_format(download.complete) + " / " + size_format(download.total_size) });
 };

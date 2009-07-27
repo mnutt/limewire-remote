@@ -14,15 +14,13 @@
     <treecols>
       <treecol id="space-label" label=" " />
       <splitter class="tree-splitter" />
-      <treecol id="from-label" label="From" sort="From" flex="2" />
+      <treecol id="name-label" label="Title" sort="Name" flex="80" />
       <splitter class="tree-splitter" />
-      <treecol id="name-label" label="Name" sort="Name" flex="10" />
+      <treecol id="from-label" label="From" sort="From" flex="8" />
       <splitter class="tree-splitter" />
       <treecol id="extension-label" label="Extension" sort="?extension" flex="1" />
       <splitter class="tree-splitter" />
-      <treecol id="type-label" label="Type" sort="Type" flex="1" />
-      <splitter class="tree-splitter" />
-      <treecol id="size-label" label="Size" sort="Size" flex="1" />
+      <treecol id="size-label" label="Size" sort="Size" flex="8" />
     </treecols>
     
     <treechildren contextmenu="resultpopup">
@@ -40,19 +38,23 @@
 
   <tree id="downloads" flex="3" enableColumnDrag="true" >
     <treecols>
-      <treecol id="space-label" label=" " />
+      <treecol id="space-label" label="▸" />
       <splitter class="tree-splitter" />
-      <treecol id="name-label" label="Title" sort="Title" flex="20" />
+      <treecol id="title-label" label="Title" sort="Title" flex="20" />
       <splitter class="tree-splitter" />
-      <treecol id="state-label" label="State" sort="State" flex="2" />
+      <treecol id="artist-label" label="Artist" sort="Artist" flex="10" />
       <splitter class="tree-splitter" />
-      <treecol id="size-label" label="Size" sort="Size" flex="4" />
+      <treecol id="album-label" label="Album" sort="Album" flex="8" />
       <splitter class="tree-splitter" />
-      <treecol id="speed-label" label="Speed" sort="Speed" flex="2" />
+      <treecol id="time-label" label="Time" sort="Time" flex="1" />
       <splitter class="tree-splitter" />
-      <treecol id="done-label" label="Done" sort="Done" flex="2" type="progressmeter" />
+      <treecol id="done-label" label="Done" sort="Done" hidden="true" flex="2" type="progressmeter" />
       <splitter class="tree-splitter" />
-      <treecol id="eta-label" label="ETA" sort="ETA" flex="2" />    
+      <treecol id="speed-label" label="Status" sort="Status" flex="4" />
+      <splitter class="tree-splitter" />
+      <treecol id="eta-label" label="ETA" sort="ETA" flex="2" /> 
+      <splitter class="tree-splitter" />   
+      <treecol id="size-label" label="Size" hidden="true" sort="Size" flex="2" />
     </treecols>
 
     <treechildren>

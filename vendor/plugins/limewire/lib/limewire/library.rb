@@ -84,7 +84,7 @@ module Limewire
     # Find a file by its SHA1 hash
     def self.find_by_sha1(sha1)
       urn = Core::OldURN.createSHA1Urn(sha1)
-      file = self.core_file_list.get_file_descs_matching(old_urn)
+      file = self.core_file_list.get_file_descs_matching(urn)
       file[0]
     rescue
       nil

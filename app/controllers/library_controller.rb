@@ -1,4 +1,5 @@
 require 'image_voodoo'
+require 'mongrel'
 
 class LibraryController < ApplicationController
   skip_before_filter :check_logged_in

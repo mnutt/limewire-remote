@@ -141,7 +141,7 @@ class LibraryController < ApplicationController
         render :text => "record exists, but file not found: #{file.path}", :status => 404
       end
     else
-      render :status => 404, :text => "file not found: #{params[:sha1]}"
+      render :status => 404, :text => "file not found: #{params[:id]}"
     end
   end
 end

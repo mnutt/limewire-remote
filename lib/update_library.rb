@@ -1,5 +1,5 @@
 # Updates the database with limewire's library
-if $injector
+if Core.injector
   Limewire::Library.all_files.each do |file|
     record = FileDesc.find_by_sha1urn(file.getSHA1Urn.to_s) || FileDesc.new
     record.sha1urn = file.getSHA1Urn.to_s
@@ -12,8 +12,8 @@ if $injector
     record.size = file.file_size
     record.path = file.path
     record.is_store = file.store_file?
-    record.shared_with_gnutella = file.shared_with_gnutella?
-    record.share_list_count = file.share_list_count
+#    record.shared_with_gnutella = file.shared_with_gnutella?
+#    record.share_list_count = file.share_list_count
     record.completed_upload_count = file.completed_uploads
     record.attempted_upload_count = file.attempted_uploads
     record.hit_count = file.hit_count

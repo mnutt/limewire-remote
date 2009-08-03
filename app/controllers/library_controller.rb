@@ -1,4 +1,5 @@
 require 'image_voodoo'
+require 'mongrel'
 
 class LibraryController < ApplicationController
   skip_before_filter :check_logged_in
@@ -141,7 +142,7 @@ class LibraryController < ApplicationController
         render :text => "record exists, but file not found: #{file.path}", :status => 404
       end
     else
-      render :status => 404, :text => "file not found: #{params[:sha1]}"
+      render :status => 404, :text => "file not found: #{params[:id]}"
     end
   end
 end

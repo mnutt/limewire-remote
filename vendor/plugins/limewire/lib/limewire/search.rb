@@ -10,6 +10,10 @@ module Limewire
       self.new Core::SearchManager.getSearchByGuid(Core::GUID.new(guid))
     end
 
+    def self.all
+      Core::SearchManager.all_searches
+    end
+
     # Creates a new search based on a search term.  Returns a Search, which provides a +guid+ for lookup later.
     # 
     # - +query+: The term to search for

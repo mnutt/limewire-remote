@@ -1,0 +1,60 @@
+h1 {
+  font-size: 3em; 
+  color: #FFF; 
+  background-color: #000; 
+  padding: 0 0.2em; 
+  margin-bottom: 1em;
+}
+
+#search_label {
+  font-size: 1.8em; 
+  text-align:right;
+}
+
+#search_label div {
+  padding-top: 0.2em;
+}
+
+#search_field form {
+  padding-right: 6em; 
+  padding-bottom: 2em;
+}
+
+#search_field input {
+  width: 100%; 
+  font-size: 1.6em; 
+  border: 1px solid #999; 
+  padding: 4px;
+}
+
+.result {
+  border-top: 1px solid #222;
+  clear: both; 
+  margin-bottom: 25px;
+}
+
+.result .player {
+  float: left; 
+  width: 40px; 
+  height: 40px;
+  background-color: #222;
+}
+
+
+
+.result h2 {
+  font-size: 1.6em; 
+  margin: 5px 10px 0px 45px;
+}
+
+.result .tags {
+  margin-left: 45px;
+}
+
+.result .tags a {
+  background-color: #CCC;
+  padding: 0 0.1em;
+  margin-right: 0.8em;
+  float: left;
+  -moz-border-radius: 3px;
+}

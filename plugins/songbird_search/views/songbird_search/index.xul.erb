@@ -1,4 +1,4 @@
-<% plugin_javascript_include "jquery.get_params.js", "comet-setup", "search", "downloads" -%>
+<% plugin_javascript_include "jquery.get_params.js", "comet-setup", "search", "downloads", "soundmanager2-setup" -%>
 
   <popupset>
     <popup id="resultpopup" position="after_start">
@@ -12,7 +12,7 @@
 
   <tree id="results" flex="8" enableColumnDrag="true">
     <treecols>
-      <treecol id="space-label" label=" " />
+      <treecol id="space-label" label=" " flex="4" />
       <splitter class="tree-splitter" />
       <treecol id="name-label" label="Title" sort="Name" flex="80" />
       <splitter class="tree-splitter" />

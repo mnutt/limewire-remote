@@ -10,8 +10,8 @@ jQuery(document).ready(function(){
   });
 
   $('.result h2').live('dblclick', triggerDownload);
-			 $('.result .player img').live('click', ThreeSixtyPlayer.buttonClick);
-  $('.result .player img').live('mousedown', ThreeSixtyPlayer.mouseDown);
+			 $('.result .player img').live('click', threeSixtyPlayer.buttonClick);
+  $('.result .player img').live('mousedown', threeSixtyPlayer.mouseDown);
 });
 
 var urnCache = [];
@@ -49,7 +49,12 @@ var receiveSearchResult = function(result) {
   if($('#'+result.sha1).length == 0) {
     var resultDiv = $("<div id='"+result.sha1+"' class='result'></div>");
 
-    resultDiv.append(playerDiv());
+    var player = playerDiv();
+    var urn = result.sha1;
+    var guid = $('#results').data('guid');
+    var streamUrl = "/stream/stream.mp3?guid="+guid+"&urn="+urn;
+    player.append($("<a href='"+streamUrl+"'>Play</a>"));
+    resultDiv.append(player);
 
     if(result.title && result.author) {
       resultDiv.append($("<h2>").text(result.author + " - " + result.title));

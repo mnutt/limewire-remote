@@ -330,7 +330,7 @@ function ThreeSixtyPlayer() {
 	  // only catch left-clicks
 	  return true;
     }
-    var o = self.getTheDamnLink(e);
+    var o = $(e).get(0);
     if (o.nodeName.toLowerCase() != 'a') {
       o = self.isChildOfNode(o,'a');
       if (!o) return true;
@@ -427,6 +427,7 @@ function ThreeSixtyPlayer() {
 		},
 		fps: 0
       };
+      console.log(thisSound);
 
       // "Metadata" (annotations)
       if (typeof self.Metadata != 'undefined' && self.getElementsByClassName('metadata','div',thisSound._360data.oUI360).length) {
@@ -522,9 +523,9 @@ function ThreeSixtyPlayer() {
   }
 
   this.buttonClick = function(e) {
-    console.log(e);
     var o = e?(e.target?e.target:e.srcElement):event.srcElement;
-    self.handleClick({target:self.getParentByClassName(o,'sm2-360ui').nextSibling}); // link next to the nodes we inserted
+    self.handleClick($(o).parent().find('a'));
+    // self.handleClick({target:self.getParentByClassName(o,'sm2-360ui').nextSibling}); // link next to the nodes we inserted
     return false;
   }
 
@@ -870,23 +871,24 @@ this.updatePlaying = function() {
 	];
   }
 
+  this.addLinks = function(divs) {
+    for(var i = 0; i < divs.length; i++) {
+      var div = divs[i];
+      console.log(div);
+      var oCanvas = $(div).find('canvas').get(0);
+      var oCanvasCTX = oCanvas.getContext('2d');
+      oCanvasCTX.translate(self.config.circleRadius,self.config.circleRadius);
+      oCanvasCTX.rotate(self.deg2rad(-90)); // compensate for arc starting at EAST // http://stackoverflow.com/questions/319267/tutorial-for-html-canvass-arc-function
+
+      var img = $(div).find('img');
+      img.click(self.buttonClick);
+      var oCover = $(div).find('.sm2-cover');
+      oCover.mousedown(self.mouseDown);
+    };
+  };
+
   this.init = function() {
     sm._writeDebug('threeSixtyPlayer.init()');
-    var oItems = self.getElementsByClassName('ui360','div');
-    var oLinks = [];
-
-    for (var i=0,j=oItems.length; i<j; i++) {
-	  oLinks.push(oItems[i].getElementsByTagName('a')[0]);
-    }
-    // grab all links, look for .mp3
-    var foundItems = 0;
-    var oCanvas = null;
-    var oCanvasCTX = null;
-    var oCover = null;
-
-	self.oUITemplate = document.createElement('div');
-	self.oUITemplate.className = 'sm2-360ui';
-
 	// fake a 360 UI so we can get some numbers from CSS, etc.
 
 	var oFakeUI = document.createElement('div');
@@ -917,9 +919,6 @@ this.updatePlaying = function() {
 	delete oFakeUIBox;
 	delete oTemp;
 
-	// canvas needs inline width and height, doesn't quite work otherwise
-	self.oUITemplate.innerHTML = self.getUIHTML().join('');
-
     for (i=0,j=oLinks.length; i<j; i++) {
       if (sm.canPlayURL(oLinks[i].href) && !self.hasClass(oLinks[i],self.excludeClass)) {
         self.addClass(oLinks[i],self.css.sDefault); // add default CSS decoration
@@ -946,10 +945,9 @@ this.updatePlaying = function() {
         }
         oCover = self.getElementsByClassName('sm2-cover','div',oLinks[i].parentNode)[0];
         var oBtn = oLinks[i].parentNode.getElementsByTagName('img')[0];
-		var oBtn = oLinks[i].parentNode.getElementsByTagName('img')[0]
         self.addEventHandler(oBtn,'click',self.buttonClick);
-		self.addEventHandler(oCover,'mousedown',self.mouseDown);
-	    oCanvasCTX = oCanvas.getContext('2d');
+	self.addEventHandler(oCover,'mousedown',self.mouseDown);
+	oCanvasCTX = oCanvas.getContext('2d');
         oCanvasCTX.translate(self.config.circleRadius,self.config.circleRadius);
         oCanvasCTX.rotate(self.deg2rad(-90)); // compensate for arc starting at EAST // http://stackoverflow.com/questions/319267/tutorial-for-html-canvass-arc-function
       }
@@ -1084,5 +1082,6 @@ if (threeSixtyPlayer.config.usePeakData) {
 soundManager.onready(function(){
   if (soundManager.supported()) {
     // soundManager.createSound() etc. may now be called
+    // threeSixtyPlayer.init();
   }
 });

@@ -39,11 +39,11 @@ function ThreeSixtyPlayer() {
 
   this.config = {
 
-    playNext: false,   // stop after one sound, or play through list until end
+    playNext: true,   // stop after one sound, or play through list until end
     autoPlay: false,   // start playing the first sound right away
-    loadRingColor: '#ccc', // how much has loaded
-    playRingColor: '#000', // how much has played
-    backgroundRingColor: '#eee', // color shown underneath load + play ("not yet loaded" color)
+    loadRingColor: '#888', // how much has loaded
+    playRingColor: '#EEE', // how much has played
+    backgroundRingColor: '#444', // color shown underneath load + play ("not yet loaded" color)
 
     // optional segment/annotation (metadata) stuff..
     segmentRingColor: 'rgba(255,255,255,0.33)', // metadata/annotation (segment) colors
@@ -52,9 +52,9 @@ function ThreeSixtyPlayer() {
     playRingColorMetadata: 'rgba(96,160,224,0.99)', // how much has played when metadata is present
     playRingColorMetadata: 'rgba(128,192,256,0.9)', // how much has played when metadata is present
 
-    circleDiameter: null, // set dynamically according to values from CSS
-    circleRadius: null,
-    imageRoot: '', // image path to prepend for transparent .GIF - eg. /images/
+    circleDiameter: 40, // set dynamically according to values from CSS
+    circleRadius: 20,
+    imageRoot: '/assets/tagcloud/images/', // image path to prepend for transparent .GIF - eg. /images/
     animDuration: 500,
     animTransition: Animator.tx.bouncy, // http://www.berniecode.com/writing/animator.html
     showHMSTime: false, // hours:minutes:seconds vs. seconds-only
@@ -298,6 +298,11 @@ function ThreeSixtyPlayer() {
       this._360data.fps++;
 	},
 
+    id3: function() {
+      $('#main-title').text(this.id3.TIT2);
+      $('#main-author').text(this.id3.TPE1);
+    },
+
      bufferchange: function() {
        if (this.isBuffering) {
          pl.addClass(this._360data.oUIBox,pl.css.sBuffering);
@@ -330,7 +335,7 @@ function ThreeSixtyPlayer() {
 	  // only catch left-clicks
 	  return true;
     }
-    var o = $(e).get(0);
+    var o = self.getTheDamnLink(e);
     if (o.nodeName.toLowerCase() != 'a') {
       o = self.isChildOfNode(o,'a');
       if (!o) return true;
@@ -374,6 +379,7 @@ function ThreeSixtyPlayer() {
        onpause:self.events.pause,
        onresume:self.events.resume,
        onfinish:self.events.finish,
+       onid3: self.events.id3,
        onbufferchange:self.events.bufferchange,
 	   whileloading:self.events.whileloading,
 	   whileplaying:self.events.whileplaying
@@ -427,7 +433,6 @@ function ThreeSixtyPlayer() {
 		},
 		fps: 0
       };
-      console.log(thisSound);
 
       // "Metadata" (annotations)
       if (typeof self.Metadata != 'undefined' && self.getElementsByClassName('metadata','div',thisSound._360data.oUI360).length) {
@@ -524,8 +529,7 @@ function ThreeSixtyPlayer() {
 
   this.buttonClick = function(e) {
     var o = e?(e.target?e.target:e.srcElement):event.srcElement;
-    self.handleClick($(o).parent().find('a'));
-    // self.handleClick({target:self.getParentByClassName(o,'sm2-360ui').nextSibling}); // link next to the nodes we inserted
+    self.handleClick({target:self.getParentByClassName(o,'sm2-360ui').nextSibling}); // link next to the nodes we inserted
     return false;
   }
 
@@ -579,9 +583,16 @@ function ThreeSixtyPlayer() {
     var coords = self.getMouseXY(e);
     var x = coords[0];
  	var y = coords[1];
-    var deltaX = x-oSound._360data.canvasMidXY[0];
-    var deltaY = y-oSound._360data.canvasMidXY[1];
-    var angle = Math.floor(fullCircle-(self.rad2deg(Math.atan2(deltaX,deltaY))+180));
+    if(e.target.id == "main-cover") {
+      var canvasXY = self.findXY(e.target);
+      var deltaX = x-(canvasXY[0]+100);
+      var deltaY = y-(canvasXY[1]+100);
+      var angle = Math.floor(fullCircle-(self.rad2deg(Math.atan2(deltaX,deltaY))+180));
+    } else {
+      var deltaX = x-oSound._360data.canvasMidXY[0];
+      var deltaY = y-oSound._360data.canvasMidXY[1];
+      var angle = Math.floor(fullCircle-(self.rad2deg(Math.atan2(deltaX,deltaY))+180));
+    }
     oSound.setPosition(oSound.durationEstimate*(angle/fullCircle));
     self.stopEvent(e);
     return false;
@@ -693,9 +704,13 @@ this.updatePlaying = function() {
 
   self.drawSolidArc(this._360data.oCanvas,(this._360data.metadata?self.config.loadRingColorMetadata:self.config.loadRingColor),this._360data.width,this._360data.radius,self.deg2rad(fullCircle*(this._360data.lastValues.bytesLoaded/this._360data.lastValues.bytesTotal)),0,true);
 
+  self.drawSolidArc(threeSixtyPlayer.mainCanvas,"rgb(200,200,200)",100,65,self.deg2rad(fullCircle),false);
+  self.drawSolidArc(threeSixtyPlayer.mainCanvas,(this._360data.metadata?self.config.loadRingColorMetadata:self.config.loadRingColor),100,65,self.deg2rad(fullCircle*(this._360data.lastValues.bytesLoaded/this._360data.lastValues.bytesTotal)),0,true);
+
   if (this._360data.lastValues.position != 0) {
     // don't draw if 0 (full black circle in Opera)
     self.drawSolidArc(this._360data.oCanvas,(this._360data.metadata?self.config.playRingColorMetadata:self.config.playRingColor),this._360data.width,this._360data.radius,self.deg2rad((this._360data.didFinish==1?fullCircle:fullCircle*(this._360data.lastValues.position/this._360data.lastValues.durationEstimate))),0,true);
+    self.drawSolidArc(threeSixtyPlayer.mainCanvas,(this._360data.metadata?self.config.playRingColorMetadata:"rgb(134,219,88)"),100,65,self.deg2rad((this._360data.didFinish==1?fullCircle:fullCircle*(this._360data.lastValues.position/this._360data.lastValues.durationEstimate))),0,true);
   }
 
   // metadata goes here
@@ -708,6 +723,7 @@ this.updatePlaying = function() {
   if (timeNow != this._360data.lastTime) {
     this._360data.lastTime = timeNow;
     this._360data.oTiming.innerHTML = timeNow;
+    threeSixtyPlayer.mainTime.text(time_format(timeNow));
   }
 
   // draw spectrum, if applicable
@@ -869,26 +885,66 @@ this.updatePlaying = function() {
 	 ' <div class="sm2-timing'+(navigator.userAgent.match(/safari/i)?' alignTweak':'')+'"></div>', // + Ever-so-slight Safari horizontal alignment tweak
 	 ' <div class="sm2-cover"></div>'
 	];
-  }
-
-  this.addLinks = function(divs) {
-    for(var i = 0; i < divs.length; i++) {
-      var div = divs[i];
-      console.log(div);
-      var oCanvas = $(div).find('canvas').get(0);
-      var oCanvasCTX = oCanvas.getContext('2d');
-      oCanvasCTX.translate(self.config.circleRadius,self.config.circleRadius);
-      oCanvasCTX.rotate(self.deg2rad(-90)); // compensate for arc starting at EAST // http://stackoverflow.com/questions/319267/tutorial-for-html-canvass-arc-function
-
-      var img = $(div).find('img');
-      img.click(self.buttonClick);
-      var oCover = $(div).find('.sm2-cover');
-      oCover.mousedown(self.mouseDown);
-    };
   };
+
+  this.addLink = function(link) {
+    self.oUITemplate = document.createElement('div');
+    self.oUITemplate.className = 'sm2-360ui';
+    self.oUITemplate.innerHTML = self.getUIHTML().join('');
+
+    self.addClass(link,self.css.sDefault); // add default CSS decoration
+    self.links[this.foundItems] = (link);
+    self.indexByURL[link.href] = this.foundItems; // hack for indexing
+    this.foundItems++;
+    // add canvas shiz
+    var oUI = link.parentNode.insertBefore(self.oUITemplate.cloneNode(true),link);
+
+    if (isIE && typeof G_vmlCanvasManager != 'undefined') { // IE only
+      var o = link.parentNode;
+      var o2 = document.createElement('canvas');
+      o2.className = 'sm2-canvas';
+      var oID = 'sm2_canvas_'+parseInt(Math.random()*1048576);
+      o2.id = oID;
+      o2.width = self.config.circleDiameter;
+      o2.height = self.config.circleDiameter;
+      oUI.appendChild(o2);
+      G_vmlCanvasManager.initElement(o2); // Apply ExCanvas compatibility magic
+      oCanvas = document.getElementById(oID);
+    } else {
+      // add a handler for the button
+      oCanvas = link.parentNode.getElementsByTagName('canvas')[0];
+    }
+    oCover = self.getElementsByClassName('sm2-cover','div',link.parentNode)[0];
+    var oBtn = link.parentNode.getElementsByTagName('img')[0];
+    self.addEventHandler(oBtn,'click',self.buttonClick);
+    self.addEventHandler(oCover,'mousedown',self.mouseDown);
+    oCanvasCTX = oCanvas.getContext('2d');
+    oCanvasCTX.translate(self.config.circleRadius,self.config.circleRadius);
+    oCanvasCTX.rotate(self.deg2rad(-90)); // compensate for arc starting at EAST // http://stackoverflow.com/questions/319267/tutorial-for-html-canvass-arc-function
+  };
+
+  var foundItems = 0;
+  var mainCanvas = null;
+  var mainContext = null;
+  var mainTime = null;
 
   this.init = function() {
     sm._writeDebug('threeSixtyPlayer.init()');
+
+    var oItems = self.getElementsByClassName('ui360','div');
+    var oLinks = [];
+
+    for (var i=0,j=oItems.length; i<j; i++) {
+	  oLinks.push(oItems[i].getElementsByTagName('a')[0]);
+    }
+    // grab all links, look for .mp3
+    var oCanvas = null;
+    var oCanvasCTX = null;
+    var oCover = null;
+
+	self.oUITemplate = document.createElement('div');
+	self.oUITemplate.className = 'sm2-360ui';
+
 	// fake a 360 UI so we can get some numbers from CSS, etc.
 
 	var oFakeUI = document.createElement('div');
@@ -919,12 +975,15 @@ this.updatePlaying = function() {
 	delete oFakeUIBox;
 	delete oTemp;
 
+	// canvas needs inline width and height, doesn't quite work otherwise
+	self.oUITemplate.innerHTML = self.getUIHTML().join('');
+
     for (i=0,j=oLinks.length; i<j; i++) {
       if (sm.canPlayURL(oLinks[i].href) && !self.hasClass(oLinks[i],self.excludeClass)) {
         self.addClass(oLinks[i],self.css.sDefault); // add default CSS decoration
-        self.links[foundItems] = (oLinks[i]);
-        self.indexByURL[oLinks[i].href] = foundItems; // hack for indexing
-        foundItems++;
+        self.links[this.foundItems] = (oLinks[i]);
+        self.indexByURL[oLinks[i].href] = this.foundItems; // hack for indexing
+        this.foundItems++;
 		// add canvas shiz
 		var oUI = oLinks[i].parentNode.insertBefore(self.oUITemplate.cloneNode(true),oLinks[i]);
 
@@ -945,20 +1004,21 @@ this.updatePlaying = function() {
         }
         oCover = self.getElementsByClassName('sm2-cover','div',oLinks[i].parentNode)[0];
         var oBtn = oLinks[i].parentNode.getElementsByTagName('img')[0];
+		var oBtn = oLinks[i].parentNode.getElementsByTagName('img')[0]
         self.addEventHandler(oBtn,'click',self.buttonClick);
-	self.addEventHandler(oCover,'mousedown',self.mouseDown);
-	oCanvasCTX = oCanvas.getContext('2d');
+		self.addEventHandler(oCover,'mousedown',self.mouseDown);
+	    oCanvasCTX = oCanvas.getContext('2d');
         oCanvasCTX.translate(self.config.circleRadius,self.config.circleRadius);
         oCanvasCTX.rotate(self.deg2rad(-90)); // compensate for arc starting at EAST // http://stackoverflow.com/questions/319267/tutorial-for-html-canvass-arc-function
       }
     }
-    if (foundItems>0) {
+    if (this.foundItems>0) {
       self.addEventHandler(document,'click',self.handleClick);
 	  if (self.config.autoPlay) {
 	    self.handleClick({target:self.links[0],preventDefault:function(){}});
 	  }
     }
-    sm._writeDebug('threeSixtyPlayer.init(): Found '+foundItems+' relevant items.');
+    sm._writeDebug('threeSixtyPlayer.init(): Found '+this.foundItems+' relevant items.');
   }
 
 }
@@ -1083,5 +1143,12 @@ soundManager.onready(function(){
   if (soundManager.supported()) {
     // soundManager.createSound() etc. may now be called
     // threeSixtyPlayer.init();
+    threeSixtyPlayer.mainCanvas = $('#main-player').get(0);
+    threeSixtyPlayer.mainContext = threeSixtyPlayer.mainCanvas.getContext('2d');
+    threeSixtyPlayer.mainContext.translate(122,122);
+    threeSixtyPlayer.mainContext.rotate(threeSixtyPlayer.deg2rad(-90)); // compensate for arc starting at EAST // http://stackoverflow.com/questions/319267/tutorial-for-html-canvass-arc-function
+    threeSixtyPlayer.drawSolidArc(threeSixtyPlayer.mainCanvas,"rgb(200, 200, 200)",100,65,threeSixtyPlayer.deg2rad(360),false);
+    threeSixtyPlayer.mainTime = $('#main-time span');
+    threeSixtyPlayer.addEventHandler($('#main-cover').get(0), 'mousedown', threeSixtyPlayer.mouseDown);
   }
 });

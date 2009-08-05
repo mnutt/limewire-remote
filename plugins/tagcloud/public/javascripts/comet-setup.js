@@ -39,7 +39,9 @@ $.cometd.init(cometURL);
   };
 
 var time_format = function( number ) {
-  var minutes = number / 60;
-  var seconds = number % 60;
+  number = parseInt(number);
+  var minutes = parseInt(number / 60);
+  var seconds = parseInt(number % 60);
+  if(seconds < 10) { seconds = "0"+seconds; }
   return minutes + ":" + seconds;
 };

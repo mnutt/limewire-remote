@@ -10,8 +10,8 @@ jQuery(document).ready(function(){
   });
 
   $('.result h2').live('dblclick', triggerDownload);
-			 $('.result .player img').live('click', threeSixtyPlayer.buttonClick);
-  $('.result .player img').live('mousedown', threeSixtyPlayer.mouseDown);
+	//		 $('.result .player img').live('click', threeSixtyPlayer.buttonClick);
+  //$('.result .player img').live('mousedown', threeSixtyPlayer.mouseDown);
 });
 
 var urnCache = [];
@@ -29,11 +29,7 @@ var submitSearch = function(query) {
 };
 
 var playerDiv = function() {
-  var div = $("<div class='player sm2-360ui'></div>");
-  div.append($("<canvas class='sm2-canvas' height='40' width='40'></canvas"));
-  div.append($("<img class='sm2-360btn sm2-360btn-default' style='border: medium none;' src='/assets/tagcloud/images/empty.gif'/>"));
-  div.append($("<div class='sm2-timing'></div>"));
-  div.append($("<div class='sm2-cover'></div>"));
+  var div = $("<div class='player ui360'></div>");
   return div;
 };
 
@@ -53,7 +49,8 @@ var receiveSearchResult = function(result) {
     var urn = result.sha1;
     var guid = $('#results').data('guid');
     var streamUrl = "/stream/stream.mp3?guid="+guid+"&urn="+urn;
-    player.append($("<a href='"+streamUrl+"'>Play</a>"));
+    var link = $("<a href='"+streamUrl+"'>Play</a>");
+    player.append(link);
     resultDiv.append(player);
 
     if(result.title && result.author) {
@@ -100,6 +97,7 @@ var receiveSearchResult = function(result) {
     // treeRow.append($(document.createElement('treecell')).addClass('size').attr('label', size_format(result.file_size)));
 
     $('#results').append(resultDiv);
+    threeSixtyPlayer.addLink(link.get(0));
 
     //if(index == 0) { $("#results li:first").addClass("selected"); }
     //$('#results li:last').click(startDownload);
@@ -131,7 +129,6 @@ var triggerPreview = function(click) {
     urnCache.push(urn);
     var guid = $('#results treechildren').attr('id');
     var url = "/stream/stream.mp3?guid="+guid+"&urn="+urn;
-    console.log(url);
     $(row).find('treecell:first').attr("properties", "playing");
     soundManager.stopAll();
     var previewSound = soundManager.createSound({

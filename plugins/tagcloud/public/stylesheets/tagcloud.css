@@ -27,6 +27,42 @@ h1 {
   padding: 4px;
 }
 
+#main-title, #main-author {
+  background-color:#222;
+  color: #EEE;
+  padding: 8px;
+  font-weight: bold;
+}
+
+#main-author {
+  padding-top: 0;
+  font-style: italic;
+}
+
+#main-time {
+  text-align: center;
+  position: absolute;
+  width: 244px;
+  top: 113px;
+}
+
+#main-time span {
+  background-color: #222;
+  color: #FFF;
+  font-size: 1.2em;
+  -moz-border-radius: 4px;
+  padding: 4px;
+}
+
+#main-cover {
+  width: 244px;
+  height: 244px;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+}
+
 .result {
   border-top: 1px solid #222;
   clear: both; 

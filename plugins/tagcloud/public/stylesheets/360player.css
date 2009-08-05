@@ -12,15 +12,6 @@
 }
 
 .ui360 {
- position:relative;
- /* a little extra spacing */
- padding-top:1px;
- padding-bottom:1px;
- margin-bottom:-18px; /* approximate "line height" we want */
- margin-left:42px; /* 40px, with a few off */
-}
-
-.ui360 {
  width:auto;
 }
 
@@ -54,7 +45,7 @@
  height:100%;
  margin:0px;
  font:11px "helvetica neue",helvetica,monaco,lucida,terminal,monospace;
- color:#666;
+ color:#EEE;
  text-align:center;
  line-height:40px;
 }

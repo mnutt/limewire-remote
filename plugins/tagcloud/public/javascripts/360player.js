@@ -321,6 +321,7 @@ function ThreeSixtyPlayer() {
        if (this.isBuffering) {
          pl.addClass(this._360data.oUIBox,pl.css.sBuffering);
 	 if(self.stopLoadingWheel == false) { return; }
+
 	 self.stopLoadingWheel = false;
 	 self.loadingWheel();
        } else {
@@ -500,6 +501,7 @@ function ThreeSixtyPlayer() {
 
   this.loadingWheel = function() {
     if(self.stopLoadingWheel == true) { return false; }
+    self.clearCanvas(threeSixtyPlayer.mainCanvas);
     for(var i = self.loadingColors.length; i > 0; i--) {
       self.drawSolidArc(threeSixtyPlayer.mainCanvas,self.loadingColors[i-1],100,65,self.deg2rad(45*(i)+self.offset),self.deg2rad(45*(i-1)-1+self.offset),true);
     }

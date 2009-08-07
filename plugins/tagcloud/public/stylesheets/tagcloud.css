@@ -27,7 +27,15 @@ h1 {
   padding: 4px;
 }
 
-#main-title, #main-author {
+#main-player-container {
+  background-color: #DDD;
+}
+
+#sm2-container {
+  visibility: hidden;
+}
+
+#main-meta {
   background-color:#222;
   color: #EEE;
   padding: 8px;
@@ -35,7 +43,6 @@ h1 {
 }
 
 #main-author {
-  padding-top: 0;
   font-style: italic;
 }
 
@@ -43,13 +50,14 @@ h1 {
   text-align: center;
   position: absolute;
   width: 244px;
-  top: 113px;
+  top: 104px;
 }
 
 #main-time span {
-  background-color: #222;
-  color: #FFF;
-  font-size: 1.2em;
+  font-family: "Lucida Grande",Helvetica,sans-serif;
+  color: #AAA;
+  font-size: 2em;
+  font-weight: bold;
   -moz-border-radius: 4px;
   padding: 4px;
 }

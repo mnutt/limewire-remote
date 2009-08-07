@@ -5,6 +5,7 @@ jQuery(document).ready(function(){
     var query = $('#search_form input').val();
     $('window').attr("title", "Search for \"" + query + "\"");
     $('#results').html('&nbsp;');
+    $('.tags a').live('click', filterByTag);
     startComet(query);
     return false;
   });
@@ -33,6 +34,22 @@ var playerDiv = function() {
   return div;
 };
 
+var filterByTag = function() {
+  var tag = $(this).text();
+  removeResultsNotContaining(tag);
+  startComet(tag);
+  return false;
+};
+
+var removeResultsNotContaining = function(tag) {
+  $.each($('#results > div.result'), function() {
+    var tags = $(this).data('tags');
+    if(typeof(tags) == "undefined" || !arrayContains(tags, tag)) {
+      $(this).remove();
+    }
+  });
+};
+
 var receiveSearchResult = function(result) {
   if(result.data && result.data.new_search) {
     $('#results').data('guid', result.data.guid);
@@ -49,7 +66,7 @@ var receiveSearchResult = function(result) {
     var urn = result.sha1;
     var guid = $('#results').data('guid');
     var streamUrl = "/stream/stream.mp3?guid="+guid+"&urn="+urn;
-    var link = $("<a href='"+streamUrl+"'>Play</a>");
+    var link = $("<a href='"+streamUrl+"'></a>");
     player.append(link);
     resultDiv.append(player);
 
@@ -57,6 +74,10 @@ var receiveSearchResult = function(result) {
       resultDiv.append($("<h2>").text(result.author + " - " + result.title));
     } else {
       resultDiv.append($("<h2>").text(result.name));
+    }
+
+    if(result.category) {
+      resultDiv.addClass(result.category.toLowerCase());
     }
 
     // Assemble tags
@@ -77,6 +98,7 @@ var receiveSearchResult = function(result) {
     for each(word in result.name.split(/[^A-Za-z0-9]+/)) {
       tags.push(word);
     }
+    resultDiv.data('tags', tags);
 
     var tagsDiv = $("<div class='tags'></div>");
     for each(tag in tags) {
@@ -153,4 +175,14 @@ var getTime = function(nMSec,bAsString) {
     var sec = nSec-(min*60);
     // if (min == 0 && sec == 0) return null; // return 0:00 as null
     return (bAsString?(min+':'+(sec<10?'0'+sec:sec)):{'min':min,'sec':sec});
+};
+
+var arrayContains = function(arr, obj) {
+  var i = arr.length;
+  while (i--) {
+    if (arr[i] === obj) {
+      return true;
+    }
+  }
+  return false;
 };

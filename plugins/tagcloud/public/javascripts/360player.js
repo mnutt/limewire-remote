@@ -252,6 +252,12 @@ function ThreeSixtyPlayer() {
       pl.removeClass(this._360data.oUIBox,this._360data.className);
       this._360data.className = pl.css.sPlaying;
       pl.addClass(this._360data.oUIBox,this._360data.className);
+      if(this._iO.useVideo) {
+	$('#sm2-container').css({visibility: 'visible'});
+      } else {
+	$('#sm2-container').css({visibility: 'hidden'});
+	$('#sm2-container > embed').attr('height', '0');
+      }
 	  self.fanOut(this);
     },
 
@@ -303,10 +309,22 @@ function ThreeSixtyPlayer() {
       $('#main-author').text(this.id3.TPE1);
     },
 
+    videometadata: function() {
+
+      var width = 240;
+      var height = parseInt((this.metadata.height * width) / this.metadata.width);
+      $('#sm2-container embed').attr('width', width);
+      $('#sm2-container embed').attr('height', height);
+    },
+
      bufferchange: function() {
        if (this.isBuffering) {
          pl.addClass(this._360data.oUIBox,pl.css.sBuffering);
+	 if(self.stopLoadingWheel == false) { return; }
+	 self.stopLoadingWheel = false;
+	 self.loadingWheel();
        } else {
+	 self.stopLoadingWheel = true;
          pl.removeClass(this._360data.oUIBox,pl.css.sBuffering);
        }
      }
@@ -369,6 +387,7 @@ function ThreeSixtyPlayer() {
       }
     } else {
 	  // append some dom shiz
+      var isMovie = self.isChildOfClass(o, 'videos') != false;
 
       // create sound
       thisSound = sm.createSound({
@@ -379,6 +398,8 @@ function ThreeSixtyPlayer() {
        onpause:self.events.pause,
        onresume:self.events.resume,
        onfinish:self.events.finish,
+       isMovieStar: isMovie,
+       useVideo: isMovie,
        onid3: self.events.id3,
        onbufferchange:self.events.bufferchange,
 	   whileloading:self.events.whileloading,
@@ -473,6 +494,24 @@ function ThreeSixtyPlayer() {
     }
     return false;
   }
+
+  // this.loadingColors = ["rgb(200,0,0)", "rgb(0,200,0)", "rgb(0,0,200)", "rgb(0,100,100)", "rgb(100,0,100)", "rgb(100,100,0)", "rgb(75,75,75)", "rgb(200,200,200)"];
+    this.loadingColors = ["rgb(181,172,1)", "rgb(236,186,9)", "rgb(232,110,28)", "rgb(212,30,69)", "rgb(27,21,33)", "rgb(0,0,0)", "rgb(105,210,231)", "rgb(240,240,240)"];
+
+  this.loadingWheel = function() {
+    if(self.stopLoadingWheel == true) { return false; }
+    for(var i = self.loadingColors.length; i > 0; i--) {
+      self.drawSolidArc(threeSixtyPlayer.mainCanvas,self.loadingColors[i-1],100,65,self.deg2rad(45*(i)+self.offset),self.deg2rad(45*(i-1)-1+self.offset),true);
+    }
+    self.offset += 1;
+    if(self.offset == 360) {
+      self.offset = 0;
+    }
+    setTimeout("threeSixtyPlayer.loadingWheel()", 30);
+  };
+
+  this.offset = 0;
+  this.stopLoadingWheel = true;
 
   this.fanOut = function(oSound) {
 	 var thisSound = oSound;
@@ -1138,6 +1177,7 @@ if (threeSixtyPlayer.config.useEQData) {
 if (threeSixtyPlayer.config.usePeakData) {
   soundManager.flash9Options.usePeakData = true;
 }
+soundManager.movieStarOptions.onmetadata = threeSixtyPlayer.events.videometadata;
 
 soundManager.onready(function(){
   if (soundManager.supported()) {
@@ -1145,7 +1185,7 @@ soundManager.onready(function(){
     // threeSixtyPlayer.init();
     threeSixtyPlayer.mainCanvas = $('#main-player').get(0);
     threeSixtyPlayer.mainContext = threeSixtyPlayer.mainCanvas.getContext('2d');
-    threeSixtyPlayer.mainContext.translate(122,122);
+    threeSixtyPlayer.mainContext.translate(120,120);
     threeSixtyPlayer.mainContext.rotate(threeSixtyPlayer.deg2rad(-90)); // compensate for arc starting at EAST // http://stackoverflow.com/questions/319267/tutorial-for-html-canvass-arc-function
     threeSixtyPlayer.drawSolidArc(threeSixtyPlayer.mainCanvas,"rgb(200, 200, 200)",100,65,threeSixtyPlayer.deg2rad(360),false);
     threeSixtyPlayer.mainTime = $('#main-time span');

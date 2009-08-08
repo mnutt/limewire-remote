@@ -102,3 +102,47 @@ h1 {
   float: left;
   -moz-border-radius: 3px;
 }
+
+#tag-cloud {
+  display: none;
+  text-align: center; 
+  padding: 5px;
+  overflow: auto; 
+  font-size: 80%; 
+  font-family: "Lucida Grande",Helvetica,sans-serif;
+}
+#tag-expand {
+  float: right;
+  display: none;
+}
+#tag-list { 
+  margin: 0; 
+  padding: 0; 
+  text-align: justify;
+}
+#tag-list li {
+  list-style-type: none; 
+  display: inline;
+  padding: 0 3px;
+  margin: 0;
+  height: 25px;
+}
+
+#tag-list li.size1 {
+  font-size: 1.5em;
+}
+
+#tag-list li.size2 {
+  font-size: 2.2em;
+}
+
+#tag-list li.size3 {
+  font-size: 3em;
+}
+
+#tag-list li a { 
+  text-decoration: none; 
+}
+#tag-list li a:hover { 
+  text-decoration: underline; 
+}

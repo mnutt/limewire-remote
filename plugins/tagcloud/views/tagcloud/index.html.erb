@@ -1,7 +1,15 @@
-<% plugin_javascript_include 'jquery.cometd.js', 'jquery-ui', 'jquery-fluid16', 'jquery.dynacloud.js', 'comet-setup', 'search', 'soundmanager2', 'berniecode-animator', '360player' -%>
+<% plugin_javascript_include 'jquery.cometd.js', 'jquery-ui', 'jquery-fluid16', 'tagcloud', 'comet-setup', 'search', 'soundmanager2', 'berniecode-animator', '360player' -%>
 
 <div class="grid_12">
-  <div id="search-info">Search for "artie"</div>
+  <a href="#" id="tag-expand">Tag Cloud &#8615;</a>
+  <div id="search-info"></div>
+  
+  <div id="tag-cloud">
+    
+    <ul id="tag-list">
+    </ul>
+  </div>
+
   <div id="results">
     &nbsp;
   </div>
@@ -24,8 +32,6 @@
     <div id="main-title"></div>
     <div id="main-author"></div>
   </div>
-
-  <div id="movie-info"></div>
 
 
 </div>

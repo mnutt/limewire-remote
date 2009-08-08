@@ -3,21 +3,20 @@ jQuery(document).ready(function(){
 
   $('#search_form').submit(function() {
     var query = $('#search_form input').val();
-    $('window').attr("title", "Search for \"" + query + "\"");
+
+    $('#search-info').html("Search for <strong></strong>").find("strong").text(query);
     $('#results').html('&nbsp;');
-    $('.tags a').live('click', filterByTag);
+
     startComet(query);
     return false;
   });
 
   $('.result h2').live('dblclick', triggerDownload);
-	//		 $('.result .player img').live('click', threeSixtyPlayer.buttonClick);
-  //$('.result .player img').live('mousedown', threeSixtyPlayer.mouseDown);
 });
 
-var urnCache = [];
-
 var startComet = function(guid) {
+  tagCloud.tags = {};
+  tagCloud.max = 1;
   $.cometd.publish('/search', guid);
 };
 
@@ -32,22 +31,6 @@ var submitSearch = function(query) {
 var playerDiv = function() {
   var div = $("<div class='player ui360'></div>");
   return div;
-};
-
-var filterByTag = function() {
-  var tag = $(this).text();
-  removeResultsNotContaining(tag);
-  startComet(tag);
-  return false;
-};
-
-var removeResultsNotContaining = function(tag) {
-  $.each($('#results > div.result'), function() {
-    var tags = $(this).data('tags');
-    if(typeof(tags) == "undefined" || !arrayContains(tags, tag)) {
-      $(this).remove();
-    }
-  });
 };
 
 var receiveSearchResult = function(result) {
@@ -84,7 +67,7 @@ var receiveSearchResult = function(result) {
 
     var tags = [];
     if(result.author) {
-      tags.push(result.author);
+      tags.push(result.author.replace(/\s/g, ''));
     }
     if(result.genre) {
       tags.push(result.genre);
@@ -98,7 +81,17 @@ var receiveSearchResult = function(result) {
     for each(word in result.name.split(/[^A-Za-z0-9]+/)) {
       tags.push(word);
     }
+    tags = tags.join(' ').replace(/[^A-Z\xC4\xD6\xDCa-z\xE4\xF6\xFC\xDF0-9_]/g, ' ').replace(tagCloud.stopReg, ' ').split(' '); // thanks dynacloud
     resultDiv.data('tags', tags);
+
+    for each(tag in tags) {
+      if(tagCloud.tags[tag]) {
+	tagCloud.tags[tag] += 1;
+	tagCloud.max = Math.max(tagCloud.tags[tag], tagCloud.max);
+      } else {
+	tagCloud.tags[tag] = 1;
+      }
+    }
 
     var tagsDiv = $("<div class='tags'></div>");
     for each(tag in tags) {
@@ -123,6 +116,7 @@ var receiveSearchResult = function(result) {
 
     //if(index == 0) { $("#results li:first").addClass("selected"); }
     //$('#results li:last').click(startDownload);
+    tagCloud.refreshTagCloud();
   }
 };
 
@@ -175,14 +169,4 @@ var getTime = function(nMSec,bAsString) {
     var sec = nSec-(min*60);
     // if (min == 0 && sec == 0) return null; // return 0:00 as null
     return (bAsString?(min+':'+(sec<10?'0'+sec:sec)):{'min':min,'sec':sec});
-};
-
-var arrayContains = function(arr, obj) {
-  var i = arr.length;
-  while (i--) {
-    if (arr[i] === obj) {
-      return true;
-    }
-  }
-  return false;
 };

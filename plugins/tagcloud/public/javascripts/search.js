@@ -74,17 +74,20 @@ var receiveSearchResult = function(result) {
     }
     tags.push("gnutella");
     if(result.title) {
-      for each(word in result.title.split(' ')) {
-	tags.push(word);
+      var titleWords = result.title.split(' ');
+      for(var i in titleWords) {
+	tags.push(titleWords[i]);
       }
     }
-    for each(word in result.name.split(/[^A-Za-z0-9]+/)) {
-      tags.push(word);
+    var nameWords = result.name.split(/[^A-Za-z0-9]+/);
+    for(var i in nameWords) {
+      tags.push(nameWords[i]);
     }
     tags = tags.join(' ').replace(/[^A-Z\xC4\xD6\xDCa-z\xE4\xF6\xFC\xDF0-9_]/g, ' ').replace(tagCloud.stopReg, ' ').split(' '); // thanks dynacloud
     resultDiv.data('tags', tags);
 
-    for each(tag in tags) {
+    for(var i in tags) {
+      var tag = tags[i];
       if(tagCloud.tags[tag]) {
 	tagCloud.tags[tag] += 1;
 	tagCloud.max = Math.max(tagCloud.tags[tag], tagCloud.max);
@@ -94,7 +97,8 @@ var receiveSearchResult = function(result) {
     }
 
     var tagsDiv = $("<div class='tags'></div>");
-    for each(tag in tags) {
+    for(var i in tags) {
+      var tag = tags[i];
       tagsDiv.append("<a href='#'>"+tag+"</a>");
     }
 

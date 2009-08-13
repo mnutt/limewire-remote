@@ -46,6 +46,11 @@ module Limewire
     def total_size
       @attributes[:total_size]
     end
+
+    # Original limewire download object
+    def java_download
+      @download
+    end
     
     # Create a new Download from a java download object
     def initialize(download)
@@ -70,6 +75,10 @@ module Limewire
       result = search.raw_results.select {|r| r.urn.to_s.split(':').last == urn }.first
       rfi = org.limewire.core.impl.library.CoreRemoteFileItem.new(result)
       Core::DownloadListManager.add_download(rfi)
+    end
+
+    def downloading_file
+      @download.downloading_file
     end
     
     # Retrieve all of the searches, as an array of Downloads.

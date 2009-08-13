@@ -1,0 +1,34 @@
+treechildren::-moz-tree-cell-text(defaultHide)
+{
+  color:transparent;
+}
+
+treechildren::-moz-tree-cell-text(defaultHide, hover)
+{
+  color:#BBB;
+}
+
+treechildren::-moz-tree-cell-text(playing, selected)
+{
+  color: #FFF;
+}
+
+treechildren::-moz-tree-cell-text(defaultHide, hover, selected)
+{
+  color: #DDD;
+}
+
+treechildren::-moz-tree-cell-text(playing)
+{
+  color: #000;
+}
+
+window {
+  width: 100%;
+  height: 100%;
+}
+
+vbox {
+  width: 100%;
+  height: 100%;
+}

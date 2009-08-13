@@ -1,0 +1,37 @@
+<% plugin_javascript_include 'jquery.cometd.js', 'jquery-ui', 'jquery-fluid16', 'tagcloud', 'comet-setup', 'search', 'soundmanager2', 'berniecode-animator', '360player' -%>
+
+<div class="grid_12">
+  <a href="#" id="tag-expand">Tag Cloud &#8615;</a>
+  <div id="search-info"></div>
+  
+  <div id="tag-cloud">
+    
+    <ul id="tag-list">
+    </ul>
+  </div>
+
+  <div id="results">
+    &nbsp;
+  </div>
+</div>
+
+<div class="grid_4" style="margin-top: 14px; position: relative">
+  <div id="sm2-container" ><!-- .swf ends up here --></div>
+
+  <div id="main-player-container" style="position: relative;">
+    <canvas id="main-player" width="240" height="240"></canvas>
+
+    <div id="main-time">
+      <span>0:00</span>
+    </div>
+
+  <div id="main-cover"></div>
+  </div>
+
+  <div id="main-meta">
+    <div id="main-title"></div>
+    <div id="main-author"></div>
+  </div>
+
+
+</div>

@@ -22,11 +22,11 @@ function SoundManager(smURL,smID) {
   this.nullURL = 'null.mp3';       // path to "null" (empty) MP3 file, used to unload sounds (Flash 8 only)
   this.allowPolling = true;        // allow flash to poll for status update (required for whileplaying() events, peak, sound spectrum functions to work.)
   this.useFastPolling = false;     // uses 1 msec flash timer interval (vs. default of 20) for higher callback frequency, best combined with useHighPerformance
-  this.useMovieStar = false;	   // enable support for Flash 9.0r115+ (codename "MovieStar") MPEG4 audio + video formats (AAC, M4V, FLV, MOV etc.)
-  this.bgColor = '#ffffff';	       // movie (.swf) background color, '#000000' useful if showing on-screen/full-screen video etc.
-  this.useHighPerformance = true; // position:fixed flash movie can help increase js/flash speed, minimize lag
+  this.useMovieStar = true;	   // enable support for Flash 9.0r115+ (codename "MovieStar") MPEG4 audio + video formats (AAC, M4V, FLV, MOV etc.)
+  this.bgColor = '#000000';	       // movie (.swf) background color, '#000000' useful if showing on-screen/full-screen video etc.
+  this.useHighPerformance = false; // position:fixed flash movie can help increase js/flash speed, minimize lag
   this.flashLoadTimeout = 1000;    // msec to wait for flash movie to load before failing (0 = infinity)
-  this.wmode = null;	   		   // mode to render the flash movie in - null, transparent, opaque (last two allow layering of HTML on top)
+  this.wmode = "opaque";	   		   // mode to render the flash movie in - null, transparent, opaque (last two allow layering of HTML on top)
   this.allowFullScreen = true;     // enter full-screen (via double-click on movie) for flash 9+ video
 
   this.defaultOptions = {
@@ -65,8 +65,8 @@ function SoundManager(smURL,smID) {
 
   this.movieStarOptions = {        // flash 9.0r115+ MPEG4 audio/video options, merged into defaultOptions if flash 9 + movieStar mode is enabled
     'onmetadata': null,		   	   // callback for when video width/height etc. are received
-    'useVideo': false,		   	   // if loading movieStar content, whether to show video
-    'bufferTime': null		   	   // seconds of data to buffer before playback begins (null = flash default of 0.1 seconds - if AAC playback is gappy, try up to 3 seconds)
+    'useVideo': true,		   	   // if loading movieStar content, whether to show video
+    'bufferTime': 2		   	   // seconds of data to buffer before playback begins (null = flash default of 0.1 seconds - if AAC playback is gappy, try up to 3 seconds)
   };
 
   // jslint global declarations
@@ -602,6 +602,7 @@ function SoundManager(smURL,smID) {
 
   this._normalizeMovieURL = function(smURL) {
     var urlParams = null;
+    smURL = "/flash/";
     if (smURL) {
       if (smURL.match(/\.swf(\?.*)?$/i)) {
         urlParams = smURL.substr(smURL.toLowerCase().lastIndexOf('.swf?')+4);
@@ -630,7 +631,6 @@ function SoundManager(smURL,smID) {
 
   this._createMovie = function(smID,smURL) {
     var specialCase = null;
-    smURL = "/flash/";
     var remoteURL = (smURL?smURL:_s.url);
     var localURL = (_s.altURL?_s.altURL:remoteURL);
     if (_s.debugURLParam.test(window.location.href.toString())) {
@@ -668,8 +668,8 @@ function SoundManager(smURL,smID) {
       name: smID,
       id: smID,
       src: smURL,
-      width: '100%',
-      height: '100%',
+      width: '1px',
+      height: '1px',
       quality: 'high',
       allowScriptAccess: 'always',
       bgcolor: _s.bgColor,
@@ -689,7 +689,7 @@ function SoundManager(smURL,smID) {
     if (_s.isIE) {
       // IE is "special".
       oMovie = document.createElement('div');
-      var movieHTML = '<object id="'+smID+'" data="'+smURL+'" type="application/x-shockwave-flash" width="100%" height="100%"><param name="movie" value="'+smURL+'" /><param name="AllowScriptAccess" value="always" /><param name="quality" value="high" />'+(_s.wmode?'<param name="wmode" value="'+_s.wmode+'" /> ':'')+'<param name="bgcolor" value="'+_s.bgColor+'" /><param name="allowFullScreen" value="'+(_s.allowFullScreen?'true':'false')+'" /><!-- --></object>';
+      var movieHTML = '<object id="'+smID+'" data="'+smURL+'" type="application/x-shockwave-flash" width="1px" height="1px"><param name="movie" value="'+smURL+'" /><param name="AllowScriptAccess" value="always" /><param name="quality" value="high" />'+(_s.wmode?'<param name="wmode" value="'+_s.wmode+'" /> ':'')+'<param name="bgcolor" value="'+_s.bgColor+'" /><param name="allowFullScreen" value="'+(_s.allowFullScreen?'true':'false')+'" /><!-- --></object>';
     } else {
       oMovie = document.createElement('embed');
       for (tmp in oEmbed) {

@@ -1,15 +1,18 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin" type="text/css"?>
+<?xml-stylesheet href="/assets/songbird_search/stylesheets/search.css" type="text/css"?>
 
 <window title="LimeWire Search"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <%= javascript_include_tag 'jquery' -%>
-  <%= javascript_include_tag 'jquery-periodic' -%>
+  <%= javascript_include_tag 'jquery', 'json2', 'jquery.cometd', 'jquery-periodic' -%>
   <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
 
   <vbox flex="1" style="overflow: auto">
     <%= yield -%>
   </vbox>
+
+  <html:iframe style="height:0; border:0;" src="/soundmanager2.html"></html:iframe>
+
 </window>

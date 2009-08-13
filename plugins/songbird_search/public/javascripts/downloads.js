@@ -1,60 +1,5 @@
 $(document).ready(function() {
-  var size_format = function(filesize) {
-    if (filesize >= 1073741824) {
-      filesize = number_format(filesize / 1073741824, 2, '.', '') + ' GB';
-    } else {
-      if (filesize >= 1048576) {
-     	filesize = number_format(filesize / 1048576, 2, '.', '') + ' MB';
-      } else {
-	if (filesize >= 1024) {
-    	  filesize = number_format(filesize / 1024, 0) + ' KB';
-  	} else {
-    	  filesize = number_format(filesize, 0) + ' B';
-	};
-      };
-    };
-    return filesize;
-  };
-
-  var number_format = function( number, decimals, dec_point, thousands_sep ) {
-    // http://kevin.vanzonneveld.net
-    // +   original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
-    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-    // +     bugfix by: Michael White (http://crestidg.com)
-    // +     bugfix by: Benjamin Lupton
-    // +     bugfix by: Allan Jensen (http://www.winternet.no)
-    // +    revised by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
-    // *     example 1: number_format(1234.5678, 2, '.', '');
-    // *     returns 1: 1234.57
-
-    var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
-    var d = dec_point == undefined ? "," : dec_point;
-    var t = thousands_sep == undefined ? "." : thousands_sep, s = n < 0 ? "-" : "";
-    var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
-
-    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-  };
-
-  $.periodic(function(controller) {
-    $.getJSON("/downloads", function(downloads) {
-      for(var i in downloads) {
-	var download = downloads[i];
-	var existing = $('#'+download.sha1);
-	if(existing.length > 0) {
-	  var row = existing;
-	} else {
-	  $('#downloads treechildren').addXULRow(["title", "size", "speed", "done", "eta"], download.sha1);
-	  var row = $('#'+download.sha1);
-	}
-	row.updateXULValues({ title: download.title,
-			      size: size_format(download.total_size),
-			      speed: download.download_speed,
-			      done: download.percent_complete,
-			      eta: download.time_remaining });
-      }
-    });
-    return true;
-  }, {frequency: 0.5});
+  $.cometd.subscribe('/download', this, updateDownload);
 });
 
 $.fn.addXULRow = function(labels, id) {
@@ -81,3 +26,51 @@ $.fn.updateXULValues = function(values) {
   }
 };
 
+var pollForDownload = function(sha1) {
+  $.cometd.publish('/download', sha1);
+  return;
+};
+
+var updateDownload = function(download) {
+  $('#downloads').show();
+  if(download.data && download.data.sha1 && download.data.state != "removed") {
+    download = download.data;
+  } else {
+    return false;
+  }
+  var existing = $('#downloads').find('#'+download.sha1);
+  if(existing.length > 0) {
+    var row = existing;
+  } else {
+    $('#downloads treechildren').addXULRow(["title", "artist", "album", "time", "done", "status", "eta", "size"], download.sha1);
+    var row = $('#downloads #'+download.sha1);
+  }
+
+  // If the download isn't complete, continue updating
+  if(parseInt(download.percent_complete) < 100) {
+    setTimeout("pollForDownload('" + download.sha1 + "');", 300);
+  } else {
+    $('#results #'+download.sha1+' .from').attr("label", "Library");
+  }
+
+  if(!download.remaining_time || download.remaining_time > 2000000) {
+    download.remaining_time = "\u221E"; // Infinity
+  } else {
+    download.remaining_time = download.remaining_time + " sec";
+  }
+
+  download.state = download.state.toLowerCase();
+  if(download.state == "downloading") {
+    download.status = size_format(download.download_speed * 1000) + "/s";
+  }
+
+  if(!download.title) { download.title = download.file_name; }
+  row.updateXULValues({ title: download.title,
+			artist: download.artist,
+			album: download.album,
+			time: time_format(download.duration),
+		        done: "" + download.percent_complete,
+			status: download.status,
+			eta: "" + download.remaining_time,
+			size: size_format(download.complete) + " / " + size_format(download.total_size) });
+};

@@ -88,12 +88,13 @@ SC.Playlist.prototype = {
               $(document).unbind("mousemove");
             })
             .mousemove(function(ev) {
+	      var tableWidth = $('#lists tbody.ui-sortable').width();
               var colWidth = ev.clientX - $col.offset().left;
               $col.width(colWidth);
               // resize all the cells in the same col
-              $("td:nth-child(" + colIdx + ")", self.list).width(colWidth);
-              $row.width(rowWidth+(colWidth-oldColWidth));
-              $rows.width(rowWidth+(colWidth-oldColWidth));
+	      $("td:nth-child(" + colIdx + ")", self.list).width(colWidth);
+	      $row.width(Math.max(rowWidth+(colWidth-oldColWidth), tableWidth));
+	      $rows.width(Math.max(rowWidth+(colWidth-oldColWidth), tableWidth));
             });
         }
       })
@@ -494,9 +495,10 @@ SC.Playlist.prototype = {
       }
 
 //    populate table
+    var tableWidth = $('#lists tbody.ui-sortable').width();
     $('#playlist-row table tr')
       .clone()
-      .css("width",SC.arraySum(self.colWidths)+7*7)
+      .css("width",Math.max(SC.arraySum(self.colWidths)+7*7, tableWidth))
       .dblclick(function() {
           self.player.currentPlaylist = self;
           // find out at which position we are at in the playlist, and store that as the currentPos

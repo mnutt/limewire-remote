@@ -1,0 +1,45 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Limewire</title>
+
+    <link rel="stylesheet" type="text/css" media="all" href="/assets/tagcloud/stylesheets/reset.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/assets/tagcloud/stylesheets/text.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/assets/tagcloud/stylesheets/960.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/assets/tagcloud/stylesheets/grid.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/assets/tagcloud/stylesheets/layout.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/assets/tagcloud/stylesheets/nav.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/assets/tagcloud/stylesheets/tagcloud.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/assets/tagcloud/stylesheets/360player.css"/>
+    
+
+    <%= javascript_include_tag 'jquery', 'json2' -%>
+    <%= javascript_include_tag @javascript_includes if @javascript_includes -%>
+
+  </head>
+  <body>
+    <div class="container_16">
+
+      <div class="grid_16">
+	<h1>Limewire</h1>
+      </div>
+
+      <div id="search_label" class="grid_2">
+	<div>
+	  Search:
+	</div>
+      </div>
+      <div id="search_field" class="grid_14">
+	<form id="search_form" action="#">
+	  <input type="text" name="q"/>
+	</form>
+      </div>
+
+      <div class="clear"></div>
+
+      <%= yield -%>
+
+    </div>
+  </body>
+</html>

@@ -23,7 +23,7 @@ module Core
     GUID                   = org.limewire.io.GUID
     URN                    = org.limewire.core.api.URN
     StatisticsRef          = com.limegroup.gnutella.Statistics
-		FilePropertyKey        = org.limewire.core.api.FilePropertyKey
+    FilePropertyKey        = org.limewire.core.api.FilePropertyKey
     MojitoManagerRef       = org.limewire.core.api.mojito.MojitoManager
     LibraryManagerRef      = org.limewire.core.api.library.LibraryManager
     SearchManagerRef       = org.limewire.core.api.search.SearchManager

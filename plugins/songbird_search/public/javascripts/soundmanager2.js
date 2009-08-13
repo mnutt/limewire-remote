@@ -24,15 +24,15 @@ function SoundManager(smURL,smID) {
   this.useFastPolling = false;     // uses 1 msec flash timer interval (vs. default of 20) for higher callback frequency, best combined with useHighPerformance
   this.useMovieStar = false;	   // enable support for Flash 9.0r115+ (codename "MovieStar") MPEG4 audio + video formats (AAC, M4V, FLV, MOV etc.)
   this.bgColor = '#ffffff';	       // movie (.swf) background color, '#000000' useful if showing on-screen/full-screen video etc.
-  this.useHighPerformance = true; // position:fixed flash movie can help increase js/flash speed, minimize lag
+  this.useHighPerformance = true; // POSITION:fixed flash movie can help increase js/flash speed, minimize lag
   this.flashLoadTimeout = 1000;    // msec to wait for flash movie to load before failing (0 = infinity)
   this.wmode = null;	   		   // mode to render the flash movie in - null, transparent, opaque (last two allow layering of HTML on top)
   this.allowFullScreen = true;     // enter full-screen (via double-click on movie) for flash 9+ video
 
   this.defaultOptions = {
-    'autoLoad': false,             // enable automatic loading (otherwise .load() will be called on demand with .play(), the latter being nicer on bandwidth - if you want to .load yourself, you also can)
+    'autoLoad': true,             // enable automatic loading (otherwise .load() will be called on demand with .play(), the latter being nicer on bandwidth - if you want to .load yourself, you also can)
     'stream': true,                // allows playing before entire file has loaded (recommended)
-    'autoPlay': false,             // enable playing of file as soon as possible (much faster if "stream" is true)
+    'autoPlay': true,             // enable playing of file as soon as possible (much faster if "stream" is true)
     'onid3': null,                 // callback function for "ID3 data is added/available"
     'onload': null,                // callback function for "load finished"
     'whileloading': null,          // callback function for "download progress update" (X of Y bytes received)

@@ -1,0 +1,108 @@
+/*
+
+Sunburst-like style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.wikistyle pre code {
+    color: #f8f8f8;
+    background: transparent;
+}
+
+.wikistyle pre {
+    background: #111;
+}
+
+.wikistyle .comment, .wikistyle .template_comment, .wikistyle .javadoc {
+    color: #aeaeae;
+    font-style: italic;
+}
+
+.wikistyle .keyword, .ruby .function .keyword {
+    color: #FF6458;
+}
+
+.wikistyle.function .keyword, .wikistyle .sub .keyword, .wikistyle .method {
+    color: #FF6458;
+}
+
+.wikistyle .string, .wikistyle .url, .wikistyle .attribute .value, .cdata, .wikistyle .filter .argument, .wikistyle .attr_selector {
+    color: #90FF5E;
+}
+
+.wikistyle .subst {
+    color: #DAEFA3;
+}
+
+.wikistyle .regexp {
+    color: #E9C062;
+}
+
+.wikistyle .function .title, .wikistyle .sub .identifier, .wikistyle .pi, .wikistyle .tag, .wikistyle .tag .keyword, .wikistyle .decorator, .wikistyle .ini .title, .wikistyle .shebang {
+    color: #89BDFF;
+}
+
+.wikistyle .class .title, .wikistyle .smalltalk .class, .wikistyle .javadoctag, .wikistyle .phpdoc {
+    text-decoration: underline;
+}
+
+.wikistyle .symbol, .wikistyle .number, .wikistyle .literal {
+    color: #0A9CFF;
+}
+
+.wikistyle .params, .wikistyle .variable {
+    color: #0A9CFF;
+}
+
+.wikistyle .css .wikistyle .keyword {
+    color: #FF6458;
+}
+
+.wikistyle .rules .keyword {
+    color: #C5AF75;
+}
+
+.wikistyle .rules .value {
+    color: #CF6A4C;
+}
+
+.wikistyle .css .id {
+    color: #8B98AB;
+}
+
+.wikistyle .annotation {
+    color: #9B859D;
+}
+
+.wikistyle .preprocessor {
+    color: #8996A8;
+}
+
+.wikistyle .hexcolor, .css .number {
+    color: #DD7B3B;
+}
+
+.wikistyle .css .function {
+    color: #DAD085;
+}
+
+.wikistyle .diff .header, .chunk {
+    background-color: #0E2231;
+    color: #F8F8F8;
+    font-style: italic;
+}
+
+.wikistyle .diff .change {
+    background-color: #4A410D;
+    color: #F8F8F8;
+}
+
+.wikistyle .addition {
+    background-color: #253B22;
+    color: #F8F8F8;
+}
+
+.wikistyle .deletion {
+    background-color: #420E09;
+    color: #F8F8F8;
+}

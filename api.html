@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+  <title>LimeWire Remote API</title>
+  
+  <style type="text/css">
+    body {
+      margin-top: 1.0em;
+      background-color: #eaeaef;
+      font-family: "helvetica",sans-serif; 
+      color: #000;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+    h1 { font-size: 2.5em; color: #38372F; margin-bottom: 3px; }
+    h1 .small { font-size: 0.4em; }
+    h1 a { text-decoration: none }
+    h2 { font-size: 1.5em; color: #444; }
+    h3 { color: #444; }
+    h4 { color: #71B00D; margin-bottom: 0.2em; }
+    a { color: #444; }
+    .description { font-size: 1em; margin-bottom: 30px; margin-top: 10px; font-style: italic;}
+    .download { float: right; }
+    pre { 
+      background: #000; 
+      color: #FFF; 
+      padding: 15px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      overflow: auto;
+    }
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+    ul.parameters { list-style: none; background-color: #BBB; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding-top: 0.7em; padding-bottom: 0.7em; }
+    ul.parameters li code { font-weight: bold; }
+    ul.parameters li { text-indent: -1em; }
+    p.example, p.parameters { font-size: 0.9em; font-weight: bold; text-transform: uppercase; color: #444; }
+    p.description { padding-top: 0; }
+  </style>
+  <link rel="stylesheet" type="text/css" href="css/sunburst.css" />
+
+  <script type="text/javascript" src="js/highlight.js"></script>
+</head>
+
+<body>
+  <a href="http://github.com/mnutt/limewire-remote"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+  <div id="container" class="wikistyle">
+    <div class="download">
+      <a href="http://cloud.github.com/downloads/mnutt/limewire-remote/portable-limewire.zip">
+        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+    </div>
+
+    <div id="logo" style="float: left;"> 
+      <img src="limewire_remote.png" style="margin-right: -50px; margin-left:
+      -50px;"/>
+    </div>
+    <h1><div style="height: 120px;"> </div><a href="http://github.com/mnutt/limewire-remote">LimeWire Remote</a> 
+    </h1>
+    <div class="description">
+      Rails-based remote control for LimeWire
+    </div>
+
+    <h2>API</h2>
+
+<div class="nav">
+  <a href="#Library">Library</a> &middot;
+  <a href="#Search">Search</a> &middot;
+  <a href="#Download">Download</a>
+</div>
+
+<a id="Library"></a>
+<h3>Library</h3>
+
+<h4 class="command">GET /library</h4>
+<p class="description">Retrieves a json list of the entire library.</p>
+
+<p class="parameters">Parameters</p>
+
+<ul class="parameters">
+  <li><code>limit</code> - limit the number of results returned</li>
+  <li><code>offset</code> - begin on the nth result</li>
+  <li><code>artist</code> - filter only results that contain artist in the artist field</li>
+  <li><code>search</code> - filter only results that contain search in any field</li>
+  <li><code>order</code> - sort the results by either <code>ASC</code> (ascending) or <code>DESC</code> (descending) order</li>
+  <li><code>sha1s[]</code> - retrieve only a listing of the files that match the sha1 hash.  Multiple sha1s can be specified using multiple parameters</li>
+</ul>
+
+<p class="example">Example</p>
+
+<pre><code class="http">GET /library?limit=2
+</code></pre>
+
+<pre><code class="javascript">[
+  {
+    "id": "urn:sha1:OGQPOILKTLWRVOSWSZ2PUQPHB2PMAXAH",
+    "duration": 1171000,
+    "genre": "Podcast",
+    "title": "Joe Rogers",
+    "album": "This Week in the Arts",
+    "artist": {
+      "name": "This Week in the Arts",
+      "permalink": "This Week in the Arts"
+    },
+    "downloadable": true,
+    "streamable": true,
+    "sharing": "public",
+    "permalink": "Joe Rogers",
+    "uri": "\/library\/OGQPOILKTLWRVOSWSZ2PUQPHB2PMAXAH.mp3",
+    "artwork_url": "\/library\/OGQPOILKTLWRVOSWSZ2PUQPHB2PMAXAH\/thumbnail\/154",
+    "permalink_url": "\/library\/OGQPOILKTLWRVOSWSZ2PUQPHB2PMAXAH.mp3",
+    "stream_url": "\/library\/OGQPOILKTLWRVOSWSZ2PUQPHB2PMAXAH.mp3",
+    "waveform_url": "\/images\/waveform.png"
+  },
+  {
+    "id": "urn:sha1:RE6OWORDRFSO2XICBB4SYT2MZ7YVWET7",
+    "duration": 3997000,
+    "genre": "",
+    "title": "Bach's Sonatas for Two",
+    "album": "The Concert",
+    "artist": {
+      "name": "Isabella Stewart Gardner Museum",
+      "permalink": "Isabella Stewart Gardner Museum"
+    },
+    "downloadable": true,
+    "streamable": true,
+    "sharing": "public",
+    "permalink": "Bach's Sonatas for Two",
+    "uri": "\/library\/RE6OWORDRFSO2XICBB4SYT2MZ7YVWET7.mp3",
+    "artwork_url": "\/library\/RE6OWORDRFSO2XICBB4SYT2MZ7YVWET7\/thumbnail\/154",
+    "permalink_url": "\/library\/RE6OWORDRFSO2XICBB4SYT2MZ7YVWET7.mp3",
+    "stream_url": "\/library\/RE6OWORDRFSO2XICBB4SYT2MZ7YVWET7.mp3",
+    "waveform_url": "\/images\/waveform.png"
+  },
+]
+</code></pre>
+
+<h4 class="command">GET /library/<em>sha1</em></h4>
+
+<p class="description">Retrieves the file with the specified sha1</p>
+Optional HTTP range headers are allowed.
+
+<p class="example">Example</p>
+
+<pre><code class="http">GET /library/5YVG3GJ3JL4A2RIP7ZXAD6DET425J6P2
+</code></pre>
+
+<p># returns the file</p>
+
+
+<h4 class="command">GET /library/<em>sha1</em>/thumbnail/<em>size</em></h4>
+
+<p class="description">Retrieves the image representation of a file</p>
+
+If the file is an MP3 with cover data embedded in the ID3 tag, the cover will be returned.
+If the file is an image, a thumbnail of the image will be returned.
+The size parameter is optional, and defaults to 100 if not specified.
+
+<p class="example">Example</p>
+
+<pre><code class="http">GET /library/5YVG3GJ3JL4A2RIP7ZXAD6DET425J6P2/thumbnail/200
+</code></pre>
+
+<p># returns a 200x200 png</p>
+
+
+<a id="Search"></a>
+<h3>Search</h3>
+
+<h4 class="command">GET /search</h4>
+
+<p class="description">Retrieves a list of current searches, in JSON format</p>
+
+<p class="example">Example</p>
+
+<pre><code class="http">GET /searches
+</code></pre>
+
+<pre><code class="javascript">{
+  "searches": [
+    {
+      "query_string": "test",
+      "result_count": "105",
+      "guid": "05CEFE3E37D44A2E40131563F8EBFE00"
+    }
+  ]
+}
+</code></pre>
+
+
+<h4 class="command">GET /search/guid</h4>
+<p class="description">Retrieves the search results for the running search with sha1 hash.</p>
+
+<p class="example">Example</p>
+
+<pre><code class="http">GET /search/05CEFE3E37D44A2E40131563F8EBFE00
+</code></pre>
+
+<pre><code class="javascript">{
+  "query_string": "test",
+  "results": [
+    {
+      "filename": "johaness gilther storm.mp3",
+      "magnet_url": "magnet:?&xt=urn:sha1:4VYPS44ET6AJBQNSDHWZPUENX3ZDENAC&dn=06%29++johaness+gilther+storm.mp3&xs=urn:guid:14E5C92BD1A6F9CFD4D4B9113CFA7720&xl=3859897",
+      "category": "Audio",
+      "spam": false,
+      "sha1": "4VYPS44ET6GJBQCSBHWZDUENX3AD3NYM",
+      "album": "Untitled Test",
+      "name": "2inventions - Johaness Gilther Storm",
+      "title": "Johaness Gilther Storm",
+      "author": "2inventions",
+      "created_at": 1236180292000,
+      "length": 162,
+      "genre": null,
+      "sources": "97.3.106.202"
+    },
+    {
+      "filename": "whereorwhen.mp3",
+      "magnet_url": "magnet:?&xt=urn:sha1:XTTFRPDFQLQNFAA3CB5EVIRPJCAZZBUQ&dn=whereorwhen.mp3&xs=urn:guid:49215AEE730BE384DB5F7DF07B9E55C0&xl=4539448",
+      "category": "Audio",
+      "spam": false,
+      "sha1": "XTTFRPCFQLQNFWA3RB52VIRPSCAZCBUQ",
+      "album": "testing",
+      "name": "Artie Shaw - Where or When",
+      "title": "Where or When",
+      "author": "Artie Shaw",
+      "created_at": 1245242389000,
+      "length": 168,
+      "genre": null,
+      "sources": "28.182.9.103"
+    }
+  ]
+}
+</code></pre>
+
+
+<h4 class="command">POST /search/<em>guid</em></h4>
+
+<p class="description">Stops (or starts, if stopped) a search.</p>
+Searches are automatically started when they are created.
+
+<p class="parameters">Parameters</p>
+
+<ul class="parameters">
+  <li class="required"><code>state</code> - values are <code>start</code> or <code>stop</code> (required)</li>
+</ul>
+
+<h4 class="command">POST /search</h4>
+
+<p class="description">Creates a new search, returns the attributes in JSON format</p>
+
+<p class="parameters">Parameters</p>
+
+<ul class="parameters">
+  <li class="required"><code>query=query</code> - the term to search for</li>
+</ul>
+
+<p class="example">Example</p>
+
+<pre><code class="http">POST /search
+query=test
+</code></pre>
+
+<pre><code class="javascript">{
+  "guid": "49215AEE730BE384DB5F7DF07B9E55C0"
+}
+</code></pre>
+
+
+<a id="Download"></a>
+<h3>Download</h3>
+
+<h4 class="command">GET /downloads</h4>
+
+<p class="description">Retrieves the status of all downloads</p>
+
+<p class="example">Example</p>
+Note that the first download is paused, so its remaining time is infinite.
+
+<pre><code class="http">GET /downloads
+</code></pre>
+
+<pre><code class="javascript">{
+  [
+    {
+      "title": "ArtieShaw-OnceInAWhile1937(1).mp3",
+      "sha1": "FDLCAJON7BWEGLYWWGADS6ARBUU5BHIO",
+      "download_speed": 0.0,
+      "percent_complete": 53,
+      "remaining_time": 9223372036854775807,
+      "source_count": 0,
+      "file_name": "ArtieShaw-OnceInAWhile1937(1).mp3",
+      "total_size": 1941590
+    },
+    {
+      "title": "ArtieShaw-Tenderly.mp3",
+      "sha1": "QXVN6ILSBNHLJ5IRN6OCUNY7S4WSOXPW",
+      "download_speed": 47.81,
+      "percent_complete": 4,
+      "remaining_time": 89,
+      "source_count": 1,
+      "file_name": "ArtieShaw-Tenderly.mp3",
+      "total_size": 4578909
+    }
+  ]
+}
+</code></pre>
+
+
+<h4 class="command">GET /downloads/sha1</h4>
+
+<p class="description">Retrieves the status of a download</p>
+
+<p class="example">Example</p>
+
+<pre><code class="http">GET /downloads/FDLCAJON7BWEGLYWWGADS6ARBUU5BHIO
+</code></pre>
+
+<pre><code class="javascript">{
+  "title":"ArtieShaw-OnceInAWhile1937(1).mp3",
+  "sha1":"FDLCAJON7BWEGLYWWGADS6ARBUU5BHIO",
+  "download_speed":0.0,
+  "percent_complete":53,
+  "remaining_time":9223372036854775807,
+  "source_count":0,
+  "file_name":"ArtieShaw-OnceInAWhile1937(1).mp3",
+  "total_size":1941590
+}
+</code></pre>
+
+<h4 class="command">POST /downloads</h4>
+
+<p class="description">Creates a new download, returns the download's attributes in JSON format</p>
+
+<p class="parameters">Parameters</p>
+
+<ul class="parameters">
+  <li class="required"><code>guid</code> - the sha1 guid of the search that is spawning the download (required)</li>
+  <li class="required"><code>urn</code> - the sha1 urn of the result to download (required)</li>
+</ul>
+      
+    <div class="footer">
+      get the source code on GitHub : <a href="http://github.com/mnutt/limewire-remote">mnutt/limewire-remote</a>
+    </div>
+    
+  </div>
+
+<script type="text/javascript">
+  hljs.initHighlightingOnLoad();
+</script>
+  
+</body>
+</html>

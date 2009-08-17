@@ -70,6 +70,10 @@ module Limewire
       }
     end
 
+    def to_json(*a)
+      self.to_cloud.to_json(*a)
+    end
+
     def to_yaml
       self.to_cloud
     end

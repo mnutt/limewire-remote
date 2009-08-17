@@ -11,6 +11,7 @@ require 'limewire/library'
 require 'limewire/download'
 require 'limewire/search'
 require 'limewire/mojito'
+require 'limewire/collection'
 
 # The Limewire module should be the sole method used to interact with LimeWire's core.
 module Limewire

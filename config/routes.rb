@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :library, :member => {:thumbnail => :get}
   map.thumb "/library/:id/thumbnail/:s", :controller => 'library', :action => 'thumbnail'
  
-  map.resources :playlists
+  map.resources :collections, :member => {:add_items => :post, :remove_items => :post}
   map.resources :searches
   map.resources :downloads
   map.resources :search

@@ -38,12 +38,12 @@ function sizeMap () {
   center_w = w/2;
   m = document.getElementById("map");
   c = document.getElementById("mapCaption");
-  s = document.getElementById("status");
+  s = document.getElementById("search");
   p = document.getElementById("postForm");
   d = document.getElementById("dialogbox");
   if (m) { m.style.top = 0; m.style.left = 0;  m.style.width=w; m.style.height=h; }
   if (c) { c.style.top = h-30; }
-  if (s) { s.style.left = center_w-100; }
+  if (s) { s.style.left = center_w-150; }
   if (p) { p.style.left = center_w-225; }
   if (d) { d.style.left = center_w-200; }
 
@@ -68,8 +68,6 @@ var myLat = 0;
 var myLong = 0;
 var downloadingIps = [];
 var plottedIps = [];
-var currentOffset = 0;
-var lastResultSize = 0;
 
 function followHosts() {
   if($("#followHosts:checked").val() != null) {
@@ -94,7 +92,7 @@ function loadDownloading() {
     $.each(downloadingIps, function() {
       showIP(this, true, down_icon);
     });
-    // loadHosts();
+    loadHosts();
   });
 }
 
@@ -115,30 +113,16 @@ function sortByLocation(ips) {
   return ips;
 }
 
-function showPoints(offset) {
+function showStaggered() {
   if(hostIps.length == 0) { return; }
-  var ips = hostIps.slice(offset, offset+10);
-  $.each(ips, function() {
-    showIP(this.sources, true);
-  });
-}
-
-function showResults(offset) {
-  $('#results a').show();
-  offset = Math.max(0, offset);
-  currentOffset = offset;
-  showPoints(offset);
-  $('#results ol').html('');
-  if(hostIps.length == 0) { return; }
-  var displayResults = hostIps.slice(offset, offset+10);
-  $.each(displayResults, function() {
-    $('#results ol').append("<li>"+this.filename+"</li>");
-  });
+  var ip = hostIps.shift();
+  showIP(ip, true);
+  setTimeout("showStaggered()", 2000);
 }
 
 function showIP(ip, showBox, icon) {
   if($.inArray(ip, plottedIps) != -1) { return; }
-  $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D'http%3A%2F%2Fiplocationtools.com%2Fip_query.php%3Fip%3D"+ip+"'&format=json&callback=?", function(data) {
+  $.getJSON("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20xml%20where%20url%3D'http%3A%2F%2Fipinfodb.com%2Fip_query.php%3Fip%3D"+ip+"'&format=json&callback=?", function(data) {
     var loc = data.query.results.Response;
     showHost(loc, showBox, icon);
   });
@@ -211,14 +195,24 @@ function startSearch(event) {
 
 function getSearchResults(guid) {
   $.getJSON('/search/'+guid, function(search) {
-    hostIps = search.results.unique();
-    if(lastResultSize < currentOffset + 10) {
-      showResults(currentOffset);
-    }
+    hostIps = $.map(search.results, function(result) {
+      return result.sources;
+    }).unique();
+    showStaggered();
     setTimeout("getSearchResults('"+guid+"')", 3000);
-    lastResultSize = hostIps.length;
   });
 }
+
+function getMoreSearchResults(guid) {
+  $.getJSON('/search/'+guid, function(search) {
+    hostIps = $.map(search.results, function(result) {
+      return result.sources;
+    }).unique();
+    showStaggered();
+    setTimeout("getMoreSearchResults('"+guid+"')", 3000);
+  });
+}
+
 
 function wheelZoom(a) { (a.detail || -a.wheelDelta) < 0 ? map.zoomIn() : map.zoomOut(); }
 
@@ -230,8 +224,6 @@ $(document).ready(function() {
     $("#quickguide").click(function () { new Effect.Fade('quickguide') });
     $('systemstatus').click(function () { new Effect.Fade('systemstatus'); });
     $('#search form').submit(startSearch);
-    $('#results .next').click(function() { showResults(currentOffset+10); });
-    $('#results .prev').click(function() { showResults(currentOffset-10); });
     loadSelf();
     setTimeout("$(\"#splash\").fadeOut(\"slow\");", 3000);
   } else {

@@ -405,6 +405,7 @@ name=MyCollection
 }
 </code></pre>
 
+
 <h4 class="command">POST /collections/<em>id</em>/add_items</h4>
 
 <p class="description">Add library items to a collection</p>
@@ -424,6 +425,7 @@ sha1s[]=QXVN6ILSBNHLJ5IRN6OCUNY7S4WSOXPW&sha1s[]=FDLCAJON7BWEGLYWWGADS6ARBUU5BHI
 <pre><code class="javascript">{"response": 200}
 </code></pre>
 
+
 <h4 class="command">POST /collections/<em>id</em>/remove_items</h4>
 
 <p class="description">Remove library items from a collection</p>
@@ -438,6 +440,19 @@ sha1s[]=QXVN6ILSBNHLJ5IRN6OCUNY7S4WSOXPW&sha1s[]=FDLCAJON7BWEGLYWWGADS6ARBUU5BHI
 
 <pre><code class="http">POST /collections/5/remove_items
 sha1s[]=QXVN6ILSBNHLJ5IRN6OCUNY7S4WSOXPW&sha1s[]=FDLCAJON7BWEGLYWWGADS6ARBUU5BHIO
+</code></pre>
+
+<pre><code class="javascript">{"response": 200}
+</code></pre>
+
+
+<h4 class="command">DELETE /collections/<em>id</em></h4>
+
+<p class="description">Remove the collection</p>
+
+<p class="example">Example</p>
+
+<pre><code class="http">DELETE /collections/5
 </code></pre>
 
 <pre><code class="javascript">{"response": 200}

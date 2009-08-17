@@ -309,8 +309,6 @@ var hljs = new function() {
       if (e == 'No highlight')
         return;
     }
-        console.log(block);
-    console.log(language);
 
     if (language) {
       var result = highlight(language, text).value;
@@ -347,7 +345,6 @@ var hljs = new function() {
   }
 
   function compileModes() {
-    console.log(LANGUAGES);
     for (var i in LANGUAGES) {
       var language = LANGUAGES[i];
       for (var key in language.modes) {

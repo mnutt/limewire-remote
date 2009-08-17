@@ -72,7 +72,8 @@
 <div class="nav">
   <a href="#Library">Library</a> &middot;
   <a href="#Search">Search</a> &middot;
-  <a href="#Download">Download</a>
+  <a href="#Download">Download</a> &middot;
+  <a href="#Collection">Collection</a>
 </div>
 
 <a id="Library"></a>
@@ -344,6 +345,103 @@ Note that the first download is paused, so its remaining time is infinite.
   <li class="required"><code>guid</code> - the sha1 guid of the search that is spawning the download (required)</li>
   <li class="required"><code>urn</code> - the sha1 urn of the result to download (required)</li>
 </ul>
+
+<h3>Collection</h3>
+
+<h4 class="command">GET /collections</h4>
+
+<p class="description">Gets all collections. ("Library" is not a collection)</p>
+
+<p class="example">Example</p>
+
+<pre><code class="http">GET /collections
+</code></pre>
+
+<pre><code class="javascript">{
+  "collections": [
+    {
+      "name": "foo",
+      "id": 3,
+      "items": [
+        {
+          "id": "urn:sha1:MHLH74XHMOO3NBSRO443DKK53FTEBLRN",
+          "title": "Problem Solving Skillz",
+          "album": "2005-08-03 - Vroman's Bookstore",
+          "author": "H and the P's",
+          "duration": 238,
+          "genre": "Rock",
+          "uri": "\/library\/MHLH74XHMOO3NBSRO443DKK53FTEBLRN.mp3",
+          "artwork_url": "\/library\/MHLH74XHMOO3NBSRO443DKK53FTEBLRN\/thumbnail\/154",
+          "downloadable": true,
+          "streamable": true,
+          "stream_url": "\/library\/MHLH74XHMOO3NBSRO443DKK53FTEBLRN.mp3",
+        }
+      ]
+    }
+  ]
+}
+</code></pre>
+
+<h4 class="command">POST /collections</h4>
+
+<p class="description">Create a new collection</p>
+
+<p class="parameters">Parameters</p>
+
+<ul class="parameters">
+  <li class="required"><code>name</code> - the title of the new collection</li>
+</ul>
+
+<p class="example">Example</p>
+
+<pre><code class="http">POST /collections
+name=MyCollection
+</code></pre>
+
+<pre><code class="javascript">{
+  "name": "MyCollection",
+  "items": [ ],
+  "id": 5
+}
+</code></pre>
+
+<h4 class="command">POST /collections/<em>id</em>/add_items</h4>
+
+<p class="description">Add library items to a collection</p>
+
+<p class="parameters">Parameters</p>
+
+<ul class="parameters">
+  <li class="required"><code>sha1s[]</code> - an array of sha1 strings of the items to add</li>
+</ul>
+
+<p class="example">Example</p>
+
+<pre><code class="http">POST /collections/5/add_items
+sha1s[]=QXVN6ILSBNHLJ5IRN6OCUNY7S4WSOXPW&sha1s[]=FDLCAJON7BWEGLYWWGADS6ARBUU5BHIO
+</code></pre>
+
+<pre><code class="javascript">{"response": 200}
+</code></pre>
+
+<h4 class="command">POST /collections/<em>id</em>/remove_items</h4>
+
+<p class="description">Remove library items from a collection</p>
+
+<p class="parameters">Parameters</p>
+
+<ul class="parameters">
+  <li class="required"><code>sha1s[]</code> - an array of sha1 strings of the items to remove</li>
+</ul>
+
+<p class="example">Example</p>
+
+<pre><code class="http">POST /collections/5/remove_items
+sha1s[]=QXVN6ILSBNHLJ5IRN6OCUNY7S4WSOXPW&sha1s[]=FDLCAJON7BWEGLYWWGADS6ARBUU5BHIO
+</code></pre>
+
+<pre><code class="javascript">{"response": 200}
+</code></pre>
       
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/mnutt/limewire-remote">mnutt/limewire-remote</a>

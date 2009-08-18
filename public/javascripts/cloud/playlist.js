@@ -104,21 +104,21 @@ SC.Playlist.prototype = {
 	      $row.width(Math.max(rowWidth+(colWidth-oldColWidth), tableWidth));
 	      $rows.width(Math.max(rowWidth+(colWidth-oldColWidth), tableWidth));
             });
-        }
+        } else {
+	  if($(this).hasClass("sorted")) {
+	    self.sort(-1);
+	  } else {
+	    $(this).parent().children('th').removeClass('sorted');
+	    $(this).addClass("sorted");
+	    var index = $(this).parent().children('th').index(this);
+	    self.sort(index);
+	  }
+	  return false;
+	}
       })
       .mouseup(function(e) {
         var colIdx = $(this).parents("thead").find("th").index(this) + 1;
         $.cookie('playlist_col_width_' + (colIdx-1),$(this).width());
-      }).click(function(e) {
-	if($(this).hasClass("sorted")) {
-	  self.sort(-1);
-	} else {
-	  $(this).parent().children('th').removeClass('sorted');
-	  $(this).addClass("sorted");
-	  var index = $(this).parent().children('th').index(this);
-	  self.sort(index);
-	}
-	return false;
       });
 
     this.load();

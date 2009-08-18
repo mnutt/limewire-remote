@@ -744,7 +744,7 @@ SC.Player.prototype = {
   switchPlaylist: function(id) {
     console.log("switching playlists");
     $("#lists > div").hide();
-    $("#lists > #list-"+id).show();
+    $("#lists > #list-"+id).show().addClass('selected');
     $("#sidebar li").removeClass("active");
     $("#playlists li[listId="+id+"]").addClass("active");
     this.selectedPlaylist = this.playlists[id];

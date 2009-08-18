@@ -66,6 +66,13 @@ SC.Playlist.prototype = {
       }
     }
 
+    $(window).resize(function(e) {
+      var tableWidth = $('#main-container').width() - 15;
+      var headerWidth = $('#lists div.selected table.list-header thead tr').width();
+      var rows = $('#lists table tbody tr');
+      rows.width(Math.max(headerWidth, tableWidth));
+    });
+
     $("table.list-header th",this.dom)
       .mousemove(function(e) {
         if(withinHeaderDragArea(this,e)) {
@@ -88,7 +95,7 @@ SC.Playlist.prototype = {
               $(document).unbind("mousemove");
             })
             .mousemove(function(ev) {
-	      var tableWidth = $('#lists tbody.ui-sortable').width();
+	      var tableWidth = $('#main-container').width() - 15;
               var colWidth = ev.clientX - $col.offset().left;
               $col.width(colWidth);
               // resize all the cells in the same col
@@ -224,7 +231,6 @@ SC.Playlist.prototype = {
       } else {
         $.post('/search', { query: pl.smart_filter.search_term }, function(data) {
 	  pl.search_options.key = data.guid;
-		 console.log(data.guid);
 	  setInterval(function() {
             if(self._loadingSearch || (pl.search_options.times_refreshed && pl.search_options.times_refreshed > 20))
               return;
@@ -495,7 +501,7 @@ SC.Playlist.prototype = {
       }
 
 //    populate table
-    var tableWidth = $('#lists tbody.ui-sortable').width();
+    var tableWidth = $('#main-container').width() - 15;
     $('#playlist-row table tr')
       .clone()
       .css("width",Math.max(SC.arraySum(self.colWidths)+7*7, tableWidth))

@@ -409,12 +409,13 @@ SC.Player.prototype = {
 
       self.playlists["library"] = new SC.Playlist({
 	is_owner: false,
-	id: 'library',
+	id: "library",
 	name: "Library",
 	smart: true,
 	smart_filter: {},
 	dontPersist: true
       }, self);
+      self.switchPlaylist("library");
 
       // load playlists for user
       $.getJSON("/collections",function(playlists) {

@@ -63,7 +63,7 @@ module Limewire
     end
 
     def items
-      @raw_collection.to_a.map{|i| Limewire::File.new(i) }
+      @raw_collection.to_a.map{|i| i.getSHA1Urn.to_s }
     end
 
     def to_json(*a)

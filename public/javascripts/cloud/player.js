@@ -407,10 +407,19 @@ SC.Player.prototype = {
     // load latest tracks if not logged in user
     if($("body").hasClass("logged-in")) {
 
+      self.playlists["library"] = new SC.Playlist({
+	is_owner: false,
+	id: 'library',
+	name: "Library",
+	smart: true,
+	smart_filter: {},
+	dontPersist: true
+      }, self);
+
       // load playlists for user
-      $.getJSON("/playlists",function(playlists) {
-        $.each(playlists,function() {
-          self.playlists[this.playlist.id] = new SC.Playlist(this, self);
+      $.getJSON("/collections",function(playlists) {
+        $.each(playlists.collections,function() {
+          self.playlists[this.id] = new SC.Playlist(this, self);
         });
 
         // show flash message if received a shared playlist

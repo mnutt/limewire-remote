@@ -49,9 +49,8 @@ img {
   height: 219px;
   width: 100%;
   left: 0;
-  border-top: 1px solid #aaa;
-  background-color: #eee;
-  background-image: url(../../images/cloud/fade-160px.png);
+  border-top: 1px solid #444;
+  background-color: #111;
   background-repeat: repeat-x;
   background-position : 0 100%;
   -webkit-background-size: 100% 100%;

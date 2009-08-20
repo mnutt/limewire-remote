@@ -44,7 +44,7 @@ class HomeController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render :json => @plugins.map{|p| p.name } }
+      format.json { render :json => @plugins.select{|p| p.has_widget? }.map{|p| p.name } }
     end
   end
 end

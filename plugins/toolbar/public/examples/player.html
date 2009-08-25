@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
+    <head>
+      <title>Fab's Boombox Basic Page</title>
+      <link rel="stylesheet" type="text/css" href="../resources/css/boombox.css" />
+      <script type="text/javascript" src="../resources/js/ext-core.js"></script>
+      <script type="text/javascript" src="../resources/js/soundmanager2.js"></script>
+      <!-- include boombox files -->
+
+      <script type="text/javascript" src="../source/boombox/Base.js"></script>
+      <script type="text/javascript" src="../source/util/Hash.js"></script>
+      <script type="text/javascript" src="../source/boombox/Track.js"></script>
+      <script type="text/javascript" src="../source/boombox/Playlist.js"></script>
+      <script type="text/javascript" src="../source/boombox/Player.js"></script>
+      <script type="text/javascript" src="../source/boombox/ui/FullPlayer.js"></script>
+      
+      <script type="text/javascript">
+            // implement the music player here.
+			soundManager.url = '../resources/swf/';
+            var p = new Fabs.boombox.Player({
+				autoPlay: true,
+				shuffle:false,
+				volume:40,
+				shuffle:true
+			});
+			
+			var tracks = [
+				{
+					url: 'http://blog.limewire.com/wp-content/uploads/2009/04/born_on_a_day_the_sun_didnt_rise.mp3',
+					title: 'Andy Suzuki & The Method - 300 Pianos'
+				}
+			];
+			p.getPlaylist().addTracks(tracks);
+			
+			
+			window.ui = new Fabs.boombox.ui.FullPlayer({
+				player: p,
+				renderTo: 'boombox',
+				width: 300,
+				maxListHeight: 150,
+				draggable: true,
+				resizeable: true
+			});
+        </script>
+        <style type="text/css">
+            body{
+                font-family: "Trebuchet MS";
+                font-size: 11px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="boombox"></div>
+    </body>
+</html>

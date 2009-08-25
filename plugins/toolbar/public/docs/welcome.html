@@ -1,0 +1,97 @@
+<div id="welcome">
+    <div class="col">
+        <div id="search">     	
+        </div>
+		<div class="description">
+		<p>Welcome to the documentation for Fab's Boombox. The boombox has been organized into
+		model classes and view classes.</p>
+		
+		<p>This documentation page serve's as a pretty good example as well. Check your firebug
+		if you are in Firefox. You can play around with some of the main objects.</p>
+		
+		<pre>ui</pre>
+		<blockquote>This is the Fabs.boombox.ui.FullPlayer object you see at the top of the
+		page. It is simply a view and only contains simple 'onclick' type handling to route to the Player object.
+		You can drag it around and resize it. It listens to the underlying Player object
+		for updates to display.</blockquote>
+		
+		<pre>player</pre>
+		<blockquote> This is the Fabs.boombox.Player object that basically acts as a
+		controller. It routes commands to the Tracks in the playlist and listens to events
+		in the Playlist.</blockquote>
+		
+		<pre>playlist</pre>
+		<blockquote>This is an implementation of the Fabs.boombox.playlist.Xspf. It
+		is using an xspf file from the <a href="http://hideout.com.br">Hideout Radio</a> website. It
+		is basically just a simple collection of Tracks. Its main function is to retain
+		a history of tracks played and locate the next song to be played.</blockquote>
+		</div>
+    </div>
+    <div class="col-last">
+        
+		<div class="res-block">
+            <div class="res-block-inner">
+                <h3>Project Home</h3>
+                <ul>
+					<li><a href='http://code.google.com/p/fabs-boombox'>Google Project Page</a></li>
+				</ul>
+            </div>
+        </div>
+		
+		<div class="res-block">
+            <div class="res-block-inner">
+                <h3>Examples</h3>
+                <ul>
+					<li><a href='../examples/index.php'>Index of examples</a></li>
+					<li><a href='../examples/player.php'>Basic example</a></li>
+					<li><a href='../examples/frames.php'>Frames example</a></li>
+					<li><a href='../examples/podcast.php'>Podcast example</a></li>
+					<li><a href='../examples/xspf.php'>XSPF example</a></li>
+				</ul>
+            </div>
+        </div>
+		
+        <div class="res-block">
+            <div class="res-block-inner">
+                <h3>Support</h3>
+                <ul>
+					<li><a href='http://code.google.com/p/fabs-boombox/issues/list'>Google Code Isssues</a></li>
+				</ul>
+            </div>
+        </div>
+		
+		<div class="res-block">
+            <div class="res-block-inner">
+                <h3>About the author</h3>
+                <ul>
+                    <li><a href="http://www.owlwatch.com" target="_blank">Owl Watch Website</a></li>
+                </ul>
+            </div>
+        </div>
+		
+		<div class="res-block">
+            <div class="res-block-inner">
+                <h3>Contribute</h3>
+                <p>
+					If you would like to contribute to the codebase, please contact the project owner,
+					Mark Fabrizio (<a href='mailto:mark.fabrizio@gmail.com'>mark.fabrizio@gmail.com</a>) to be added to the Google Code project.
+				</p>
+            </div>
+        </div>
+        <div class="res-block">
+            <div class="res-block-inner">
+                <h3>Icon Legend</h3>
+                <ul id="legend" style="list-style:none;margin-left:0;">
+		            <li><img src="resources/images/default/s.gif" class="item-icon icon-pkg">Package</li>
+		            <li><img src="resources/images/default/s.gif" class="item-icon icon-cls">Class</li>
+		            <li><img src="resources/images/default/s.gif" class="item-icon icon-static">Singleton</li>
+		            <li><img src="resources/images/default/s.gif" class="item-icon icon-cmp">Component</li>
+		            <li><img src="resources/images/default/s.gif" class="item-icon icon-method">Method</li>
+		            <li><img src="resources/images/default/s.gif" class="item-icon icon-prop">Property</li>
+		            <li><img src="resources/images/default/s.gif" class="item-icon icon-config">Config Option</li>
+		            <li><img src="resources/images/default/s.gif" class="item-icon icon-event">Event</li>
+		        </ul>
+            </div>
+        </div>
+    </div>
+</div>

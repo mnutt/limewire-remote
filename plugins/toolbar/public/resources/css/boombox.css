@@ -1,11 +1,12 @@
-body { margin: 4px 0px; }
+body { margin: 4px 0px; background: #444444 url(/images/limewire_remote.png) no-repeat scroll -52px 20px; }
+.title { float: left; font-weight: bold; color: #FFF; margin-top: 3px; margin-right: 6px; padding-top: 1px; background: url(/images/limewire_icon.png) top left no-repeat; padding-left: 19px; height: 16px; }
 .bb-ct{ position: relative; }
 .bb-player-ct{ position: relative; padding: 0px 8px; _zoom: 1; z-index: 2;}
-.bb-player-l{ position: absolute; top: 0; left: 0px; height: 22px; width: 8px; overflow: hidden;  background: transparent url(../images/bar-l.png) top left no-repeat; _background-image: url(../images/bar-l.gif);}
+.bb-player-l{ position: absolute; top: 0; left: 0px; height: 22px; width: 8px; overflow: hidden;  background: transparent url(../images/bar-.png) top left no-repeat; _background-image: url(../images/bar-l.gif);}
 .draggable .bb-player-l{ cursor: move; }
-.bb-player-r{ position: absolute; top: 0; right: 0px; height: 22px; width: 8px; overflow: hidden; background: transparent url(../images/bar-r.png) top left no-repeat; _background-image: url(../images/bar-r.gif);}
+.bb-player-r{ position: absolute; top: 0; right: 0px; height: 22px; width: 8px; overflow: hidden; background: transparent url(../images/bar-.png) top left no-repeat; _background-image: url(../images/bar-r.gif);}
 .resizeable .bb-player-r{ cursor: e-resize; }
-.bb-player-c{ position: relative; height: 22px; background: transparent url(../images/bar-c.png) top left repeat-x; }
+.bb-player-c{ position: relative; height: 22px; background: transparent url(../images/bar-.png) top left repeat-x; }
 .bb-button{ padding: 0px !important; float: left; height: 22px; margin: 0px 1px; width: 14px; background: transparent url(../images/buttons.png); _background-image: url(../images/buttons.gif); cursor: pointer; border-width: 0px !important; display: block; }
 .bb-big-button{ position: relative; margin-top: -3px; height: 28px; width: 28px; margin-left: 5px; margin-right: 5px; }
 .bb-right-buttons{ position: relative; float: right; white-space: nowrap; ; _zoom: 1; }
@@ -28,19 +29,32 @@ body { margin: 4px 0px; }
 .playlist-open .bb-button-playlist{ background-position: -10px -290px; }
 .playlist-open .bb-button-playlist:hover{ background-position: -48px -290px; }
 .bb-track-ct{ position: relative; overflow: hidden; height: 22px;}
-.bb-track-name-ct{ position: relative; top: 2px; padding: 0px 3px; background: #000000; border-width: 1px; border-style: solid; border-color: #999 #999 #666 #666; height: 16px; }
+.bb-track-name-ct{ position: relative; top: 2px; padding: 3px; background: #000000; -moz-border-radius: 2px; border-width: 0px; border-style: solid; border-color: #999 #999 #666 #666; height: 13px; }
+.bb-track-name-ct .open-search { position: absolute; top: 0; right: 2px; z-index: 4; width: 19px; height: 19px; background: url(../images/search.png) top left no-repeat; text-indent: -10000px; cursor: pointer; }
 .bb-track-name-scroller{ position: relative; overflow: hidden; height: 16px; }
 .bb-track-name{ position: absolute; top: 0; left: 0; font-family: "Trebuchet MS"; font-size: 10px; color: #ffffff; padding-right: 2px; white-space: nowrap; -moz-user-select: none; -khtml-user-select: none; cursor: default; }
-.bb-playlist-ct{ color: #fff; position: absolute; margin: 0px 9px; top: 22px; height: 0px; background: #000; overflow-y: auto; overflow-x: hidden; z-index: 1;}
+.bb-playlist-ct, .bb-search-results-ct { color: #fff; position: absolute; margin: 0px 168px 0px 168px; top: 22px; height: 0px; background: #000; overflow-y: auto; overflow-x: hidden; z-index: 1;}
 /* .playlist-open .bb-playlist-ct{ border: 2px solid #000; border-top-width: 0px;  } */
-.bb-playlist-scroller{ position: relative; }
-.bb-track, .bb-track:link, .bb-track:visited{ z-index: 1; position: relative; display: block; text-decoration: none; color: #ffffff; white-space: nowrap; font-size: 10px; font-family: "Trebuchet MS"; border-bottom: 1px solid #333; padding: 2px 3px; cursor: pointer; }
+.bb-playlist-scroller, .bb-search-results { position: relative; }
+.bb-track, .bb-track:link, .bb-track:visited{ z-index: 1; position: relative; display: block; text-decoration: none; color: #ffffff; white-space: nowrap; font-size: 10px; font-family: "Trebuchet MS"; border-bottom: 0px solid #333; padding: 2px 3px; cursor: pointer; }
 .bb-track:active{ text-decoration: none; }
 .bb-track:hover{ background-color: #303030; text-decoration: none; }
-.bb-track-progress{ position: absolute; overflow: visible; bottom: 2px; width: 100%; height: 2px; line-height: 2px; font-size: 2px; border-bottom: 1px solid #cccccc; cursor: pointer; }
+.bb-track-progress{ position: absolute; overflow: visible; bottom: 2px; width: 100%; height: 2px; line-height: 2px; font-size: 2px; border-bottom: 0px solid #cccccc; cursor: pointer; }
 .bb-track-progress-overlay{ position: absolute; bottom: 0px; width: 0%; height: 1px; line-height: 1px; font-size: 1px; background: transparent; border-bottom: 1px solid #ffffff; cursor: pointer;}
+
+.bb-search { position: absolute; top: 0; padding: 1px 0; width: 100%; height: 100%; z-index: 50; display: none; }
+.bb-search #q-container { margin-right: 103px; }
+.bb-search #local, .bb-search #remote { cursor: pointer; float: right; color: #888; padding: 5px 7px 5px 0; text-transform: uppercase; font-weight: bold; font-size: 0.8em; }
+.bb-search #local.selected, .bb-search #remote.selected { color: #FFF }
+.bb-search #close-search { width: 14px; height: 11px; text-indent: -10000px; background: #000 url(../images/close.png) top left no-repeat; float: right; margin: 5px 4px 0px 0px; }
+
+.bb-search input { -moz-border-radius-bottomleft: 2px; border: 0; -moz-border-radius-topleft: 2px; width: 100%; height: 14px; border-top:1px solid #BBB; padding: 2px; margin-top: 1px;  }
+
+.bb-search-results .remote { color: #8ac582 }
 
 .simple-button{ width: 30px; height: 30px; display: block; background: transparent url(../images/simple-button.png) no-repeat top left; _background-image: url(../images/simple-button.gif); }
 .simple-button:hover{ background-position: -30px 0px; }
 .simple-button-playing{ background-position: -0px -30px; }
 .simple-button-playing:hover{ background-position: -30px -30px; }
+
+*:focus { outline: none !important; border:0; }

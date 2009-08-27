@@ -68,7 +68,7 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
     /**
      * @cfg {String} emptyText The text to display in the info bar when no track is playing or active
      */
-    emptyText : 'Fab\'s BoomBox!',
+    emptyText : 'Remote Library',
 
     /**
      * @cfg {Object} lang The language strings to use for the player. Check the source to see the values that would need to be replaced
@@ -138,7 +138,7 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
                         '<div class="bb-player-l"></div>',
                         '<div class="bb-player-r"></div>',
                         '<div class="bb-player-c">',
-     	      	            '<span class="title" style="float: left; font-weight: bold; color: #FFF; margin-top: 3px; margin-right: 6px; padding-top: 1px; background: url(/images/limewire_icon.png) top left no-repeat; padding-left: 19px; height: 16px;">LimeWire</span>',
+     	      	            '<span class="title" style="">LimeWire</span>',
                             '<a href="javascript:;" class="bb-button bb-button-prev" title="',this.lang.prev,'"></a>',
                             '<a href="javascript:;" class="bb-button bb-big-button bb-button-play" title="',this.lang.play,'"></a>',
                             '<a href="javascript:;" class="bb-button bb-button-next" title="',this.lang.next,'"></a>',
@@ -149,7 +149,16 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
                                 '<a href="javascript:;" class="bb-button bb-button-volume" title="',this.lang.volume,'"><div class="bb-button bb-button-volume-overlay"></div></a>',
                             '</div>',
                             '<div class="bb-track-ct">',
+ 			      '<div class="bb-search">',
+				'<form id="search-form">',
+				  '<div id="close-search">close search</div>',
+				  '<div id="remote">remote</div>',
+				  '<div id="local" class="selected">local</div>',
+				  '<div id="q-container"><input type="text" id="q"/></div>',
+				'</form>',
+			        '</div>',
                                 '<div class="bb-track-name-ct">',
+				    '<div class="open-search">Search</div>',
                                     '<div class="bb-track-name-scroller">',
                                         '<div class="bb-track-name" unselectable="true" onselectstart="return false;">',this.emptyText,'</div>',
                                     '</div>',
@@ -163,6 +172,9 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
                     '<div class="bb-playlist-ct">',
                         '<div class="bb-playlist-scroller"></div>',
                     '</div>',
+		    '<div class="bb-search-results-ct">',
+		      '<div class="bb-search-results"></div>',
+		    '</div>',
                 '</div>'
             ];
         }
@@ -287,7 +299,7 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
         this.playlistCt.on('scroll', function(e){ if(e&&e.stopPropogation) e.stopPropogation(); } );
 
         this.onPlayerStateChange();
-        this.setWidth(this.width);
+        this.setWidth(this.width - 168);
         Ext.TaskMgr.start(this.updateTask);
         this.resetTrackScroll.defer(1,this);
         this.updateVolumeOverlay();
@@ -589,14 +601,16 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
             this.ct.removeClass('playlist-open');
             E.un(this.doc,'click', this.playlistClickTest, this);
             this.playlistCt.un('click', this.onPlaylistCtClick, this);
-            this.playlistCt.setHeight(0, true);
-            this.playlistCt.setOpacity(0, true);
+            // this.playlistCt.setHeight(0, true);
+ 	  $('.bb-playlist-ct').animate({height: 0, opacity: 0});
+  	    setTimeout("try { parent.resizeWindow(32); } catch(e) {}", 300);
+            //this.playlistCt.setOpacity(0, true);
             return false;
         }
         this.btns.playlist.dom.title = this.lang.closePlaylist;
         this.ct.addClass('playlist-open');
         E.on(this.doc,'click', this.playlistClickTest, this);
-        this.playlistCt.setWidth( this.playerCenter.getWidth() );
+        this.playlistCt.setWidth( this.playerCenter.getWidth() - 216 );
 
         // lets neatly remove all old elements if they exist...
         if( this.trackMap ){
@@ -629,7 +643,7 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
             }
             var el = this.playlistScroller.createChild({
                 tag             :'a',
-                href            :'javascript:;',
+                href            :track.url,
                 cls             :'bb-track',
                 html            :this[track.hasSongInfo('title')?'trackTpl':'unknownTrackTpl'].apply(track)
             });
@@ -638,16 +652,21 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
         }, this);
 
         var h = this.playlistScroller.getHeight(true);
-        this.playlistCt.setHeight( this.maxListHeight ? Math.min( this.maxListHeight,h) : h, true );
-        this.playlistCt.setOpacity(0);
-        this.playlistCt.setOpacity(1, true);
+        //this.playlistCt.setHeight( this.maxListHeight ? Math.min( this.maxListHeight,h) : h, true );
+        var playlistHeight = this.maxListHeight ? Math.min( this.maxListHeight,h) : h;
+        $('.bb-playlist-ct').animate({height: playlistHeight, opacity: 1});
+        try { parent.resizeWindow(32 + playlistHeight); } catch(e) {}
+        //this.playlistCt.setOpacity(0);
+        //this.playlistCt.setOpacity(1, true);
         this.playlistCt.on('click', this.onPlaylistCtClick, this);
         return false;
     },
 
     onPlaylistCtClick : function(e){
+        e.stopEvent();
         var t = e.getTarget();
         this.player.play(this.trackMap[t.id]);
+	this.togglePlaylist();
     }
 
 

@@ -1,11 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" >
     <head>
-      <title>Fab's Boombox Basic Page</title>
+      <title>LimeWire Toolbar</title>
       <link rel="stylesheet" type="text/css" href="/assets/toolbar/resources/css/boombox.css" />
       <script type="text/javascript" src="/assets/toolbar/resources/js/ext-core.js"></script>
       <script type="text/javascript" src="/assets/toolbar/resources/js/soundmanager2-nodebug-jsmin.js"></script>
       <script type="text/javascript" src="/javascripts/jquery.js"></script>
+      <script type="text/javascript" src="/javascripts/jquery.cometd.js"></script>
+      <script type="text/javascript" src="/javascripts/jquery.cometd-setup.js"></script>
       <!-- include boombox files -->
 
       <script type="text/javascript" src="/assets/toolbar/source/boombox/Base.js"></script>
@@ -14,57 +16,17 @@
       <script type="text/javascript" src="/assets/toolbar/source/boombox/Playlist.js"></script>
       <script type="text/javascript" src="/assets/toolbar/source/boombox/Player.js"></script>
       <script type="text/javascript" src="/assets/toolbar/source/boombox/ui/FullPlayer.js"></script>
-      
-      <script type="text/javascript">
-            // implement the music player here.
-			soundManager.url = '/flash/';
-            var p = new Fabs.boombox.Player({
-				autoPlay: true,
-				shuffle:false,
-				volume:40,
-				shuffle:true
-			});
-			
-			var tracks = [
-				{
-					url: 'http://blog.limewire.com/wp-content/uploads/2009/04/born_on_a_day_the_sun_didnt_rise.mp3',
-					title: 'Andy Suzuki & The Method - 300 Pianos'
-				}
-			];
-	                
+      <script type="text/javascript" src="/assets/toolbar/javascripts/toolbar.js"></script>
 
-	    $.getJSON('/library', function(result) {
-	      for(var i in result) {
-	        var file = result[i];
-	        var track = {
-	          url: file.uri,
-	          title: "" + file.artist.name + " - " + file.title
-	        }
-	        p.getPlaylist().addTracks([track]);
-	      }
-	      
-            });
-
-			p.getPlaylist().addTracks(tracks);
-			
-			
-			window.ui = new Fabs.boombox.ui.FullPlayer({
-				player: p,
-				renderTo: 'boombox',
-				width: "500",
-				maxListHeight: 350,
-				draggable: false,
-				resizeable: true
-			});
-        </script>
-        <style type="text/css">
-            body{
-                font-family: "Trebuchet MS";
-                font-size: 11px;
-            }
-        </style>
+      <style type="text/css">
+        body{
+          font-family: "Trebuchet MS";
+          font-size: 11px;
+        }
+      </style>
     </head>
     <body>
-        <div id="boombox"></div>
+      <div id="boombox">
+      </div>
     </body>
 </html>

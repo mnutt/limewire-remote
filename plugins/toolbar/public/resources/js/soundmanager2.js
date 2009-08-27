@@ -13,7 +13,7 @@
 var soundManager = null;
 
 function SoundManager(smURL,smID) {
- 
+
   this.flashVersion = 8;           // version of flash to require, either 8 or 9. Some API features require Flash 9.
   this.debugMode = true;           // enable debugging output (div#soundmanager-debug, OR console if available + configured)
   this.useConsole = true;          // use firebug/safari console.log()-type debug console if available
@@ -170,7 +170,7 @@ function SoundManager(smURL,smID) {
   var flashCPLink = 'http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager04.html';
 
   // --- public methods ---
-  
+
   this.supported = function() {
     return (_s._didInit && !_s._disabled);
   };
@@ -324,7 +324,7 @@ function SoundManager(smURL,smID) {
 	  return false;
 	}
     _s._wD('soundManager.stop('+sID+')',1);
-    _s.sounds[sID].stop(); 
+    _s.sounds[sID].stop();
   };
 
   this.stopAll = function() {
@@ -464,7 +464,7 @@ function SoundManager(smURL,smID) {
   };
 
   this.canPlayURL = function(sURL) {
-    return (sURL?(sURL.match(_s.filePattern)?true:false):null);	
+    return (sURL?(sURL.match(_s.filePattern)?true:false):null);
   };
 
   this.getSoundById = function(sID,suppressDebug) {
@@ -517,7 +517,7 @@ function SoundManager(smURL,smID) {
       _s.disable(bNoDisable);
     }
   };
-  
+
   this._normalizeMovieURL = function(smURL) {
     var urlParams = null;
     if (smURL) {
@@ -547,7 +547,7 @@ function SoundManager(smURL,smID) {
 	  _s.debugMode = true; // allow force of debug mode via URL
 	}
     _s._didAppend = true;
-	
+
     // safety check for legacy (change to Flash 9 URL)
     _s._setVersionInfo();
     var remoteURL = (smURL?smURL:_s.url);
@@ -649,7 +649,7 @@ function SoundManager(smURL,smID) {
     var oTarget = _s._getDocument();
 
     if (oTarget) {
-       
+
       _s.oMC = _$('sm2-container')?_$('sm2-container'):document.createElement('div');
 
       if (!_s.oMC.id) {
@@ -825,7 +825,7 @@ function SoundManager(smURL,smID) {
 	  try {
 	    sm2Debugger.handleEvent(sEventType,bSuccess,sMessage);
 	  } catch(e) {
-	    // oh well	
+	    // oh well
 	  }
     }
   };
@@ -1119,9 +1119,9 @@ function SoundManager(smURL,smID) {
     _s._wD('soundManager.destruct()');
     _s.disable(true);
   };
-  
+
   // SMSound (sound object)
-  
+
   SMSound = function(oOptions) {
   var _t = this;
   this.sID = oOptions.id;
@@ -1161,7 +1161,7 @@ function SoundManager(smURL,smID) {
   this._debug();
 
   this.id3 = {
-   /* 
+   /*
     Name/value pairs set via Flash when available - see reference for names:
     http://livedocs.macromedia.com/flash/8/main/wwhelp/wwhimpl/common/html/wwhelp.htm?context=LiveDocs_Parts&file=00001567.html
     (eg., this.id3.songname or this.id3['songname'])
@@ -1204,7 +1204,7 @@ function SoundManager(smURL,smID) {
       oOptions = _t.options;
       _t._iO = oOptions;
       _t.instanceOptions = _t._iO;
-    } 
+    }
     if (typeof _t._iO.url == 'undefined') {
       _t._iO.url = _t.url;
     }

@@ -131,54 +131,6 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
         Ext.apply(this, config);
         Fabs.boombox.ui.FullPlayer.superclass.constructor.call(this);
 
-        if( !this.tpl ){
-            this.tpl = [
-                '<div class="bb-ct boombox">',
-                    '<div class="bb-player-ct">',
-                        '<div class="bb-player-l"></div>',
-                        '<div class="bb-player-r"></div>',
-                        '<div class="bb-player-c">',
-     	      	            '<span class="title" style="">LimeWire</span>',
-                            '<a href="javascript:;" class="bb-button bb-button-prev" title="',this.lang.prev,'"></a>',
-                            '<a href="javascript:;" class="bb-button bb-big-button bb-button-play" title="',this.lang.play,'"></a>',
-                            '<a href="javascript:;" class="bb-button bb-button-next" title="',this.lang.next,'"></a>',
-                            '<a href="javascript:;" class="bb-button bb-button-stop" title="',this.lang.stop,'"></a>',
-                            '<div class="bb-right-buttons">',
-                                '<a href="javascript:;" class="bb-button bb-button-playlist" title="',this.lang.openPlaylist,'"></a>',
-                                '<a href="javascript:;" class="bb-button bb-button-shuffle" title="',this.lang.shuffle,'"></a>',
-                                '<a href="javascript:;" class="bb-button bb-button-volume" title="',this.lang.volume,'"><div class="bb-button bb-button-volume-overlay"></div></a>',
-                            '</div>',
-                            '<div class="bb-track-ct">',
- 			      '<div class="bb-search">',
-				'<form id="search-form">',
-				  '<div id="close-search">close search</div>',
-				  '<div id="remote">remote</div>',
-				  '<div id="local" class="selected">local</div>',
-				  '<div id="q-container"><input type="text" id="q"/></div>',
-				'</form>',
-			        '</div>',
-                                '<div class="bb-track-name-ct">',
-				    '<div class="open-search">Search</div>',
-                                    '<div class="bb-track-name-scroller">',
-                                        '<div class="bb-track-name" unselectable="true" onselectstart="return false;">',this.emptyText,'</div>',
-                                    '</div>',
-                                '</div>',
-                                '<div class="bb-track-progress">',
-                                    '<div class="bb-track-progress-overlay"></div>',
-                                '</div>',
-                            '</div>',
-                        '</div>',
-                    '</div>',
-                    '<div class="bb-playlist-ct">',
-                        '<div class="bb-playlist-scroller"></div>',
-                    '</div>',
-		    '<div class="bb-search-results-ct">',
-		      '<div class="bb-search-results"></div>',
-		    '</div>',
-                '</div>'
-            ];
-        }
-        this.tpl = new Ext.Template(this.tpl);
 
         this.trackTpl = new Ext.Template(this.trackTpl);
         this.unknownTrackTpl = new Ext.Template(this.unknownTrackTpl);
@@ -211,7 +163,6 @@ Fabs.boombox.ui.FullPlayer = Ext.extend( Ext.util.Observable, {
         this.el = Ext.get(el);
         // lets get a reference to the ownerDocument
         this.doc = this.el.dom.ownerDocument;
-        this.el.update(this.tpl.applyTemplate({}));
         // now lets get refs to our elements
         this.ct = this.el.child('.bb-ct');
         if( this.pos ){

@@ -47,6 +47,9 @@ window.ui = new Fabs.boombox.ui.FullPlayer({
 
 $(document).ready(function() {
 
+  var cometURL = document.location.protocol + '//' + document.location.hostname + ':' + document.location.port + '/comet';
+  $.cometd.init(cometURL);
+
   $('.open-search').live('click', function() {
     $('.bb-search').show();
     $('.bb-search input').focus();

@@ -3,86 +3,157 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-	<title>mnutt/limewire-remote @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #eaeaef;
-		  font-family: "helvetica"; 
-  		color: #000;
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  
+  <title>mnutt/limewire-remote @ GitHub</title>
+  
+  <style type="text/css">
+    body {
+      margin-top: 1.0em;
+      background-color: #eaeaef;
+      font-family: "helvetica"; 
+      color: #000;
+      position: relative;
     }
     #container {
       margin: 0 auto;
       width: 700px;
     }
-		h1 { font-size: 2.5em; color: #38372F; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #444; }
+    h1 { font-size: 2.5em; color: #38372F; margin-bottom: 3px; }
+    h1 .small { font-size: 0.4em; }
+    h1 a { text-decoration: none }
+    h2 { font-size: 1.5em; color: #444; margin-top: 1.4em; }
     h3 { text-align: center; color: #444; }
     a { color: #444; }
     .description { font-size: 1em; margin-bottom: 30px; margin-top: 10px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #FFF; padding: 15px;}
+    .download { float: left; }
+    pre { background: #000; color: #FFF; padding: 15px; -moz-border-radius: 4px; -webkit-border-radius: 4px; }
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
+
+    #lightbox {
+      position: fixed;
+      left: 0;
+      right: 0;
+      width: 100%
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 500;
+      display: none;
+      cursor: pointer;
+    }
+
+    #lightbox img {
+      -moz-box-shadow: 0 0 20px 5px #000;
+    }
+  </style>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+  <script>
+    $('#lightbox').live('click', function() {
+      $(this).find('img').dropAway(function() { $(this).remove(); $('#lightbox').hide(); });
+      return false;
+    });
+
+    $('img.thumb').live('click', function() {
+      $(this).showFull();
+    });
+
+    $.fn.showFull = function() {
+      $('#lightbox').show();
+      var el = this.get(0);
+      this.clone()
+          .appendTo($('#lightbox'))
+          .addClass("lightbox")
+          .css({ position: "absolute", 
+                 top: el.getClientRects()[0].top, 
+                 left: el.getClientRects()[0].left, 
+                 width: el.width, 
+                 height: el.height,
+                 marginLeft: 0 })
+          .animate({ top: 100,
+                     left: window.innerWidth / 2, 
+                     width: el.naturalWidth, 
+                     height: el.naturalHeight,
+                     marginLeft: el.naturalWidth * -0.5});
+    }
+
+    $.fn.dropAway = function(cb) {
+      this.animate({ top: "1600px" }, cb);
+    }
+  </script>
 	
 </head>
 
 <body>
-  <a href="http://github.com/mnutt/limewire-remote"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <a href="http://github.com/mnutt/limewire-remote">
+    <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+  </a>
   
-  <div id="container">
-    <div class="download">
-      <a href="http://github.com/mnutt/limewire-remote/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/mnutt/limewire-remote/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
+  <div id="container"> 
 
     <div id="logo" style="float: left;"> 
-      <img src="limewire_remote.png" style="margin-right: -50px; margin-left:
-      -50px;"/>
+      <img src="limewire_remote.png" style="margin-right: -50px; margin-left: -50px;"/>
     </div>
+
     <h1><div style="height: 120px;"> </div><a href="http://github.com/mnutt/limewire-remote">limewire-remote</a> 
     </h1>
     <div class="description">
-      Rails-based remote control for limewire
+      Web-based remote control for LimeWire
     </div>
 
-    <p>LimeWire Remote is a web-based interface for LimeWire, the P2P application.  It is also a ruby web framework for extending LimeWire.</p><h2>Dependencies</h2>
-<p>LimeWire Portable</p>
-<h2>Install</h2>
-<p>See README.rdoc</p>
-<h2>License</h2>
-<p>Licensed under GPL v2.  See the file COPYING for details.</p>
-<h2>Authors</h2>
-<p>Michael Nutt (michael@nuttnet.net)<br/>Derek Haas (derekhaas@gmail.com)<br/>      </p>
-<h2>Contact</h2>
-<p>Michael Nutt (michael@nuttnet.net)<br/>      </p>
+    <img class="thumb" src="http://mike.limebits.com/screenshots/lw_player-1.png" style="width: 100%" />
 
+    <p>LimeWire Remote is a web-based interface for LimeWire, the P2P application.  It is also a ruby web framework for extending LimeWire.</p>
 
     <h2>Download</h2>
+    <a href="http://cloud.github.com/downloads/mnutt/limewire-remote/portable-limewire.zip">
+      <img class="download" border="0" width="90" src="http://github.com/images/modules/download/zip.png" />
+      <p class="download" style="margin-top: 2em; font-size: 1.3em; font-weight: bold; text-decoration: underline;">Download LimeWire Remote for all platforms</p>
+      <br style="clear: both;" />
+    </a>
+
+    <h2>Video</h2>
+    <object width="400" height="300">
+      <param name="allowfullscreen" value="true" />
+      <param name="allowscriptaccess" value="always" />
+      <param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=6037902&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" />
+      <embed src="http://vimeo.com/moogaloop.swf?clip_id=6037902&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="400" height="300"></embed>
+    </object>
+
     <p>
-      You can download this project in either
-      <a href="http://github.com/mnutt/limewire-remote/zipball/master">zip</a> or
-      <a href="http://github.com/mnutt/limewire-remote/tarball/master">tar</a> formats.
+      <a href="http://vimeo.com/6037902">LimeWire Tag Clouds</a> 
+      from <a href="http://vimeo.com/user437656">Michael Nutt</a> 
+      on <a href="http://vimeo.com">Vimeo</a>.
     </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+
+    <h2>Source</h2>
+    <p>You can clone the project with <a href="http://git-scm.com">Git</a>
       by running:
       <pre>$ git clone git://github.com/mnutt/limewire-remote</pre>
     </p>
-      
+
+    <h2>Install</h2>
+    <p>See README.rdoc</p>
+    
+    <h2>License</h2>
+    <p>Licensed under GPL v2.  See the file COPYING for details.</p>
+    
+    <h2>Authors</h2>
+    <p>Michael Nutt (michael@nuttnet.net)<br/>Derek Haas (derekhaas@gmail.com)<br/>      </p>
+	
+    <h2>Contact</h2>
+    <p>Michael Nutt (michael@nuttnet.net)<br/>      </p>
+    
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/mnutt/limewire-remote">mnutt/limewire-remote</a>
     </div>
     
   </div>
 
+  <div id="lightbox"></div>
   
 </body>
 </html>

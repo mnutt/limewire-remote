@@ -21,26 +21,9 @@ class CollectionsController < ApplicationController
 
   def update
     @collection = Limewire::Collection.find(params[:id])
-    @collection.reorder(params[:sha1s]) if params[:sha1s]
+    @collection.update_items(params[:sha1s].split(',')) if params[:sha1s]
     @collection.name = params[:name] if params[:name]
     @collection.save
-    render :json => {:response => 200}
-  end
-
-  def add_items
-    @collection = Limewire::Collection.find(params[:id])
-    params[:sha1s].each do |sha1|
-      @collection.add sha1
-    end
-    render :json => {:response => 200}
-  end
-
-  def remove_items
-    @collection = Limewire::Collection.find(params[:id])
-    params[:sha1s].each do |sha1|
-      @collection.remove sha1
-    end
-
     render :json => {:response => 200}
   end
 end

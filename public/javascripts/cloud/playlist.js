@@ -371,7 +371,7 @@ SC.Playlist.prototype = {
       tracks = "0";
     }
 
-    $.post("/collectionss/" + this.id ,{"_method":"PUT","playlist[tracks]":tracks,"playlist[version]":this.version},function(dataJS) {
+    $.post("/collections/" + this.id ,{"_method":"PUT","sha1s":tracks,"playlist[version]":this.version},function(dataJS) {
       var data = eval('(' + dataJS + ')');
       if(data.response == 200) {
         self.version++;

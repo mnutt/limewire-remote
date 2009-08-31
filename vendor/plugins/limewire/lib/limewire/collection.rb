@@ -32,6 +32,14 @@ module Limewire
       end
     end
 
+    def update_items(sha1s)
+      self.clear
+      sha1s.each do |sha1|
+        item = Library.find_by_sha1(sha1)
+        @raw_collection.add(item)
+      end
+    end
+
     def id
       @raw_collection.get_id
     end

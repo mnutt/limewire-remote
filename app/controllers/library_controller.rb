@@ -108,6 +108,10 @@ class LibraryController < ApplicationController
   def show
     sha1urn = params[:id] =~ /urn:/ ? params[:id] : "urn:sha1:#{params[:id]}"
     file = FileDesc.find_by_sha1urn(sha1urn)
+    if !file
+      file = FileDesc.add_by_sha1(sha1urn)
+    end
+
     if file
       # Find the content-type using the file extension and mongrel's MIME_TYPES file
       dot_at = file.path.rindex('.')

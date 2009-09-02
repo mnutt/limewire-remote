@@ -10,6 +10,7 @@ class CollectionsController < ApplicationController
 
   def create
     @collection = Limewire::Collection.create(params[:name])
+    @collection.update_items(params[:sha1s].split(',')) if params[:sha1s]
     render :json => JSON::pretty_generate(@collection)
   end
 

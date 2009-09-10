@@ -23,4 +23,9 @@ namespace :lw do
       end
     end
   end
+
+	desc "Start LimeWire"
+	task :start do
+		`open bin/LimeWire.app`
+	end
 end
